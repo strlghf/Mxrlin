@@ -11,3 +11,7 @@ export async function getUsers (req: Request, res: Response, next: NextFunction)
     return res.status(404).json({ msg: "User not found" })
   }
 }
+
+export async function getUserById (req: Request, res: Response, next: NextFunction) {
+  return res.status(200).json(req.user);
+}
