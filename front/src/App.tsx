@@ -1,10 +1,11 @@
 import './App.css'
-import { Header, Hero } from './components';
+import { ESlide, Header, Hero } from './components';
 
 function App() {
   return (
     <>
       <Header />
+      <ESlide />
       <Hero />
     </>
   )

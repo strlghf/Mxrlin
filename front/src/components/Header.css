@@ -111,15 +111,6 @@
 }
 
 @media (max-width: 1150px) {
-  .btn-desktop {
-    display: none;
-  }
-
-  .btn-mobile {
-    display: inline-block;
-    margin-top: 15px;
-  }
-
   .header-search-btn {
     right: 3px;
     width: 34px;
@@ -145,76 +136,9 @@
     width: auto;
   }
 
-  .header-search-container {
-    order: 3;
-    margin: 10px 0 0 0;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .header-overlay {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, .7);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .4s ease;
-    z-index: 999;
-  }
-
-  .header-menu-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    right: 4%;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    background-color: transparent;
-    border: 2px solid antiquewhite;
-    cursor: pointer;
-    box-sizing: border-box;
-    z-index: 1020;
-    border-radius: 50%;
-  }
-
-  .header-menu-icon span {
-    display: block;
-    height: 2px;
-    width: 22px;
-    background-color: antiquewhite;
-    border-radius: 50px;
-    transition: transform .3s ease, opacity .3s ease, gap .3s ease;
-  }
-
   .header-search-input {
     padding: 10px 40px 10px 15px;
     font-size: 14px;
-  }
-
-  .header-nav-container {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 60%;
-    transform: none;
-    height: 100vh;
-    background-color: #111111;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    padding: 100px 20px;
-    box-sizing: border-box;
-    transition: right .4s ease;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-    z-index: 1010;
   }
 
   .header-search-form {
@@ -223,30 +147,5 @@
     margin: 0;
     max-width: 500px;
     order: 0;
-  }
-
-  .header-checkbox:checked ~ .header-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .header-checkbox:checked ~ .header-nav-container {
-    right: 0;
-  }
-
-  .header-checkbox.checked ~ .header-menu-icon {
-    gap: 0;
-  }
-
-  .header-checkbox:checked ~ .header-menu-icon span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 4px);
-  }
-  
-  .header-checkbox:checked ~ .header-menu-icon span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .header-checkbox:checked ~ .header-menu-icon span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -6px);
   }
 }

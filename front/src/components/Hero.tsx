@@ -8,7 +8,7 @@ export function Hero () {
         <div className="hero-overlay-graphic"></div>
         <div className="hero-info">
           <span className="hero-tag">Nueva Generación</span>
-          <h1 className="hero-title">Domina el Juego con RTX</h1>
+          <h1 className="hero-title">Los mejores</h1>
           <p className="hero-description">
             Descubre el verdadero rendimiento gráfico y la potencia de procesamiento que tu setup necesita.
           </p>
