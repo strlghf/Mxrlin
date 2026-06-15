@@ -1,11 +1,14 @@
 import './App.css'
-import { ESlide, Header, Hero } from './components';
+import { Header, Hero } from './components';
+import { Carousel } from './components/Car';
 
 function App() {
   return (
     <>
       <Header />
-      <ESlide />
+      <main className='main-content'>
+        <Carousel />
+      </main>
       <Hero />
     </>
   )
