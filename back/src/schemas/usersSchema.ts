@@ -16,18 +16,20 @@ export const idParamSchema = z.object({
 export const createUserSchema = z.object({
   body: z.object({
     name: z.string().min(3, "Name required").max(48).trim(),
-    email: z.string().email("Invalid email format")
+    email: z.string().email("Invalid email format").trim()
   })
 });
 
 export const updateUserSchema = z.object({
   body: z.object({
     name: z.string().min(3).max(48).trim().optional(),
-    email: z.string().email().trim().optional()
+    email: z.string().email("Invalid email format").trim().optional()
   })
 });
 
-// export type getUserDto = z.infer<typeof getUsersSchema>
-// export type getUserIdDto = z.infer<typeof idParamSchema>
-// export type CreateUserDto = z.infer<typeof createUserSchema>
-// export type updateUserDto = z.infer<typeof updateUserSchema>
+export type getUserDto = z.infer<typeof getUsersSchema>
+export type getUserIdDto = z.infer<typeof idParamSchema>
+export type createUserDto = z.infer<typeof createUserSchema>
+export type updateUserDto = {
+  body: Partial<z.infer<typeof createUserSchema>["body"]>
+}

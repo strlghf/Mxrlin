@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
-import routes from "./routes";
 import { errorHandler } from "./middlewares/errorHandler";
+import routes from "./routes";
 
 const app = express();
 const PORT = process.env.PORT ?? 3031;
