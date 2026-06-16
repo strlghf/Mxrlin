@@ -9,10 +9,10 @@ function App() {
   
   return (
     <>
-      <Header />
+      <Header search={search} setSearch={setSearch} />
       <main className='main-content'>
         <Carousel />
-        <Products />
+        <Products search={search} />
       </main>
       <Hero />
     </>

@@ -18,11 +18,11 @@ export const useSearch = (delay = 500) => {
     return () => clearTimeout(timer);
   }, [search, delay]);
 
-  useEffect(() => {
-    if (!debouncedSearch || debouncedSearch.trim() === "") return;
+  // useEffect(() => {
+  //   if (!debouncedSearch || debouncedSearch.trim() === "") return;
 
-    // Api fetch call goes here;
-  }, [debouncedSearch]);
+  //   // Api fetch call goes here;
+  // }, [debouncedSearch]);
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
