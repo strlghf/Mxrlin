@@ -87,6 +87,7 @@
   gap: 17px;
   flex-shrink: 0;
   padding: 0;
+  list-style: none;
 }
 
 .header-action-btn {

@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
+import type { Product } from "../types/types";
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  stock: number;
-}
-
-export const useFetchProducts = <T = Product[]>(url: string) => {
-  const [data, setData] = useState<T | null>(null);
+export const useFetchProducts = (url: string) => {
+  const [products, setProducts] = useState<Product[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -24,9 +18,9 @@ export const useFetchProducts = <T = Product[]>(url: string) => {
 
         if (!response.ok) throw new Error("Error fetching data");
 
-        const data = await response.json();
+        const data: Product[] = await response.json();
 
-        setData(data);
+        setProducts(data);
         setError(null);
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
@@ -42,5 +36,5 @@ export const useFetchProducts = <T = Product[]>(url: string) => {
     return () => controller.abort();
   }, [url]);
 
-  return { data, loading, error }
+  return { products, loading, error }
 }

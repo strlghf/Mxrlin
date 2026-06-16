@@ -36,6 +36,7 @@ model products {
   id           Int            @id @default(autoincrement())
   name         String         @db.VarChar(48)
   price        Decimal        @db.Decimal(10, 2)
+  img          String         @db.VarChar(200)
   stock        Int
   created_at   DateTime?      @default(now()) @db.Timestamp(6)
   orders_items orders_items[]
