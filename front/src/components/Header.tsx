@@ -1,11 +1,16 @@
 import "./Header.css";
-import { useRef, type ChangeEvent } from "react";
+import { useRef, type ChangeEvent, type Dispatch } from "react";
 import { useSearch } from "../hooks/useSearch";
 import logoImg from "../img/kl.jpg";
 import { useScrolling } from "../hooks/useScrolling";
 
-export function Header () {
-  const { search, setSearch, handleSearchSubmit } = useSearch();
+interface HeaderProps {
+  search: string;
+  setSearch: Dispatch<React.SetStateAction<string>>
+}
+
+export function Header ({ search, setSearch }: HeaderProps) {
+  const { handleSearchSubmit } = useSearch();
   const { visible } = useScrolling();
   const inputRef = useRef<HTMLInputElement>(null);
 

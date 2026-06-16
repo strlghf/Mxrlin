@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import type { Product } from "../types/types";
+import "dotenv";
 
-export const useFetchProducts = (url: string) => {
+export const useFetchProducts = (search: string) => {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -12,6 +13,8 @@ export const useFetchProducts = (url: string) => {
     async function fetchData () {
       setLoading(true);
       try {
+        const url = search.trim() === "" ? `${process.env.HOST}/products` : `${process.env.HOST}/products?search=${encodeURIComponent(search)}`
+
         const response = await fetch(url, {
           signal: controller.signal
         });
@@ -34,7 +37,7 @@ export const useFetchProducts = (url: string) => {
     fetchData();
 
     return () => controller.abort();
-  }, [url]);
+  }, [search]);
 
   return { products, loading, error }
 }

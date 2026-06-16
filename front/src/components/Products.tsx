@@ -1,10 +1,7 @@
 import { useFetchProducts } from "../hooks/useFetchProducts";
-import { useSearch } from "../hooks/useSearch";
-import type { Product } from "../types/types";
 
-const url = `https://fakestoreapi.com/products/`
-
-export function Products ({ products }: { products: Product[] | null }) {
+export function Products ({ search }: { search: string }) {
+  const { products } = useFetchProducts(search);
   if (!(products && products.length > 0)) return null;
   
   return (
@@ -14,7 +11,7 @@ export function Products ({ products }: { products: Product[] | null }) {
           <img src={product.img} alt={product.name} />
           <h3>{product.name}</h3>
           <p>$ {product.price}</p>
-        </li> 
+        </li>
       ))}
     </ul>
   )
