@@ -7,6 +7,6 @@ import { resolveUserById } from "../middlewares/resolveUserById";
 const router = Router();
 
 router.get("/", validateRequest(getUsersSchema), getUsers);
-router.get("/:id", validateRequest(idParamSchema), resolveUserById, getUserById)
+router.get("/:id", validateRequest(idParamSchema), resolveUserById, getUserById);
 
 export default router;

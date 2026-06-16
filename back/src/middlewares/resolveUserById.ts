@@ -9,19 +9,19 @@ export async function resolveUserById (
   const { id } = req.params;
   const parsedId = Number(id);
 
-  if (isNaN(parsedId)) return res.status(400).json({ msg: "Id must be a number" })
+  if (isNaN(parsedId)) return res.status(400).json({ msg: "Id must be a number" });
 
   try {
     const user = await prisma.users.findUnique({
       where: { id: parsedId }
-    })
+    });
 
-    if (!user) return res.status(404).json({ msg: "User not found" })
+    if (!user) return res.status(404).json({ msg: "User not found" });
 
     req.user = user;
     next();
   } catch (err) {
     console.log(err);
-    return res.status(400).json({ msg: "Bad Request" })
+    return res.status(400).json({ msg: "Bad Request" });
   }
 }

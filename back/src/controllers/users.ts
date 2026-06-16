@@ -1,7 +1,7 @@
-import type { Request, Response, NextFunction } from "express"
+import type { Request, Response } from "express";
 import { getUsersService } from "../services/users";
 
-export async function getUsers (req: Request, res: Response, next: NextFunction) {
+export async function getUsers (req: Request, res: Response) {
   const { filter, value } = req.query;
 
   try {
@@ -12,6 +12,6 @@ export async function getUsers (req: Request, res: Response, next: NextFunction)
   }
 }
 
-export async function getUserById (req: Request, res: Response, next: NextFunction) {
+export async function getUserById (req: Request, res: Response) {
   return res.status(200).json(req.user);
 }
