@@ -1,6 +1,5 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import type { Request, Response, NextFunction } from "express";
-import { success } from "zod";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
 export function errorHandler(
   err: Error,

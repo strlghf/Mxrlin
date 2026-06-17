@@ -7,7 +7,6 @@ export async function resolveUserById (
   res: Response,
   next: NextFunction
 ) {
-  // NO ES NECESARIO DEBIDO AL COERCE DE IDPARAMS ZOD - 🔍
   const { id } = req.params;
   const parsedId = Number(id);
 

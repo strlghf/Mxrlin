@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { getUsersService, createUserService, updateUserService, deleteUserService } from "../services/users";
 
-type filterUsers = "name" | "email" | undefined;
+type filterUsers = "name" | "email";
 
 export async function getUsers (req: Request, res: Response, next: NextFunction) {
   const { filter, value } = req.query;
