@@ -21,8 +21,8 @@ export async function resolveUserById (
 
     req.user = user;
     next();
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return res.status(400).json({ msg: "Bad Request" });
   }
 }

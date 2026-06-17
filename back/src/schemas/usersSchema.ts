@@ -28,6 +28,7 @@ export const updateUserSchema = z.object({
 
 export type getUserDto = z.infer<typeof getUsersSchema>
 export type getUserIdDto = z.infer<typeof idParamSchema>
+export type getUserSchemaDto = z.infer<typeof userBodySchema>
 export type createUserDto = z.infer<typeof createUserSchema>
 export type updateUserDto = {
   body: Partial<z.infer<typeof createUserSchema>["body"]>
