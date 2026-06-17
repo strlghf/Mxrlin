@@ -7,6 +7,11 @@ export const getUsersSchema = z.object({
   })
 });
 
+const userBodySchema = z.object({
+  name: z.string().min(3, "Name required").max(48).trim(),
+  email: z.string().email("Invalid email format").trim()
+})
+
 export const idParamSchema = z.object({
   params: z.object({
     id: z.coerce.number().int().positive()
@@ -14,17 +19,11 @@ export const idParamSchema = z.object({
 });
 
 export const createUserSchema = z.object({
-  body: z.object({
-    name: z.string().min(3, "Name required").max(48).trim(),
-    email: z.string().email("Invalid email format").trim()
-  })
+  body: userBodySchema
 });
 
 export const updateUserSchema = z.object({
-  body: z.object({
-    name: z.string().min(3).max(48).trim().optional(),
-    email: z.string().email("Invalid email format").trim().optional()
-  })
+  body: userBodySchema.partial()
 });
 
 export type getUserDto = z.infer<typeof getUsersSchema>

@@ -1,17 +1,21 @@
 import { useFetchProducts } from "../hooks/useFetchProducts";
-import type { Product } from "../types/types";
 
 export function Products ({ search }: { search: string }) {
   const { products, loading, error } = useFetchProducts(search);
-  
-  const hasProducts = products && products.length > 0
-  // if (!(products && products.length > 0)) return null;
+
+  if (loading) return <p>Cargando...</p>
+  if (error) return <p>Ha ocurrido un error</p>
+  if (!products.length) return <p>No se han encontrado productos</p>
 
   return (
-    <>
-      {loading && <p>Cargando...</p>}
-      {error && <p>An error has ocurred</p>}
-      {products && products.length === 0 }
-    </>
+    <ul className="products">
+      {products.map(product => (
+        <li className="product" key={product.id}>
+          <img src={product.img} alt={product.name} />
+          <h3>{product.name}</h3>
+          <p>$ {product.price}</p>
+        </li>
+      ))}
+    </ul>
   )
 }
