@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+export const userModelSchema = z.object({
+  id: z.number().int().positive(),
+  name: z.string().min(1).max(48),
+  email: z.string().email().max(70),
+  created_at: z.date().nullable().optional()
+})
+
 export const getUsersSchema = z.object({
   query: z.object({
     filter: z.enum(["name", "email"]).optional(),
@@ -33,3 +40,4 @@ export type createUserDto = z.infer<typeof createUserSchema>
 export type updateUserDto = {
   body: Partial<z.infer<typeof createUserSchema>["body"]>
 }
+export type UserInstance = z.infer<typeof userModelSchema>
