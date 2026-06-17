@@ -2,7 +2,7 @@
   position: fixed;
   box-sizing: border-box;
   height: 70px;
-  padding: 15px 15%;
+  padding: 15px 10%;
   display: flex;
   width: 100%;
   align-items: center;
@@ -33,7 +33,7 @@
 .header-search-form {
   position: relative;
   flex-grow: 1;
-  max-width: 700px;
+  max-width: 50%;
   display: flex;
   align-items: center;
 }

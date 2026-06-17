@@ -33,5 +33,5 @@ export const useSearch = (delay = 500) => {
     setDebouncedSearch(query);
   }
 
-  return { search, setSearch, handleSearchSubmit }
+  return { search, setSearch, debouncedSearch, handleSearchSubmit }
 }

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import kali from "../img/cyber.png"
-import kl from "../img/rev.jpg"
-import nvidia from "../img/rtx.jpg"
-import "./Car.css"
+import kali from "../img/rev.jpg"
+import kl from "../img/rtx.jpg"
+import dekstop from "../img/tt.jpeg"
+import "./Carousel.css"
 
 const BANNERS = [
   { id: 1, image: kali, alt: "Kali Linux" },
   { id: 2, image: kl, alt: "Hardware de última generación" },
-  { id: 3, image: nvidia, alt: "Descuentos Gaming" }
+  { id: 3, image: dekstop, alt: "Descuentos Gaming" }
 ];
 
 export function Carousel () {
@@ -26,7 +26,7 @@ export function Carousel () {
   };
 
   useEffect(() => {
-    const slideInterval = setInterval(nextSlide, 3000);
+    const slideInterval = setInterval(nextSlide, 30000);
     console.log("hello");
 
     return () => clearInterval(slideInterval);
@@ -41,7 +41,7 @@ export function Carousel () {
         className="carousel-track" 
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        {BANNERS.map((banner) => (
+        {BANNERS.map(banner => (
           <div className="carousel-slide" key={banner.id}>
             <img src={banner.image} alt={banner.alt} className="carousel-image" />
           </div>
