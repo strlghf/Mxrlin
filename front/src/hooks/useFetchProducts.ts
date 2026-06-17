@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import type { Product } from "../types/types";
-import "dotenv";
 
 export const useFetchProducts = (search: string) => {
   const [products, setProducts] = useState<Product[] | null>(null);
@@ -13,7 +12,7 @@ export const useFetchProducts = (search: string) => {
     async function fetchData () {
       setLoading(true);
       try {
-        const url = search.trim() === "" ? `${process.env.HOST}/products` : `${process.env.HOST}/products?search=${encodeURIComponent(search)}`
+        const url = search.trim() === "" ? `${import.meta.env.VITE_API_URL}/products` : `${import.meta.env.VITE_API_URL}/products?search=${encodeURIComponent(search)}`
 
         const response = await fetch(url, {
           signal: controller.signal

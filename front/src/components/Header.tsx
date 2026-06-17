@@ -1,16 +1,15 @@
 import "./Header.css";
-import { useRef, type ChangeEvent, type Dispatch } from "react";
-import { useSearch } from "../hooks/useSearch";
+import { useRef, type ChangeEvent, type Dispatch, type FormEvent } from "react";
 import logoImg from "../img/kl.jpg";
 import { useScrolling } from "../hooks/useScrolling";
 
 interface HeaderProps {
   search: string;
-  setSearch: Dispatch<React.SetStateAction<string>>
+  setSearch: Dispatch<React.SetStateAction<string>>;
+  handleSearchSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export function Header ({ search, setSearch }: HeaderProps) {
-  const { handleSearchSubmit } = useSearch();
+export function Header ({ search, setSearch, handleSearchSubmit }: HeaderProps) {
   const { visible } = useScrolling();
   const inputRef = useRef<HTMLInputElement>(null);
 

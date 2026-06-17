@@ -5,14 +5,18 @@ import { Products } from './components/Products';
 import { useSearch } from './hooks/useSearch';
 
 function App() {
-  const { search, setSearch } = useSearch();
+  const { search, setSearch, debouncedSearch, handleSearchSubmit } = useSearch(300);
   
   return (
     <>
-      <Header search={search} setSearch={setSearch} />
+      <Header
+        search={search}
+        setSearch={setSearch}
+        handleSearchSubmit={handleSearchSubmit}
+      />
       <main className='main-content'>
         <Carousel />
-        <Products search={search} />
+        <Products search={debouncedSearch} />
       </main>
       <Hero />
     </>
