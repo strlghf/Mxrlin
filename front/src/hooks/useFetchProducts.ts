@@ -12,7 +12,7 @@ export const useFetchProducts = (search: string) => {
     async function fetchData () {
       setLoading(true);
       try {
-        const url = search.trim() === "" ? `${import.meta.env.VITE_API_URL}/products` : `${import.meta.env.VITE_API_URL}/products?search=${encodeURIComponent(search)}`
+        const url = search.trim() === "" ? `${import.meta.env.VITE_API_URL}/products` : `${import.meta.env.VITE_API_URL}/api/products?search=${encodeURIComponent(search)}`
 
         const response = await fetch(url, {
           signal: controller.signal
