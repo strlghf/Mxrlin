@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { getUsersService, createUserService, updateUserService } from "../services/users";
+import { getUsersService, createUserService, updateUserService, deleteUserService } from "../services/users";
 
 type filterUsers = "name" | "email" | undefined;
 
@@ -32,9 +32,10 @@ export async function createUser (req: Request, res: Response, next: NextFunctio
 export async function updateUser (req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
   const { body } = req;
-  const parsedId = Number(id);
 
   try {
+    const parsedId = Number(id);
+
     const updatedUser = await updateUserService(parsedId, body);
     return res.status(200).json({ message: "User updated", data: updatedUser });
   } catch (error) {
@@ -42,14 +43,14 @@ export async function updateUser (req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function updateUserPartial (req: Request, res: Response, next: NextFunction) {
+export async function deleteUser (req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
-  const { body } = req;
-  const parsedId = Number(id);
 
   try {
-    const updatedUser = await updateUserService(parsedId, body);
-    return res.status(200).json({ message: "User updated", data: updatedUser });
+    const parsedId = Number(id);
+
+    const deleteUser = await deleteUserService(parsedId);
+    return res.status(204).json({ message: "User deleted", data: deleteUser })
   } catch (error) {
     next(error);
   }

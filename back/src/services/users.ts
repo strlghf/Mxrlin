@@ -32,9 +32,13 @@ export async function createUserService (userData: CreateUserBody) {
 }
 
 export async function updateUserService (id: UserIdParam, data: UpdateUserBody) {
+  const cleanData = Object.fromEntries(
+    Object.entries(data).filter(([_, value]) => value !== undefined)
+  )
+  
   return await prisma.users.update({
     where: { id },
-    data,
+    data: cleanData,
     select: { id: true, name: true, email: true, created_at: true }
   })
 }
