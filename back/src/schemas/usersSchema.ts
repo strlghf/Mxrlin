@@ -5,19 +5,14 @@ export const userModelSchema = z.object({
   name: z.string().min(3).max(48),
   email: z.string().email().max(70),
   created_at: z.date().nullable().optional()
-})
+});
 
-export const getUsersSchema = z.object({
+export const getUsersQuerySchema = z.object({
   query: z.object({
     filter: z.enum(["name", "email"]).optional(),
     value: z.string().min(1).optional()
   })
 });
-
-const userBodySchema = z.object({
-  name: z.string().min(3, "Name required").max(48).trim(),
-  email: z.string().email("Invalid email format").trim()
-})
 
 export const idParamSchema = z.object({
   params: z.object({
@@ -26,18 +21,21 @@ export const idParamSchema = z.object({
 });
 
 export const createUserSchema = z.object({
-  body: userBodySchema
+  body: z.object({
+    name: z.string().min(3, "Name required").max(48).trim(),
+    email: z.string().email("Invalid email format").trim()
+  })
 });
 
 export const updateUserSchema = z.object({
-  body: userBodySchema.partial()
+  body: z.object({
+    name: z.string().min(3, "Name required").max(48).trim().optional(),
+    email: z.string().email("Invalid email format").trim().optional()
+  })
 });
 
-export type getUserDto = z.infer<typeof getUsersSchema>
-export type getUserIdDto = z.infer<typeof idParamSchema>
-export type getUserSchemaDto = z.infer<typeof userBodySchema>
-export type createUserDto = z.infer<typeof createUserSchema>
-export type updateUserDto = {
-  body: Partial<z.infer<typeof createUserSchema>["body"]>
-}
-export type UserInstance = z.infer<typeof userModelSchema>
+export type UserInstance = z.infer<typeof userModelSchema>;
+export type GetUsersQueryDto = z.infer<typeof getUsersQuerySchema>["query"];
+export type GetUserIdDto = z.infer<typeof idParamSchema>["params"]["id"];
+export type CreateUserDto = z.infer<typeof createUserSchema>["body"];
+export type UpdateUserDto = z.infer<typeof updateUserSchema>["body"];

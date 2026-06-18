@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { validateRequest } from "../middlewares/validateRequest";
 import { resolveUserById } from "../middlewares/resolveUserById";
-import { createUser, deleteUser, getUserById, getUsers, updateUser } from "../controllers/users";
-import { createUserSchema, getUsersSchema, idParamSchema, updateUserSchema } from "../schemas/usersSchema";
+import { getUsersQuerySchema, idParamSchema, createUserSchema, updateUserSchema } from "../schemas/usersSchema";
+import { getUsers, getUserById, createUser, deleteUser, updateUser } from "../controllers/users";
 
 const router = Router();
 
-router.get("/", validateRequest(getUsersSchema), getUsers);
+router.get("/", validateRequest(getUsersQuerySchema), getUsers);
 router.get("/:id", validateRequest(idParamSchema), resolveUserById, getUserById);
 router.post("/", validateRequest(createUserSchema), createUser);
 router.put("/:id", validateRequest(idParamSchema.merge(updateUserSchema)), resolveUserById, updateUser);

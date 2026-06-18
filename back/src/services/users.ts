@@ -1,19 +1,11 @@
 import { prisma } from "../db/prisma";
-import type { getUserDto, getUserIdDto, createUserDto, updateUserDto } from "../schemas/usersSchema";
+import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/usersSchema";
 
-type GetUsersQuery = getUserDto["query"];
-type UserIdParam = getUserIdDto["params"]["id"];
-type CreateUserBody = createUserDto["body"];
-type UpdateUserBody = updateUserDto["body"];
-
-export async function getUsersService (filter?: GetUsersQuery["filter"], value?: string) {
+export async function getUsersService (filter?: GetUsersQueryDto["filter"], value?: string) {
   if (filter && value) {
     return await prisma.users.findMany({
       where: {
-        [filter]: {
-          contains: value,
-          mode: "insensitive"
-        }
+        [filter]: { contains: value, mode: "insensitive" }
       },
       select: { id: true, name: true, email: true, created_at: true }
     })
@@ -24,14 +16,14 @@ export async function getUsersService (filter?: GetUsersQuery["filter"], value?:
   })
 }
 
-export async function createUserService (userData: CreateUserBody) {
+export async function createUserService (userData: CreateUserDto) {
   return await prisma.users.create({
     data: userData,
     select: { id: true, name: true, email: true, created_at: true }
   })
 }
 
-export async function updateUserService (id: UserIdParam, data: UpdateUserBody) {
+export async function updateUserService (id: GetUserIdDto, data: UpdateUserDto) {
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([_, value]) => value !== undefined)
   )
@@ -43,7 +35,7 @@ export async function updateUserService (id: UserIdParam, data: UpdateUserBody) 
   })
 }
 
-export async function deleteUserService (id: UserIdParam) {
+export async function deleteUserService (id: GetUserIdDto) {
   return await prisma.users.delete({
     where: { id }
   })

@@ -10,8 +10,6 @@ export function validateRequest (schema: ZodObject) {
         params: req.params
       })
 
-      console.log("aduana", parsedData.query)
-
       return next();
     } catch (error) {
       if (error instanceof ZodError || (error as Error).name === "ZodError") {

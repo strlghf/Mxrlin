@@ -8,6 +8,7 @@ export async function getUsers (req: Request, res: Response, next: NextFunction)
 
   try {
     const users = await getUsersService(filter as filterUsers, value as string);
+    
     return res.status(200).json({
       success: true,
       data: users
