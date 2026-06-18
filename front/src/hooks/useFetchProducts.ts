@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import type { Product } from "../types/types";
 
 export const useFetchProducts = (search: string) => {
   const [products, setProducts] = useState<Product[]>([]);
