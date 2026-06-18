@@ -1,13 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
 import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/products";
+import type { GetProductsQueryDto } from "../schemas/productsSchema";
 
 export async function getProducts (req: Request, res: Response, next: NextFunction) {
-  const { page, limit, search } = req.query;
-  const parsedPage = Number(page) || 1;
-  const parsedLimit = Number(limit) || 10;
+  const { page, limit, search } = req.query as unknown as GetProductsQueryDto;
   
   try {
-    const products = await getProductsService(parsedPage, parsedLimit, search as string | undefined);
+    const products = await getProductsService(page || 1, limit || 10, search);
 
     return res.status(200).json({
       data: products.data,

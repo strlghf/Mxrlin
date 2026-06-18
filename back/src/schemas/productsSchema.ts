@@ -3,10 +3,10 @@ import { z } from "zod";
 export const productModelSchema = z.object({
   id: z.number().int().positive(),
   name: z.string().min(3).max(48),
-  price: z.union([z.number().positive(), z.string()]),
+  price: z.coerce.number().positive(),
   img: z.string().max(200),
   stock: z.number().int().nonnegative(),
-  created_at: z.date().nullable().optional()
+  created_at: z.string().datetime()
 });
 
 export const getProductsQuerySchema = z.object({
@@ -26,7 +26,7 @@ export const idParamSchema = z.object({
 export const createProductSchema = z.object({
   body: z.object({
     name: z.string().min(3).max(48).trim(),
-    price: z.union([z.number().positive(), z.string()]),
+    price: z.coerce.number().positive(),
     img: z.string().max(200),
     stock: z.number().int().nonnegative()
   })
@@ -35,7 +35,7 @@ export const createProductSchema = z.object({
 export const updateProductSchema = z.object({
   body: z.object({
     name: z.string().min(3).max(48).trim().optional(),
-    price: z.union([z.number().positive(), z.string()]).optional(),
+    price: z.coerce.number().positive().optional(),
     img: z.string().max(200).optional(),
     stock: z.number().int().nonnegative().optional()
   })

@@ -1,6 +1,8 @@
 import { prisma } from "../db/prisma";
 import type { GetProductsQueryDto, GetProductIdDto, CreateProductDto, UpdateProductDto } from "../schemas/productsSchema";
 
+const productSelect = { id: true, name: true, price: true, img: true, stock: true, created_at: true } as const;
+
 export async function getProductsService (page: number, limit: number, search?: string) {
   const skip = (page - 1) * limit;
 
@@ -12,7 +14,7 @@ export async function getProductsService (page: number, limit: number, search?: 
         where: {
           name: { contains: search, mode: "insensitive" }
         },
-        select: { id: true, name: true, price: true, img: true, stock: true, created_at: true },
+        select: productSelect,
       }),
       prisma.products.count({
         where: {
@@ -31,7 +33,7 @@ export async function getProductsService (page: number, limit: number, search?: 
     prisma.products.findMany({
       skip,
       take: limit,
-      select: { id: true, name: true, price: true, img: true, stock: true, created_at: true }
+      select: productSelect
     }),
     prisma.products.count()
   ])
@@ -45,7 +47,7 @@ export async function getProductsService (page: number, limit: number, search?: 
 export async function createProductService (productData: CreateProductDto) {
   return await prisma.products.create({
     data: productData,
-    select: { id: true, name: true, price: true, img: true, stock: true, created_at: true }
+    select: productSelect
   })
 }
 
@@ -57,7 +59,7 @@ export async function updateProductService (id: GetProductIdDto, data: UpdatePro
   return await prisma.products.update({
     where: { id },
     data: cleanData,
-    select: { id: true, name: true, price: true, img: true, stock: true, created_at: true }
+    select: productSelect
   })
 }
 
