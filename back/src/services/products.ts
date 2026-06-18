@@ -1,7 +1,7 @@
 import { prisma } from "../db/prisma";
 
 export async function getProductsService (page: number, limit: number, search?: string) {
-  const skip = (page as number - 1) * limit;
+  const skip = (page - 1) * limit;
 
   if (search) {
     const [products, totalCount] = await prisma.$transaction([

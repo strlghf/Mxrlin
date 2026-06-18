@@ -13,7 +13,7 @@ export const getProductsQuerySchema = z.object({
   query: z.object({
     page: z.coerce.number().int().positive("Page must be greater than 0").default(1),
     limit: z.coerce.number().int().positive("Limit must be greater than 0").max(100, "Maximum fetch loading").default(10),
-    search: z.string().optional().default("")
+    search: z.string().optional()
   })
 })
 
