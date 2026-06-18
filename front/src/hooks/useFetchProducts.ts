@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import { getProducts } from "../services/productsApi";
+import type { Pagination, Product } from "../types/types";
 
 export const useFetchProducts = (search: string) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [pagination, setPagination] = useState<Pagination | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -11,17 +14,10 @@ export const useFetchProducts = (search: string) => {
     async function fetchData () {
       setLoading(true);
       try {
-        const url = search.trim() === "" ? `${import.meta.env.VITE_API_URL}/api/products` : `${import.meta.env.VITE_API_URL}/api/products?search=${encodeURIComponent(search)}`
+        const result = await getProducts(search, controller.signal)
 
-        const response = await fetch(url, {
-          signal: controller.signal
-        });
-
-        if (!response.ok) throw new Error("Error fetching data");
-
-        const data: Product[] = await response.json();
-
-        setProducts(data);
+        setProducts(result.data);
+        setPagination(result.pagination);
         setError(null);
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
