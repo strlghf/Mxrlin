@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const userModelSchema = z.object({
   id: z.number().int().positive(),
-  name: z.string().min(1).max(48),
+  name: z.string().min(3).max(48),
   email: z.string().email().max(70),
   created_at: z.date().nullable().optional()
 })
