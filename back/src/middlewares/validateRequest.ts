@@ -8,7 +8,7 @@ export function validateRequest (schema: ZodObject) {
         body: req.body,
         query: req.query,
         params: req.params
-      })
+      });
 
       return next();
     } catch (error) {
@@ -22,7 +22,7 @@ export function validateRequest (schema: ZodObject) {
         return res.status(400).json({
           success: false,
           errors: errorMessages
-        })
+        });
       }
 
       return next(error);

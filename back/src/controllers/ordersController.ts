@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import type { CreateOrderDto } from "../schemas/ordersSchema";
-import { createOrderService } from "../services/orders";
+import { createOrderService } from "../services/ordersServices";
 
 export async function getOrderById (req: Request, res: Response, next: NextFunction) {
   const { order } = req;
@@ -8,7 +8,7 @@ export async function getOrderById (req: Request, res: Response, next: NextFunct
   return res.status(200).json({
     success: true,
     data: order
-  })
+  });
 }
 
 export async function createOrder (req: Request, res: Response, next: NextFunction) {
@@ -22,6 +22,6 @@ export async function createOrder (req: Request, res: Response, next: NextFuncti
       data: newOrder
     });
   } catch (error) {
-    return next(error)
+    return next(error);
   }
 }

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { getUsersService, createUserService, updateUserService, deleteUserService } from "../services/users";
+import { getUsersService, createUserService, updateUserService, deleteUserService } from "../services/usersServices";
 
 type filterUsers = "name" | "email";
 
@@ -67,7 +67,7 @@ export async function deleteUser (req: Request, res: Response, next: NextFunctio
   try {
     const parsedId = Number(id);
     await deleteUserService(parsedId);
-    
+
     return res.status(204).end();
   } catch (error) {
     return next(error);

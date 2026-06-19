@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import type { GetProductsQueryDto } from "../schemas/productsSchema";
-import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/products";
+import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/productsServices";
 
 export async function getProducts (req: Request, res: Response, next: NextFunction) {
   const { page, limit, search } = req.query as unknown as GetProductsQueryDto;
@@ -23,7 +23,7 @@ export async function getProductById (req: Request, res: Response) {
   return res.status(200).json({
     success: true,
     data: product
-  })
+  });
 }
 
 export async function createProduct (req: Request, res: Response, next: NextFunction) {
@@ -54,7 +54,7 @@ export async function updateProduct (req: Request, res: Response, next: NextFunc
       success: true,
       message: "Product updated succesfully",
       data: updatedProduct
-    })
+    });
   } catch (error) {
     return next(error);
   }
@@ -66,7 +66,7 @@ export async function deleteProduct (req: Request, res: Response, next: NextFunc
   try {
     const parsedId = Number(id);
     await deleteProductService(parsedId);
-    
+
     return res.status(204).end();
   } catch (error) {
     return next(error);

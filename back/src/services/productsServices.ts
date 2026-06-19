@@ -21,7 +21,7 @@ export async function getProductsService (page: number, limit: number, search?: 
           name: { contains: search, mode: "insensitive" }
         }
       })
-    ])
+    ]);
 
     return {
       data: products,
@@ -36,7 +36,7 @@ export async function getProductsService (page: number, limit: number, search?: 
       select: productSelect
     }),
     prisma.products.count()
-  ])
+  ]);
 
   return {
     data: products,
@@ -48,23 +48,23 @@ export async function createProductService (productData: CreateProductDto) {
   return await prisma.products.create({
     data: productData,
     select: productSelect
-  })
+  });
 }
 
 export async function updateProductService (id: GetProductIdDto, data: UpdateProductDto) {
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([_, value]) => value !== undefined)
-  )
+  );
 
   return await prisma.products.update({
     where: { id },
     data: cleanData,
     select: productSelect
-  })
+  });
 }
 
 export async function deleteProductService (id: GetProductIdDto) {
   return await prisma.products.delete({
     where: { id }
-  })
+  });
 }

@@ -20,7 +20,7 @@ export function errorHandler(
       return res.status(409).json({
         success: false,
         error: "El correo electrónico ya se encuentra registrado"
-      })
+      });
     }
   }
 

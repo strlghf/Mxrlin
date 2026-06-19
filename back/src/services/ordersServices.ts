@@ -11,7 +11,7 @@ export async function createOrderService (userId: number, items: OrderItemInput[
       const product = await tx.products.findUnique({
         where: { id: item.productId },
         select: { id: true, stock: true, price: true, name: true }
-      })
+      });
 
       if (!product) {
         throw new Error(`Product with id ${item.productId} not found`);
@@ -29,12 +29,12 @@ export async function createOrderService (userId: number, items: OrderItemInput[
 
     const productRecords = await tx.products.findMany({
       where: { id: { in: items.map(i => i.productId) } }
-    })
+    });
 
     const total = items.reduce((sum, item) => {
       const prod = productRecords.find(p => p.id === item.productId);
       return sum + (prod ? Number(prod.price) * item.quantity : 0);
-    }, 0)
+    }, 0);
 
     const order = await tx.orders.create({
       data: { 

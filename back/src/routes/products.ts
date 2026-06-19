@@ -2,12 +2,12 @@ import { Router } from "express";
 import { prisma } from "../db/prisma";
 import { validateRequest } from "../middlewares/validateRequest";
 import { resolveEntity } from "../middlewares/resolveEntity";
-import { getProductsQuerySchema, idParamSchema, createProductSchema, updateProductSchema, productModelSchema } from "../schemas/productsSchema";
+import { productModelSchema, getProductsQuerySchema, idParamSchema, createProductSchema, updateProductSchema } from "../schemas/productsSchema";
 import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../controllers/productsController";
 
 const router = Router();
 
-const resolveIdMiddleware = resolveEntity(prisma.products, productModelSchema, "product")
+const resolveIdMiddleware = resolveEntity(prisma.products, productModelSchema, "product");
 
 router.get("/", validateRequest(getProductsQuerySchema), getProducts);
 router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getProductById);

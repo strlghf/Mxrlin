@@ -10,35 +10,35 @@ export async function getUsersService (filter?: GetUsersQueryDto["filter"], valu
         [filter]: { contains: value, mode: "insensitive" }
       },
       select: userSelect
-    })
+    });
   }
 
   return await prisma.users.findMany({
     select: userSelect
-  })
+  });
 }
 
 export async function createUserService (userData: CreateUserDto) {
   return await prisma.users.create({
     data: userData,
     select: userSelect
-  })
+  });
 }
 
 export async function updateUserService (id: GetUserIdDto, data: UpdateUserDto) {
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([_, value]) => value !== undefined)
-  )
+  );
   
   return await prisma.users.update({
     where: { id },
     data: cleanData,
     select: userSelect
-  })
+  });
 }
 
 export async function deleteUserService (id: GetUserIdDto) {
   return await prisma.users.delete({
     where: { id }
-  })
+  });
 }

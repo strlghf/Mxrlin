@@ -17,16 +17,16 @@ export function resolveEntity(
     const parsedId = Number(id);
 
     if (isNaN(parsedId)) {
-      return res.status(404).json({ success: false, error: "Id must be a number" })
+      return res.status(400).json({ success: false, error: "Id must be a number" });
     }
 
     try {
       const entity = await prismaModel.findUnique({
         where: { id: parsedId }
-      })
+      });
 
       if (!entity) {
-        return res.status(404).json({ success: false, error: `${requestKey.charAt(0).toUpperCase() + requestKey.slice(1)} not found` })
+        return res.status(404).json({ success: false, error: `${requestKey.charAt(0).toUpperCase() + requestKey.slice(1)} not found` });
       }
 
       const validatedEntity = zodSchema.parse(entity);

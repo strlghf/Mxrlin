@@ -17,7 +17,7 @@ export async function resolveProductById (
       where: { id: parsedId }
     });
 
-    if (!product) return res.status(404).json({ success: false, error: "Product not found" })
+    if (!product) return res.status(404).json({ success: false, error: "Product not found" });
 
     const validateProduct = productModelSchema.parse(product);
 

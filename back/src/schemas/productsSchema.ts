@@ -39,7 +39,7 @@ export const updateProductSchema = z.object({
     img: z.string().max(200).optional(),
     stock: z.number().int().nonnegative().optional()
   })
-})
+});
 
 export type ProductInstance = z.infer<typeof productModelSchema>;
 export type GetProductsQueryDto = z.infer<typeof getProductsQuerySchema>["query"];
