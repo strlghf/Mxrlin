@@ -3,7 +3,7 @@ import { prisma } from "../db/prisma";
 import { validateRequest } from "../middlewares/validateRequest";
 import { resolveEntity } from "../middlewares/resolveEntity";
 import { getProductsQuerySchema, idParamSchema, createProductSchema, updateProductSchema, productModelSchema } from "../schemas/productsSchema";
-import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../controllers/products";
+import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../controllers/productsController";
 
 const router = Router();
 

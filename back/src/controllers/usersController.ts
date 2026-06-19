@@ -32,6 +32,7 @@ export async function createUser (req: Request, res: Response, next: NextFunctio
 
   try {
     const newUser = await createUserService(body);
+
     return res.status(201).json({
       success: true,
       message: "User created successfully",
@@ -48,8 +49,8 @@ export async function updateUser (req: Request, res: Response, next: NextFunctio
 
   try {
     const parsedId = Number(id);
-
     const updatedUser = await updateUserService(parsedId, body);
+
     return res.status(200).json({
       success: true,
       message: "User updated successfully",
@@ -65,8 +66,8 @@ export async function deleteUser (req: Request, res: Response, next: NextFunctio
 
   try {
     const parsedId = Number(id);
-
     await deleteUserService(parsedId);
+    
     return res.status(204).end();
   } catch (error) {
     return next(error);

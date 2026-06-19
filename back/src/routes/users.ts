@@ -3,7 +3,7 @@ import { prisma } from "../db/prisma";
 import { validateRequest } from "../middlewares/validateRequest";
 import { resolveEntity } from "../middlewares/resolveEntity";
 import { getUsersQuerySchema, idParamSchema, createUserSchema, updateUserSchema, userModelSchema } from "../schemas/usersSchema";
-import { getUsers, getUserById, createUser, deleteUser, updateUser } from "../controllers/users";
+import { getUsers, getUserById, createUser, deleteUser, updateUser } from "../controllers/usersController";
 
 const router = Router();
 

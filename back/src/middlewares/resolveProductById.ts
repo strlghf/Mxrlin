@@ -10,7 +10,7 @@ export async function resolveProductById (
   const { id } = req.params;
   const parsedId = Number(id);
 
-  if (isNaN(parsedId)) return res.status(404).json({ success: false, error: "Id must be a number" });
+  if (isNaN(parsedId)) return res.status(400).json({ success: false, error: "Id must be a number" });
 
   try {
     const product = await prisma.products.findUnique({
