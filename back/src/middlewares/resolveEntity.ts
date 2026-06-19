@@ -5,7 +5,7 @@ interface PrismaModel {
   findUnique: (args: { where: { id: number } }) => Promise<any>;
 }
 
-type RequestKey = "user" | "product"
+type RequestKey = "user" | "product" | "order"
 
 export function resolveEntity(
   prismaModel: PrismaModel,
