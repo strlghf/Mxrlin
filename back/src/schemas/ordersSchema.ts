@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { updateUserSchema } from "./usersSchema";
 
 export const orderModelSchema = z.object({
   id: z.number().int().positive(),
@@ -8,7 +9,7 @@ export const orderModelSchema = z.object({
 
 export const idParamSchema = z.object({
   params: z.object({
-    id: z.coerce.number().int().positive()
+    id: z.coerce.number().int().positive("Invalid ID parameter")
   })
 });
 
@@ -21,9 +22,22 @@ export const createOrderSchema = z.object({
         quantity: z.number().int().positive("Quantity must be at least 1")
       })
     ).min(1, "Order must contain at least 1 item")
+    .max(10, "Too many items in a single order")
+  })
+});
+
+export const updateOrderSchema = z.object({
+  body: z.object({
+    items: z.array(
+      z.object({
+        productId: z.number().int().positive("Product ID must be valid"),
+        quantity: z.number().int().positive("Quantity must be at least 1")
+      })
+    ).min(1, "You must provide at least one item to update")
   })
 });
 
 export type OrderInstance = z.infer<typeof orderModelSchema>;
 export type GetOrderIdDto = z.infer<typeof idParamSchema>["params"]["id"];
 export type CreateOrderDto = z.infer<typeof createOrderSchema>["body"];
+export type UpdateProductDto = z.infer<typeof updateUserSchema>["body"];

@@ -38,15 +38,18 @@ export async function createOrderService (userId: number, items: OrderItemInput[
 
     const order = await tx.orders.create({
       data: { 
-        id: userId,
+        user_id: userId,
         total,
         orders_items: {
-          create: items.map(item => ({
-            productId: item.productId,
-            quantity: item.quantity,
-            price_at_purchase: total,
-            price: productRecords.find(p => p.id === item.productId)?.price || 0
-          }))
+          create: items.map(item => {
+            const currentPrice = productRecords.find(p => p.id === item.productId)?.price || 0;
+
+            return {
+              productId: item.productId,
+              quantity: item.quantity,
+              price_at_purchase: currentPrice
+            }
+          })
         }
       },
       include: {
@@ -57,3 +60,4 @@ export async function createOrderService (userId: number, items: OrderItemInput[
     return order;
   });
 }
+

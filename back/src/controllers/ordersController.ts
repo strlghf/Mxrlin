@@ -25,3 +25,7 @@ export async function createOrder (req: Request, res: Response, next: NextFuncti
     return next(error);
   }
 }
+
+export async function updateOrder (req: Request, res: Response, next: NextFunction) {
+  
+}
