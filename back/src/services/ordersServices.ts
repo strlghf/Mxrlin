@@ -1,8 +1,13 @@
 import { prisma } from "../db/prisma";
+import type { GetOrderIdDto } from "../schemas/ordersSchema";
 
 interface OrderItemInput {
   productId: number;
   quantity: number;
+}
+
+export async function getOrderService () {
+
 }
 
 export async function createOrderService (userId: number, items: OrderItemInput[]) {
@@ -61,3 +66,8 @@ export async function createOrderService (userId: number, items: OrderItemInput[
   });
 }
 
+export async function deleteOrderService (id: GetOrderIdDto) {
+  return await prisma.orders.delete({
+    where: { id }
+  })
+}

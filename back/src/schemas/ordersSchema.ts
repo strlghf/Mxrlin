@@ -1,11 +1,17 @@
 import { z } from "zod";
-import type { updateUserSchema } from "./usersSchema";
 
 export const orderModelSchema = z.object({
   id: z.number().int().positive(),
+  user_id: z.number().int().positive(),
   total: z.coerce.number().positive(),
   created_at: z.string().datetime()
 });
+
+export const getOrdersSchema = z.object({
+  id: z.number().int().positive(),
+  user_id: z.number().int().positive(),
+  total: z.coerce.number().positive()
+})
 
 export const idParamSchema = z.object({
   params: z.object({
@@ -15,10 +21,10 @@ export const idParamSchema = z.object({
 
 export const createOrderSchema = z.object({
   body: z.object({
-    userId: z.number().int().positive("User ID must be valid"),
+    user_id: z.number().int().positive("User ID must be valid"),
     items: z.array(
       z.object({
-        productId: z.number().int().positive("Product ID must be valid"),
+        product_id: z.number().int().positive("Product ID must be valid"),
         quantity: z.number().int().positive("Quantity must be at least 1")
       })
     ).min(1, "Order must contain at least 1 item")
@@ -28,9 +34,10 @@ export const createOrderSchema = z.object({
 
 export const updateOrderSchema = z.object({
   body: z.object({
+    user_id: z.number().int().positive("User ID must be valid"),
     items: z.array(
       z.object({
-        productId: z.number().int().positive("Product ID must be valid"),
+        product_id: z.number().int().positive("Product ID must be valid"),
         quantity: z.number().int().positive("Quantity must be at least 1")
       })
     ).min(1, "You must provide at least one item to update")
@@ -40,4 +47,4 @@ export const updateOrderSchema = z.object({
 export type OrderInstance = z.infer<typeof orderModelSchema>;
 export type GetOrderIdDto = z.infer<typeof idParamSchema>["params"]["id"];
 export type CreateOrderDto = z.infer<typeof createOrderSchema>["body"];
-export type UpdateProductDto = z.infer<typeof updateUserSchema>["body"];
+export type UpdateProductDto = z.infer<typeof updateOrderSchema>["body"];
