@@ -14,23 +14,17 @@ export function Hero () {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? BANNERS.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
+    setCurrentIndex(prev => prev === 0 ? BANNERS.length - 1 : prev - 1);
   };
 
   const nextSlide = () => {
-    const isLastSlide = currentIndex === BANNERS.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
+    setCurrentIndex(prev => prev === BANNERS.length - 1 ? 0 : prev + 1);
   };
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentIndex(prev => prev === BANNERS.length - 1 ? 0 : prev + 1);
     }, 6000);
-
-    console.log("hello");
 
     return () => clearInterval(slideInterval);
   }, []);

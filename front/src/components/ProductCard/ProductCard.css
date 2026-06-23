@@ -1,0 +1,94 @@
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.product:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.product img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.product h3 {
+  color: antiquewhite;
+  font-size: 1.1rem;
+  margin: 10px 0;
+  flex-grow: 1;
+}
+
+.product p {
+  color: #ff3366;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* --- Añadir esto a tu CSS de Productos --- */
+
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* mt-auto empuja los botones al fondo para que todas las tarjetas midan igual */
+  margin-top: auto; 
+  width: 100%;
+  padding-top: 15px;
+}
+
+.btn-primary, .btn-secondary {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background-color: #ff3366;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #e62e5c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 51, 102, 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: antiquewhite;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: antiquewhite;
+}

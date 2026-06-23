@@ -1,5 +1,5 @@
 import { useFetchProducts } from "../../hooks/useFetchProducts";
-import "./Products.css";
+import { ProductCard } from "../ProductCard";
 
 export function Products ({ search }: { search: string }) {
   const { products, loading, error } = useFetchProducts(search);
@@ -11,11 +11,7 @@ export function Products ({ search }: { search: string }) {
   return (
     <ul className="products">
       {products.map(product => (
-        <li className="product" key={product.id}>
-          <img src={product.img} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p>$ {product.price}</p>
-        </li>
+        <ProductCard key={product.id} product={product} />
       ))}
     </ul>
   )
