@@ -1,5 +1,5 @@
 import "./Hero.css";
-import logoImg from "../img/geforce.jpeg";
+import logoImg from "../../img/geforce.jpeg";
 
 export function Hero () {
   return (

@@ -1,7 +1,7 @@
 import "./Header.css";
 import { useRef, type ChangeEvent, type Dispatch, type FormEvent } from "react";
-import logoImg from "../img/kl.jpg";
-import { useScrolling } from "../hooks/useScrolling";
+import logoImg from "../../img/kali.png";
+import { useScrolling } from "../../hooks/useScrolling";
 
 interface HeaderProps {
   search: string;
