@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProducts } from "../services/productsApi";
-import type { Pagination, Product } from "../types/types";
+import type { Product, Pagination } from "../types/types";
 
 export const useFetchProducts = (search: string) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,8 +13,9 @@ export const useFetchProducts = (search: string) => {
 
     async function fetchData () {
       setLoading(true);
+
       try {
-        const result = await getProducts(search, controller.signal)
+        const result = await getProducts(search, controller.signal);
 
         setProducts(result.data);
         setPagination(result.pagination);

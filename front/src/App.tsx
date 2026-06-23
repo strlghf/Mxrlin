@@ -1,7 +1,7 @@
 import './App.css'
-import { Header, Hero } from './components';
+import { Header, Products } from './components';
 import { Carousel } from './components/Carousel';
-import { Products } from './components/Products';
+import { Hero } from './components/Hero';
 import { useSearch } from './hooks/useSearch';
 
 function App() {

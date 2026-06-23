@@ -7,7 +7,7 @@ export interface Product {
   created_at?: Date;
 }
 
-interface ProductsResponse {
+export interface ProductsResponse {
   data: Product[];
   pagination: Pagination
 }

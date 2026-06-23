@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const useScrolling = () => {
   const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const controlHeader = () => {
-      if (window.scrollY > lastScrollY && window.scrollY > 70) {
+      if (window.scrollY > lastScrollY.current && window.scrollY > 70) {
         setVisible(false);
       } else {
         setVisible(true);
       }
 
-      setLastScrollY(window.scrollY);
+      lastScrollY.current = window.scrollY;
     }
 
     window.addEventListener("scroll", controlHeader);
 
     return () => window.removeEventListener("scroll", controlHeader);
-  })
+  }, []);
 
   return { visible }
 }
