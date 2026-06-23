@@ -1,4 +1,5 @@
 import { useFetchProducts } from "../../hooks/useFetchProducts";
+import "./Products.css";
 
 export function Products ({ search }: { search: string }) {
   const { products, loading, error } = useFetchProducts(search);

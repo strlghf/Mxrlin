@@ -1,6 +1,7 @@
 import { Header } from "../components/Header";
-import { Carousel } from "../components/Carousel";
+import { Hero } from "../components/Hero";
 import { Products } from "../components/Products";
+import { Footer } from "../components/Footer";
 import { useSearch } from "../hooks/useSearch";
 
 export function HomePage () {
@@ -14,9 +15,16 @@ export function HomePage () {
         handleSearchSubmit={handleSearchSubmit}
       />
       <main className="main-content">
-        <Carousel />
-        <Products search={debouncedSearch} />
+        <Hero />
+        
+        <section className="products-section">
+          <h2 className="best-seller">Best Sellers</h2>
+          <div className="products-grid">
+            <Products search={debouncedSearch} />
+          </div>
+        </section>
       </main>
+      <Footer />
     </div>
   )
 }

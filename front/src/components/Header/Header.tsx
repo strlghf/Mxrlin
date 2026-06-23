@@ -1,6 +1,6 @@
 import "./Header.css";
 import { useRef, type ChangeEvent, type Dispatch, type FormEvent } from "react";
-import logoImg from "../../img/kali.png";
+import logoImg from "../../img/kl.jpg";
 import { useScrolling } from "../../hooks/useScrolling";
 
 interface HeaderProps {
@@ -13,6 +13,7 @@ export function Header ({ search, setSearch, handleSearchSubmit }: HeaderProps) 
   const { visible } = useScrolling();
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // CAMBIAR FOCUS INPUT
   const handleClick = () => {
     inputRef.current?.focus();
   }

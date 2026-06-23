@@ -1,51 +1,68 @@
+import { useState, useEffect } from "react";
+import kali from "../../img/rev.jpg";
+import kl from "../../img/rtx.jpg";
+import dekstop from "../../img/tt.jpeg";
 import "./Hero.css";
-import logoImg from "../../img/geforce.jpeg";
+
+const BANNERS = [
+  { id: 1, image: kali, alt: "Kali Linux" },
+  { id: 2, image: kl, alt: "Hardware de última generación" },
+  { id: 3, image: dekstop, alt: "Descuentos Gaming" }
+];
 
 export function Hero () {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const prevSlide = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? BANNERS.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === BANNERS.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setCurrentIndex(prev => prev === BANNERS.length - 1 ? 0 : prev + 1);
+    }, 6000);
+
+    console.log("hello");
+
+    return () => clearInterval(slideInterval);
+  }, []);
+
   return (
-    <main className="main-content">
-      <section className="hero-section">
-        <div className="hero-overlay-graphic"></div>
-        <div className="hero-info">
-          <span className="hero-tag">Nueva Generación</span>
-          <h1 className="hero-title">Los mejores</h1>
-          <p className="hero-description">
-            Descubre el verdadero rendimiento gráfico y la potencia de procesamiento que tu setup necesita.
-          </p>
-          <div className="hero-actions-btn">
-            <a href="#shop" className="btn-primary">Explorar Tienda</a>
-            <a href="#clases" className="btn-secondary">Clases Gratuitas</a>
+    <section className="carousel-container">
+      <button className="carousel-arrow left" onClick={prevSlide} aria-label="Anterior banner">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <div 
+        className="carousel-track" 
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {BANNERS.map(banner => (
+          <div className="carousel-slide" key={banner.id}>
+            <img src={banner.image} alt={banner.alt} className="carousel-image" />
           </div>
-        </div>
-      </section>
-
-      <section id="shop" className="products-section">
-        <div className="section-header">
-          <h2 className="section-title">Componentes Destacados</h2>
-          <div className="section-line"></div>
-        </div>
-
-        <div className="products-grid">
-          <div className="product-card">
-            <div className="product-image-container">
-              <img src={logoImg} alt="Producto" className="product-image" />
-              <button className="product-wishlist-btn" aria-label="Añadir a favoritos">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-              </button>
-            </div>
-            <div className="product-details">
-              <span className="product-category">Tarjetas Gráficas</span>
-              <h3 className="product-name">Nvidia RTX 4090 Ti FE</h3>
-              <div className="product-footer">
-                <span className="product-price">$1,499.00</span>
-                <button className="product-add-cart-btn" aria-label="Añadir al carrito">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
-}
+        ))}
+      </div>
+      <button className="carousel-arrow right" onClick={nextSlide} aria-label="Siguiente banner">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <div className="carousel-dots">
+        {BANNERS.map((_, index) => (
+          <button
+            key={index} 
+            className={`carousel-dot ${index === currentIndex ? "active" : ""}`}
+            onClick={() => setCurrentIndex(index)}
+            aria-label={`Ir al banner ${index + 1}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};

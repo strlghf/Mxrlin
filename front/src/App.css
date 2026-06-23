@@ -1,0 +1,21 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 70px;
+  min-height: 100vh;
+}
+
+.products-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 4%;
+  box-sizing: border-box;
+}
+
+.best-seller {
+  color: 'antiquewhite';
+  text-align: 'center';
+  margin: '40px 0 20px';
+  font-size: '2rem';
+}
