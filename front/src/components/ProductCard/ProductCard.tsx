@@ -1,5 +1,6 @@
 import type { Product } from "../../types/types";
 import "./ProductCard.css";
+import { Link } from "react-router";
 
 export function ProductCard ({ product }: { product: Product }) {
   return (
@@ -8,7 +9,7 @@ export function ProductCard ({ product }: { product: Product }) {
       <h3>{product.name}</h3>
       <p className="price">$ {product.price}</p>
       <div className="product-actions">
-        <button className="btn-secondary">Ver Producto</button>
+        <Link to={`/api/products/${product.id}`}><button className="btn-secondary">Ver Producto</button></Link>
         <button className="btn-primary">Añadir al Carrito</button>
       </div>
     </li>

@@ -2,6 +2,7 @@ import "./Header.css";
 import { useRef, type ChangeEvent, type Dispatch, type FormEvent } from "react";
 import logoImg from "../../img/kl.jpg";
 import { useScrolling } from "../../hooks/useScrolling";
+import { Link } from "react-router";
 
 interface HeaderProps {
   search: string;
@@ -25,9 +26,9 @@ export function Header ({ search, setSearch, handleSearchSubmit }: HeaderProps) 
 
   return (
     <header className={`main-header ${!visible ? "header-hidden" : ""}`}>
-      <a href="#" className="header-logo">
+      <Link to={"/"} className="header-logo">
         <img src={logoImg} alt="Home" />
-      </a>
+      </Link>
       <form className="header-search-form" onSubmit={handleSearchSubmit}>
         <input
           type="text"
