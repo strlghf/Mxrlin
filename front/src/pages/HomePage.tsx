@@ -5,7 +5,7 @@ import { Footer } from "../components/Footer";
 import { useSearch } from "../hooks/useSearch";
 
 export function HomePage () {
-  const { search, setSearch, debouncedSearch, handleSearchSubmit } = useSearch(300);
+  const { search, setSearch, handleSearchSubmit } = useSearch();
 
   return (
     <div className="home-page">
@@ -16,11 +16,10 @@ export function HomePage () {
       />
       <main className="main-content">
         <Hero />
-        
         <section className="products-section">
           <h2 className="best-seller">Best Sellers</h2>
           <div className="products-grid">
-            <Products search={debouncedSearch} />
+            <Products search="" />
           </div>
         </section>
       </main>

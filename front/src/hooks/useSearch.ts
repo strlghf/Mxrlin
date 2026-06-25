@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, type FormEvent } from "react";
+import { useNavigate } from "react-router";
 
-export const useSearch = (delay = 500) => {
-  const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+export const useSearch = (initialValue = "") => {
+  const [search, setSearch] = useState(initialValue)
+  const navigate = useNavigate();
   const firstInput = useRef(true);
 
   useEffect(() => {
@@ -10,28 +11,19 @@ export const useSearch = (delay = 500) => {
       firstInput.current = search === "";
       return;
     }
-
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [search, delay]);
-
-  // useEffect(() => {
-  //   if (!debouncedSearch || debouncedSearch.trim() === "") return;
-
-  //   // Api fetch call goes here;
-  // }, [debouncedSearch]);
+  }, [search]);
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const query = search.trim();
 
-    if (!query) return;
-
-    setDebouncedSearch(query);
+    if (!query) {
+      navigate("/api/products");
+    } else {
+      navigate(`/api/products?search=${encodeURIComponent(query)}`);
+    }
   }
 
-  return { search, setSearch, debouncedSearch, handleSearchSubmit }
+  return { search, setSearch, handleSearchSubmit }
 }

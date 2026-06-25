@@ -1,6 +1,6 @@
 import type { Product } from "../../types/types";
-import "./ProductCard.css";
 import { Link } from "react-router";
+import "./ProductCard.css";
 
 export function ProductCard ({ product }: { product: Product }) {
   return (
