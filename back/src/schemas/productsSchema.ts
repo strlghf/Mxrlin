@@ -5,6 +5,7 @@ export const productModelSchema = z.object({
   name: z.string().min(3).max(48),
   price: z.coerce.number().positive(),
   img: z.string().max(200),
+  category: z.string().min(3).max(48),
   stock: z.number().int().nonnegative(),
   created_at: z.string().date().optional()
 });
@@ -28,6 +29,7 @@ export const createProductSchema = z.object({
     name: z.string().min(3).max(48).trim(),
     price: z.coerce.number().positive(),
     img: z.string().max(200),
+    category: z.string().min(3).max(48).trim(),
     stock: z.number().int().nonnegative()
   })
 });
@@ -37,6 +39,7 @@ export const updateProductSchema = z.object({
     name: z.string().min(3).max(48).trim().optional(),
     price: z.coerce.number().positive().optional(),
     img: z.string().max(200).optional(),
+    category: z.string().min(3).max(48).trim().optional(),
     stock: z.number().int().nonnegative().optional()
   })
 });

@@ -1,7 +1,7 @@
 import { prisma } from "../db/prisma";
 import type { GetProductIdDto, CreateProductDto, UpdateProductDto } from "../schemas/productsSchema";
 
-const productSelect = { id: true, name: true, price: true, img: true, stock: true, created_at: true } as const;
+const productSelect = { id: true, name: true, price: true, img: true, category: true, stock: true, created_at: true } as const;
 
 export async function getProductsService (page: number, limit: number, search?: string) {
   const skip = (page - 1) * limit;
