@@ -9,7 +9,6 @@ const router = Router();
 
 const resolveIdMiddleware = resolveEntity(prisma.orders, orderModelSchema, "order");
 
-router.get("/", );
 router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getOrderById);
 router.post("/", validateRequest(createOrderSchema), createOrder);
 router.put("/:id", validateRequest(idParamSchema.merge(updateOrderSchema)), resolveIdMiddleware);
