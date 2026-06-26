@@ -2,24 +2,26 @@ import { prisma } from "../db/prisma";
 import type { GetOrderIdDto } from "../schemas/ordersSchema";
 
 interface OrderItemInput {
-  productId: number;
+  product_id: number;
   quantity: number;
 }
+
+type OrderStatus = "pending" | "paid" | "cancelled";
 
 export async function getOrderService () {
 
 }
 
-export async function createOrderService (userId: number, items: OrderItemInput[]) {
+export async function createOrderService (userId: GetOrderIdDto, items: OrderItemInput[]) {
   return await prisma.$transaction(async tx => {
     for (const item of items) {
       const product = await tx.products.findUnique({
-        where: { id: item.productId },
-        select: { id: true, stock: true, price: true, name: true }
+        where: { id: item.product_id },
+        select: { id: true, name: true, price: true, img: true, stock: true }
       });
 
       if (!product) {
-        throw new Error(`Product with id ${item.productId} not found`);
+        throw new Error(`Product with id ${item.product_id} not found`);
       }
 
       if (product.stock < item.quantity) {
@@ -27,18 +29,18 @@ export async function createOrderService (userId: number, items: OrderItemInput[
       }
 
       await tx.products.update({
-        where: { id: item.productId },
+        where: { id: item.product_id },
         data: { stock: product.stock - item.quantity }
       });
     }
 
     const productRecords = await tx.products.findMany({
-      where: { id: { in: items.map(i => i.productId) } }
+      where: { id: { in: items.map(i => i.product_id) } }
     });
 
     const total = items.reduce((sum, item) => {
-      const prod = productRecords.find(p => p.id === item.productId);
-      return sum + (prod ? Number(prod.price) * item.quantity : 0);
+      const prod = productRecords.find(p => p.id === item.product_id);
+      return sum + (prod ? +prod.price * item.quantity : 0);
     }, 0);
 
     const order = await tx.orders.create({
@@ -47,10 +49,10 @@ export async function createOrderService (userId: number, items: OrderItemInput[
         total,
         orders_items: {
           create: items.map(item => {
-            const currentPrice = productRecords.find(p => p.id === item.productId)?.price || 0;
+            const currentPrice = productRecords.find(p => p.id === item.product_id)?.price || 0;
 
             return {
-              productId: item.productId,
+              product_id: item.product_id,
               quantity: item.quantity,
               price_at_purchase: currentPrice
             }
@@ -66,8 +68,19 @@ export async function createOrderService (userId: number, items: OrderItemInput[
   });
 }
 
-export async function deleteOrderService (id: GetOrderIdDto) {
-  return await prisma.orders.delete({
-    where: { id }
-  })
-}
+// export async function updateOrderStatusService (orderId: GetOrderIdDto, newStatus: OrderStatus) {
+//   const order = await prisma.orders.findUnique({
+//     where: { id: orderId }
+//   })
+
+//   if (!order) {
+//     throw new Error("Order not found");
+//   }
+
+//   const updatedOrder = await prisma.orders.update({
+//     where: { id: orderId },
+//     data: {
+      
+//     }
+//   })
+// }

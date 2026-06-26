@@ -1,12 +1,12 @@
 import { prisma } from "../db/prisma";
-import type { GetProductsQueryDto, GetProductIdDto, CreateProductDto, UpdateProductDto } from "../schemas/productsSchema";
+import type { GetProductIdDto, CreateProductDto, UpdateProductDto } from "../schemas/productsSchema";
 
 const productSelect = { id: true, name: true, price: true, img: true, stock: true, created_at: true } as const;
 
 export async function getProductsService (page: number, limit: number, search?: string) {
   const skip = (page - 1) * limit;
 
-  if (search) {
+  if (search?.trim()) {
     const [products, totalCount] = await prisma.$transaction([
       prisma.products.findMany({
         skip,

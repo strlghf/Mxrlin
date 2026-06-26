@@ -4,14 +4,14 @@ export const orderModelSchema = z.object({
   id: z.number().int().positive(),
   user_id: z.number().int().positive(),
   total: z.coerce.number().positive(),
-  created_at: z.string().datetime()
+  created_at: z.string().date().optional()
 });
 
 export const getOrdersSchema = z.object({
   id: z.number().int().positive(),
   user_id: z.number().int().positive(),
   total: z.coerce.number().positive()
-})
+});
 
 export const idParamSchema = z.object({
   params: z.object({
@@ -32,19 +32,15 @@ export const createOrderSchema = z.object({
   })
 });
 
-export const updateOrderSchema = z.object({
+export const updateOrderStatusSchema = z.object({
   body: z.object({
-    user_id: z.number().int().positive("User ID must be valid"),
-    items: z.array(
-      z.object({
-        product_id: z.number().int().positive("Product ID must be valid"),
-        quantity: z.number().int().positive("Quantity must be at least 1")
-      })
-    ).min(1, "You must provide at least one item to update")
+    status: z.enum(["pending", "paid", "canceled"], {
+      error: () => ({ message: "Status must be pending, paid or cancelled" })
+    })
   })
 });
 
 export type OrderInstance = z.infer<typeof orderModelSchema>;
 export type GetOrderIdDto = z.infer<typeof idParamSchema>["params"]["id"];
 export type CreateOrderDto = z.infer<typeof createOrderSchema>["body"];
-export type UpdateProductDto = z.infer<typeof updateOrderSchema>["body"];
+export type UpdateProductDto = z.infer<typeof updateOrderStatusSchema>["body"];

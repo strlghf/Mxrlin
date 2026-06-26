@@ -44,12 +44,11 @@ export async function createUser (req: Request, res: Response, next: NextFunctio
 }
 
 export async function updateUser (req: Request, res: Response, next: NextFunction) {
-  const { id } = req.params;
   const { body } = req;
+  const { id } = req.user;
 
   try {
-    const parsedId = Number(id);
-    const updatedUser = await updateUserService(parsedId, body);
+    const updatedUser = await updateUserService(id, body);
 
     return res.status(200).json({
       success: true,
@@ -62,11 +61,10 @@ export async function updateUser (req: Request, res: Response, next: NextFunctio
 }
 
 export async function deleteUser (req: Request, res: Response, next: NextFunction) {
-  const { id } = req.params;
+  const { id } = req.user;
 
   try {
-    const parsedId = Number(id);
-    await deleteUserService(parsedId);
+    await deleteUserService(id);
 
     return res.status(204).end();
   } catch (error) {

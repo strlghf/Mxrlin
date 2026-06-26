@@ -6,7 +6,7 @@ export const productModelSchema = z.object({
   price: z.coerce.number().positive(),
   img: z.string().max(200),
   stock: z.number().int().nonnegative(),
-  created_at: z.string().datetime()
+  created_at: z.string().date().optional()
 });
 
 export const getProductsQuerySchema = z.object({

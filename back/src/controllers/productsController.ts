@@ -3,7 +3,7 @@ import type { GetProductsQueryDto } from "../schemas/productsSchema";
 import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/productsServices";
 
 export async function getProducts (req: Request, res: Response, next: NextFunction) {
-  const { page, limit, search } = req.query as unknown as GetProductsQueryDto;
+  const { page, limit, search } = req.query as Partial<GetProductsQueryDto>;
   
   try {
     const products = await getProductsService(page || 1, limit || 10, search);
@@ -43,12 +43,11 @@ export async function createProduct (req: Request, res: Response, next: NextFunc
 }
 
 export async function updateProduct (req: Request, res: Response, next: NextFunction) {
-  const { id } = req.params;
   const { body } = req;
+  const { id } = req.product;
 
   try {
-    const parsedId = Number(id);
-    const updatedProduct = await updateProductService(parsedId, body);
+    const updatedProduct = await updateProductService(id, body);
 
     return res.status(200).json({
       success: true,
@@ -61,11 +60,10 @@ export async function updateProduct (req: Request, res: Response, next: NextFunc
 }
 
 export async function deleteProduct (req: Request, res: Response, next: NextFunction) {
-  const { id } = req.params;
+  const { id } = req.product;
 
   try {
-    const parsedId = Number(id);
-    await deleteProductService(parsedId);
+    await deleteProductService(id);
 
     return res.status(204).end();
   } catch (error) {

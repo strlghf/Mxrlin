@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import type { CreateOrderDto } from "../schemas/ordersSchema";
-import { createOrderService, deleteOrderService } from "../services/ordersServices";
+import { createOrderService } from "../services/ordersServices";
 
 export async function getOrderById (req: Request, res: Response, next: NextFunction) {
   const { order } = req;
@@ -12,10 +12,10 @@ export async function getOrderById (req: Request, res: Response, next: NextFunct
 }
 
 export async function createOrder (req: Request, res: Response, next: NextFunction) {
-  const { userId, items } = req.body as CreateOrderDto;
+  const { user_id, items } = req.body as CreateOrderDto;
 
   try {
-    const newOrder = await createOrderService(userId, items);
+    const newOrder = await createOrderService(user_id, items);
 
     return res.status(201).json({
       success: true,
@@ -26,19 +26,6 @@ export async function createOrder (req: Request, res: Response, next: NextFuncti
   }
 }
 
-export async function updateOrder (req: Request, res: Response, next: NextFunction) {
-  
-}
-
-export async function deleteOrder (req: Request, res: Response, next: NextFunction){
-  const { id } = req.params;
-
-  try {
-    const parsedId = Number(id);
-    await deleteOrderService(parsedId);
-
-    return res.status(204).end();
-  } catch (error) {
-    return next(error);
-  }
+export async function statusOrder (req: Request, res: Response, next: NextFunction) {
+  const { order } = req;
 }
