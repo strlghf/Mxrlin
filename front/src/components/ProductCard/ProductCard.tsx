@@ -16,8 +16,8 @@ export function ProductCard ({ product }: { product: Product }) {
   const formattedPrice = clpFormatter.format(product.price);
   const formattedFee = clpFormatter.format(fee);
 
-  const productStock = product.stock < 5 ? `Sólo quedan ${product.stock} unidades` : null;
-  
+  const productStock = product.stock < 5 ? `Sólo quedan ${product.stock} unidades` : "Disponible";
+
   return (
     <li className="product">
       <button 

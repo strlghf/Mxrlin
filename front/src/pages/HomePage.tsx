@@ -17,7 +17,7 @@ export function HomePage () {
       <main className="main-content">
         <Hero />
         <section className="products-section">
-          <h2 className="best-seller">Best Sellers</h2>
+          <h2 className="best-seller">Te recomendamos</h2>
           <div className="products-grid">
             <Products search="" />
           </div>

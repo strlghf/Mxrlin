@@ -1,5 +1,6 @@
 .main-content {
   display: flex;
+  background-color: #0f0f0f;
   flex-direction: column;
   padding-top: 70px;
   min-height: 75vh;
@@ -13,16 +14,20 @@
   box-sizing: border-box;
 }
 
-.best-seller {
-  color: 'antiquewhite';
-  text-align: 'center';
-  margin: '40px 0 20px';
-  font-size: '2rem';
+.hardware-text {
+  color: rgba(0, 255, 102, .7);
 }
 
+/* .best-seller {
+  color: antiquewhite;
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 2rem;
+} */
+
 .hardware-catalog {
-  color: 'antiquewhite';
-  text-align: 'center';
-  margin: '40px 0 20px';
-  font-size: '2rem';
+  color: antiquewhite;
+  text-align: start;
+  margin: 30px 0;
+  font-size: 20px;
 }

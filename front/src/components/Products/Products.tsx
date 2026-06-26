@@ -20,6 +20,14 @@ export function Products ({ search }: { search: string }) {
     )
   }
 
+  if (products.length === 0) {
+    return (
+      <div>
+        <p>No hay resultados para tu búsqueda</p>
+      </div>
+    )
+  }
+
   return (
     <ul className="products">
       {products.map(product => (

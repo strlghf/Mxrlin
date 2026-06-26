@@ -18,7 +18,7 @@ export function ProductsPage () {
       <main className="main-content">
         <section className="products-section">
           <h2 className="hardware-catalog">
-            Hardware Catalog
+            Resultados de la búsqueda
           </h2>
           <Products search={searchQuery} />
         </section>
