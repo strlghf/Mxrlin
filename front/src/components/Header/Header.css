@@ -11,7 +11,7 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
-  transition: transform .2s ease-in-out, background-color .2s ease;
+  transition: transform .4s ease-in-out, background-color .2s ease;
 }
 
 .main-header.header-hidden {

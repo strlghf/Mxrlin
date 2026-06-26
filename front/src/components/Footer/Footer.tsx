@@ -10,7 +10,7 @@ export function Footer () {
           <a href="/contact" className="footer-link-item">Contact</a>
         </div>
         <p className="copyright-text">
-          &copy; 2026 Mxrlin. All rights reserved.
+          &copy; 2026 strlghf. All rights reserved.
         </p>
       </div>
     </footer>

@@ -4,9 +4,21 @@ import { ProductCard } from "../ProductCard";
 export function Products ({ search }: { search: string }) {
   const { products, loading, error } = useFetchProducts(search);
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>Ha ocurrido un error</p>;
-  if (!products.length) return <p>No se han encontrado productos</p>;
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>{error.message}</p>
+      </div>
+    )
+  }
 
   return (
     <ul className="products">
