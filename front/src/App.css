@@ -14,20 +14,9 @@
   box-sizing: border-box;
 }
 
-.hardware-text {
-  color: rgba(0, 255, 102, .7);
-}
-
-/* .best-seller {
-  color: antiquewhite;
-  text-align: center;
-  margin: 40px 0 20px;
-  font-size: 2rem;
-} */
-
 .hardware-catalog {
   color: antiquewhite;
   text-align: start;
-  margin: 30px 0;
+  margin: 20px 0;
   font-size: 20px;
 }

@@ -52,7 +52,7 @@
 }
 
 .product:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   box-shadow: 0 0 12px rgba(0, 255, 102, .2);
   transition: .2s ease;
 }
@@ -87,11 +87,15 @@
   margin: 0 0 12px 0;
   flex-grow: 1;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .product .price {
   color: #bdbdbd;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: -.5px;
   margin: 0;
