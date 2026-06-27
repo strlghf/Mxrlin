@@ -6,11 +6,7 @@ interface OrderItemInput {
   quantity: number;
 }
 
-type OrderStatus = "pending" | "paid" | "cancelled";
-
-export async function getOrderService () {
-
-}
+type OrderStatus = "pending" | "paid" | "canceled";
 
 export async function createOrderService (userId: GetOrderIdDto, items: OrderItemInput[]) {
   return await prisma.$transaction(async tx => {
@@ -68,19 +64,20 @@ export async function createOrderService (userId: GetOrderIdDto, items: OrderIte
   });
 }
 
-// export async function updateOrderStatusService (orderId: GetOrderIdDto, newStatus: OrderStatus) {
-//   const order = await prisma.orders.findUnique({
-//     where: { id: orderId }
-//   })
+export async function updateOrderStatusService (orderId: GetOrderIdDto, newStatus: OrderStatus) {
+  const updatedOrder = await prisma.orders.update({
+    where: { id: orderId },
+    data: {
+      status: newStatus
+    },
+    include: {
+      orders_items: true
+    }
+  })
 
-//   if (!order) {
-//     throw new Error("Order not found");
-//   }
+  if (updatedOrder.status === "paid") {
+    throw new Error("Paid orders cannot be modified");
+  }
 
-//   const updatedOrder = await prisma.orders.update({
-//     where: { id: orderId },
-//     data: {
-      
-//     }
-//   })
-// }
+  return updatedOrder;
+}
