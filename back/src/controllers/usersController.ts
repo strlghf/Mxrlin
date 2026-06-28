@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { getUsersService, createUserService, updateUserService, deleteUserService } from "../services/usersServices";
+import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/usersServices";
 
 type filterUsers = "name" | "email";
 
@@ -27,8 +27,19 @@ export async function getUserById (req: Request, res: Response) {
   });
 }
 
-export async function getUserOrders (req: Request, res: Response) {
-  
+export async function getUserOrders (req: Request, res: Response, next: NextFunction) {
+  const { id } = req.user;
+
+  try {
+    const orders = await getUserOrdersService(id);
+
+    return res.status(200).json({
+      success: true,
+      data: orders
+    });
+  } catch (error) {
+    return next(error);
+  }
 }
 
 export async function createUser (req: Request, res: Response, next: NextFunction) {

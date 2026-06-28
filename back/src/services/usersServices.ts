@@ -18,8 +18,28 @@ export async function getUsersService (filter?: GetUsersQueryDto["filter"], valu
   });
 }
 
-export async function getUserOrdersService () {
-  
+export async function getUserOrdersService (userId: GetUserIdDto) {
+  const userExists = await prisma.users.findUnique({
+    where: { id: userId }
+  })
+
+  if (!userExists) {
+    throw new Error("User not found");
+  }
+
+  const orders = await prisma.orders.findMany({
+    where: {
+      user_id: userId
+    },
+    include: {
+      orders_items: true
+    },
+    orderBy: {
+      created_at: "desc"
+    }
+  })
+
+  return orders;
 }
 
 export async function createUserService (userData: CreateUserDto) {
