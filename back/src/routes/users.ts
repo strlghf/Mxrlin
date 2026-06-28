@@ -11,7 +11,7 @@ const resolveIdMiddleware = resolveEntity(prisma.users, userModelSchema, "user")
 
 router.get("/", validateRequest(getUsersQuerySchema), getUsers);
 router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getUserById);
-router.get("/id/orders", resolveIdMiddleware, getUserOrders);
+router.get("/:id/orders", validateRequest(idParamSchema), resolveIdMiddleware, getUserOrders);
 router.post("/", validateRequest(createUserSchema), createUser);
 router.put("/:id", validateRequest(idParamSchema.merge(updateUserSchema)), resolveIdMiddleware, updateUser);
 router.patch("/:id", validateRequest(idParamSchema.merge(updateUserSchema)), resolveIdMiddleware, updateUser);
