@@ -7,7 +7,7 @@ export const productModelSchema = z.object({
   img: z.string().max(200),
   category: z.string().min(3).max(48),
   stock: z.number().int().nonnegative(),
-  created_at: z.string().date().optional()
+  created_at: z.date().optional()
 });
 
 export const getProductsQuerySchema = z.object({

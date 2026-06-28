@@ -5,7 +5,7 @@ export const orderModelSchema = z.object({
   user_id: z.number().int().positive(),
   total: z.coerce.number().positive(),
   status: z.enum(["pending", "paid", "canceled"]),
-  created_at: z.string().date().optional()
+  created_at: z.date().optional()
 });
 
 export const getOrdersSchema = z.object({
