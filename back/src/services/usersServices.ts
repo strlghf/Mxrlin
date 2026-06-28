@@ -18,6 +18,10 @@ export async function getUsersService (filter?: GetUsersQueryDto["filter"], valu
   });
 }
 
+export async function getUserOrdersService () {
+  
+}
+
 export async function createUserService (userData: CreateUserDto) {
   return await prisma.users.create({
     data: userData,

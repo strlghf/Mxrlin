@@ -27,6 +27,10 @@ export async function getUserById (req: Request, res: Response) {
   });
 }
 
+export async function getUserOrders (req: Request, res: Response) {
+  
+}
+
 export async function createUser (req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 
