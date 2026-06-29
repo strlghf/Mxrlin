@@ -40,6 +40,7 @@ export function ProductCard ({ product }: { product: Product }) {
       </div>
       
       <div className="product-actions">
+        {/* HERE COULD */}
         {/* <Link to={`/products/${product.id}`}><button className="card-link">Ver Producto</button></Link> */}
         {/* <button className="btn-primary">Añadir al Carrito</button> */}
       </div>
