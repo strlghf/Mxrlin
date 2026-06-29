@@ -24,7 +24,7 @@ export function Hero () {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentIndex(prev => prev === BANNERS.length - 1 ? 0 : prev + 1);
-    }, 6000);
+    }, 5000);
 
     return () => clearInterval(slideInterval);
   }, []);

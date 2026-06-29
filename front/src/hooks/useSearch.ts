@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, type FormEvent } from "react";
 import { useNavigate } from "react-router";
 
 export const useSearch = (initialValue = "") => {
-  const [search, setSearch] = useState(initialValue)
+  const [search, setSearch] = useState(initialValue);
   const navigate = useNavigate();
   const firstInput = useRef(true);
 
@@ -18,11 +18,9 @@ export const useSearch = (initialValue = "") => {
 
     const query = search.trim();
 
-    if (!query) {
-      navigate("/api/products");
-    } else {
-      navigate(`/api/products?search=${encodeURIComponent(query)}`);
-    }
+    if (!query) return;
+    
+    navigate(`/products?search=${encodeURIComponent(query)}`);
   }
 
   return { search, setSearch, handleSearchSubmit }
