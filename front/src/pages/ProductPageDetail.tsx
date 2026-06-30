@@ -28,7 +28,7 @@ export function ProductPageDetail () {
   }
   
   const clpFormatter = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 });
-  const formattedPrice = clpFormatter.format(product.price);
+  const formattedPrice = clpFormatter.format(products.price / 6);
   const formattedCuota = clpFormatter.format(Math.round(product.price / 6));
 
   return (

@@ -22,7 +22,7 @@ export const useFetchProducts = (search: string) => {
         setError(null);
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
-          setError(err as Error)
+          setError(err as Error);
         }
       } finally {
         setLoading(false);
