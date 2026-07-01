@@ -3,6 +3,12 @@ import type { CreateOrderDto } from "../schemas/ordersSchema";
 import { createOrderService, updateOrderStatusService } from "../services/ordersServices";
 import type { OrderStatus } from "../../generated/prisma/enums";
 
+const transitions: Record<OrderStatus, OrderStatus[]> = {
+    pending: ["paid", "cancelled"],
+    paid: [],
+    cancelled: []
+};
+
 export async function getOrderById (req: Request, res: Response) {
   const { order } = req;
 
@@ -31,12 +37,6 @@ export async function updateOrderStatus (req: Request, res: Response, next: Next
   const { id } = req.order;
   const { order } = req;
   const { status } = req.body;
-
-  const transitions: Record<OrderStatus, OrderStatus[]> = {
-      pending: ["paid", "cancelled"],
-      paid: [],
-      cancelled: []
-  };
 
   try {
     if (!order) {

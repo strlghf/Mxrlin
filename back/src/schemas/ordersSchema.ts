@@ -30,6 +30,14 @@ export const createOrderSchema = z.object({
       })
     ).min(1, "Order must contain at least 1 item")
     .max(10, "Too many items in a single order")
+    .refine(items => {
+      const productIds = items.map(item => item.product_id);
+
+      const uniqueIds = new Set(productIds);
+      return uniqueIds.size === productIds.length;
+    }, {
+      message: "Duplicate product IDs are not allowed in the same order"
+    })
   })
 });
 

@@ -33,8 +33,10 @@ export async function createOrderService (userId: GetOrderIdDto, items: OrderIte
       where: { id: { in: items.map(i => i.product_id) } }
     });
 
+    const productMap = new Map(productRecords.map(p => [p.id, p]));
+
     const total = items.reduce((sum, item) => {
-      const prod = productRecords.find(p => p.id === item.product_id);
+      const prod = productMap.get(item.product_id);
       return sum + (prod ? Number(prod.price) * item.quantity : 0);
     }, 0);
 
@@ -44,7 +46,7 @@ export async function createOrderService (userId: GetOrderIdDto, items: OrderIte
         total,
         orders_items: {
           create: items.map(item => {
-            const currentPrice = productRecords.find(p => p.id === item.product_id)?.price || 0;
+            const currentPrice = productMap.get(item.product_id)?.price || 0;
 
             return {
               product_id: item.product_id,
@@ -64,13 +66,29 @@ export async function createOrderService (userId: GetOrderIdDto, items: OrderIte
 }
 
 export async function updateOrderStatusService (orderId: GetOrderIdDto, newStatus: OrderStatus) {
-  return await prisma.orders.update({
+  // debería ir dentro de $transaction
+  if (newStatus === "cancelled") {
+    await prisma.$transaction(async tx => {
+      const items = await tx.orders_items.findMany({
+        where: { order_id: orderId }
+      });
+
+      for (const item of items) {
+        if (item.product_id) {
+          await tx.products.update({
+            where: { id: item.product_id },
+            data: { stock: { increment: item.quantity } }
+          });
+        }
+      }
+    });
+  }
+  
+  const updatedOrder = await prisma.orders.update({
     where: { id: orderId },
-    data: {
-      status: newStatus
-    },
-    include: {
-      orders_items: true
-    }
+    data: { status: newStatus },
+    include: { orders_items: true }
   });
+
+  return updatedOrder;
 }
