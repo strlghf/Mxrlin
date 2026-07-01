@@ -34,5 +34,5 @@ export const useFetchProducts = (search: string) => {
     return () => controller.abort();
   }, [search]);
 
-  return { products, loading, error }
+  return { products, loading, error, pagination }
 }

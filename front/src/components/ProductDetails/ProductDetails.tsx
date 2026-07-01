@@ -8,7 +8,15 @@ export function ProductDetails ({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [favorite, setFavorite] = useState(false);
 
-  const { products, error } = useFetchProducts(`${id}`);
+  const { products, loading, error } = useFetchProducts(`${id}`);
+
+  if (loading) {
+    return (
+      <div className="detail-loading">
+        <div className="detail-spinner"></div>
+      </div>
+    );
+  }
 
   if (!products) {
     return (
