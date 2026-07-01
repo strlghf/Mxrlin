@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const userModelSchema = z.object({
   id: z.number().int().positive(),
-  role: z.enum(["admin", "user"]),
+  role: z.enum(["admin", "customer"]),
   name: z.string().min(3).max(48),
   password: z.string().min(8).max(48),
   email: z.string().email().max(70),

@@ -2,7 +2,7 @@
 import { prisma } from "../db/prisma";
 import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/usersSchema";
 
-const userSelect = { id: true, name: true, email: true, created_at: true } as const;
+const userSelect = { id: true, role: true, name: true, password: true, email: true, created_at: true } as const;
 
 export async function getUsersService (filter?: GetUsersQueryDto["filter"], value?: string) {
   if (filter && value) {
@@ -21,15 +21,9 @@ export async function getUsersService (filter?: GetUsersQueryDto["filter"], valu
 
 export async function getUserOrdersService (userId: GetUserIdDto) {
   return await prisma.orders.findMany({
-    where: {
-      user_id: userId
-    },
-    include: {
-      orders_items: true
-    },
-    orderBy: {
-      created_at: "desc"
-    }
+    where: { user_id: userId },
+    include: { orders_items: true },
+    orderBy: { created_at: "desc" }
   });
 }
 
