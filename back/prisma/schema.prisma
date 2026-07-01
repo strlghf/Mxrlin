@@ -52,9 +52,16 @@ model products {
   @@index([name], map: "idx_products_name")
 }
 
+enum Role {
+  admin
+  customer
+}
+
 model users {
   id         Int       @id @default(autoincrement())
+  role       Role      @default(customer)
   name       String    @db.VarChar(48)
+  password   String    @db.VarChar(48)
   email      String    @unique @db.VarChar(70)
   created_at DateTime? @default(now()) @db.Timestamp(6)
   orders     orders[]
