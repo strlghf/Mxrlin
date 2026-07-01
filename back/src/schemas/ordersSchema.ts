@@ -4,7 +4,7 @@ export const orderModelSchema = z.object({
   id: z.number().int().positive(),
   user_id: z.number().int().positive(),
   total: z.coerce.number().positive(),
-  status: z.enum(["pending", "paid", "canceled"]),
+  status: z.enum(["pending", "paid", "cancelled"]),
   created_at: z.date().optional()
 });
 
@@ -35,7 +35,7 @@ export const createOrderSchema = z.object({
 
 export const updateOrderStatusSchema = z.object({
   body: z.object({
-    status: z.enum(["pending", "paid", "canceled"], {
+    status: z.enum(["pending", "paid", "cancelled"], {
       error: () => ({ message: "Status must be pending, paid or cancelled" })
     })
   })

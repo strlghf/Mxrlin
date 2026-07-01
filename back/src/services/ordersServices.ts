@@ -6,7 +6,7 @@ interface OrderItemInput {
   quantity: number;
 }
 
-type OrderStatus = "pending" | "paid" | "canceled";
+type OrderStatus = "pending" | "paid" | "cancelled";
 
 export async function createOrderService (userId: GetOrderIdDto, items: OrderItemInput[]) {
   return await prisma.$transaction(async tx => {
