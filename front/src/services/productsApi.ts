@@ -1,4 +1,4 @@
-import type { ProductsResponse } from "../types/types";
+import type { Product, ProductsResponse } from "../types/types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -14,6 +14,20 @@ export async function getProducts(
   }
 
   const result: ProductsResponse = await response.json();
+
+  return result;
+}
+
+export async function getProductById(
+  id: string,
+  signal?: AbortSignal
+): Promise<Product> {
+  const response = await fetch(`${API_URL}/api/products/${id}`, { signal });
+  if (!response.ok) {
+    throw new Error("Error fetching products");
+  }
+
+  const result: Product = await response.json();
 
   return result;
 }

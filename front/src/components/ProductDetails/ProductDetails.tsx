@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
-import { useFetchProducts } from "../../hooks/useFetchProducts";
-import type { Product } from "../../types/types";
+import { useFetchProduct } from "../../hooks/useFetchProduct";
 
-export function ProductDetails ({ product }: { product: Product }) {
+export function ProductDetails () {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [favorite, setFavorite] = useState(false);
 
-  const { products, loading, error } = useFetchProducts(`${id}`);
+  const { product, loading, error } = useFetchProduct(id as string);
 
   if (loading) {
     return (
@@ -18,7 +17,7 @@ export function ProductDetails ({ product }: { product: Product }) {
     );
   }
 
-  if (!products) {
+  if (!product) {
     return (
       <div className="detail-error">
         <h2>{error ? 'Error de conexión' : 'Producto no encontrado'}</h2>
