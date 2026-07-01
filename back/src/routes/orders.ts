@@ -11,6 +11,6 @@ const resolveIdMiddleware = resolveEntity(prisma.orders, orderModelSchema, "orde
 
 router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getOrderById);
 router.post("/", validateRequest(createOrderSchema), createOrder);
-router.patch("/:id/status", validateRequest(updateOrderStatusSchema), resolveIdMiddleware, updateOrderStatus);
+router.patch("/:id/status", validateRequest(idParamSchema.merge(updateOrderStatusSchema)), resolveIdMiddleware, updateOrderStatus);
 
 export default router;

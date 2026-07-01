@@ -1,12 +1,11 @@
 import { prisma } from "../db/prisma";
 import type { GetOrderIdDto } from "../schemas/ordersSchema";
+import type { OrderStatus } from "../../generated/prisma/enums";
 
 interface OrderItemInput {
   product_id: number;
   quantity: number;
 }
-
-type OrderStatus = "pending" | "paid" | "cancelled";
 
 export async function createOrderService (userId: GetOrderIdDto, items: OrderItemInput[]) {
   return await prisma.$transaction(async tx => {
@@ -36,7 +35,7 @@ export async function createOrderService (userId: GetOrderIdDto, items: OrderIte
 
     const total = items.reduce((sum, item) => {
       const prod = productRecords.find(p => p.id === item.product_id);
-      return sum + (prod ? +prod.price * item.quantity : 0);
+      return sum + (prod ? Number(prod.price) * item.quantity : 0);
     }, 0);
 
     const order = await tx.orders.create({
@@ -65,7 +64,7 @@ export async function createOrderService (userId: GetOrderIdDto, items: OrderIte
 }
 
 export async function updateOrderStatusService (orderId: GetOrderIdDto, newStatus: OrderStatus) {
-  const updatedOrder = await prisma.orders.update({
+  return await prisma.orders.update({
     where: { id: orderId },
     data: {
       status: newStatus
@@ -73,11 +72,5 @@ export async function updateOrderStatusService (orderId: GetOrderIdDto, newStatu
     include: {
       orders_items: true
     }
-  })
-
-  if (updatedOrder.status === "paid") {
-    throw new Error("Paid orders cannot be modified");
-  }
-
-  return updatedOrder;
+  });
 }

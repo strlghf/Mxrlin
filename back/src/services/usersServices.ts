@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { prisma } from "../db/prisma";
 import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/usersSchema";
 
@@ -19,15 +20,7 @@ export async function getUsersService (filter?: GetUsersQueryDto["filter"], valu
 }
 
 export async function getUserOrdersService (userId: GetUserIdDto) {
-  const userExists = await prisma.users.findUnique({
-    where: { id: userId }
-  })
-
-  if (!userExists) {
-    throw new Error("User not found");
-  }
-
-  const orders = await prisma.orders.findMany({
+  return await prisma.orders.findMany({
     where: {
       user_id: userId
     },
@@ -37,9 +30,7 @@ export async function getUserOrdersService (userId: GetUserIdDto) {
     orderBy: {
       created_at: "desc"
     }
-  })
-
-  return orders;
+  });
 }
 
 export async function createUserService (userData: CreateUserDto) {
