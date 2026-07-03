@@ -3,16 +3,20 @@ import { errorHandler } from "./middlewares/errorHandler";
 import routes from "./routes";
 import "dotenv/config";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT ?? 3031;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  { credentials: true, origin: process.env.CLIENT_URL },
+));
+app.use(cookieParser());
 app.use(routes);
 
 app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Hello World" })
+  res.status(200).json({ msg: "Hello World" });
 });
 
 app.use(errorHandler);

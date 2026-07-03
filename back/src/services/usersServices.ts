@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { prisma } from "../db/prisma";
 import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/usersSchema";
+import { hashPassword } from "../utils/helpers";
 
-const userSelect = { id: true, role: true, name: true, password: true, email: true, created_at: true } as const;
+const userSelect = { id: true, role: true, name: true, email: true, created_at: true } as const;
 
 export async function getUsersService (filter?: GetUsersQueryDto["filter"], value?: string) {
   if (filter && value) {
@@ -28,8 +29,14 @@ export async function getUserOrdersService (userId: GetUserIdDto) {
 }
 
 export async function createUserService (userData: CreateUserDto) {
+  const hashedPassword = await hashPassword(userData.password);
+
   return await prisma.users.create({
-    data: userData,
+    data: {
+      name: userData.name,
+      email: userData.email,
+      password: hashedPassword
+    },
     select: userSelect
   });
 }

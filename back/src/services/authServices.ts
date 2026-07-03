@@ -1,10 +1,9 @@
 import { prisma } from "../db/prisma";
 import jwt from "jsonwebtoken";
+import type { CreateUserDto } from "../schemas/usersSchema";
 
-export async function loginService (email: string, password: string) {
-  const user = await prisma.users.findUnique({ where: { email } });
-
-  if (!user) throw new Error("Invalid credentials");
+export async function registerService (userData: CreateUserDto) {
+  
 
   
 }
