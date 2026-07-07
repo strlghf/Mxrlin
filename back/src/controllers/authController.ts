@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { hashPassword, comparePassword } from "../utils/helpers";
 
+// Debe setear cookie
 export async function registerUser (req: Request, res: Response, next: NextFunction) {
   const { user } = req;
 
