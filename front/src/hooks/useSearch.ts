@@ -15,7 +15,6 @@ export const useSearch = (initialValue = "") => {
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const query = search.trim();
 
     if (!query) return;

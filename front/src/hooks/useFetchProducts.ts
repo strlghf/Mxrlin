@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProducts } from "../services/productsApi";
-import type { Product, Pagination } from "../types/types";
+import type { Product, Pagination } from "../types";
 
 export const useFetchProducts = (search: string) => {
   const [products, setProducts] = useState<Product[]>([]);

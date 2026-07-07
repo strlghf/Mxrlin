@@ -1,8 +1,8 @@
-import { getProductById } from "../services/productsApi";
-import type { Product } from "../types/types";
 import { useState, useEffect } from "react";
+import { getProductById } from "../services/productsApi";
+import type { Product } from "../types";
 
-export const useFetchProduct = (id: string) => {
+export const useFetchProductById = (id: string) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -16,6 +16,7 @@ export const useFetchProduct = (id: string) => {
 
     async function fetchData() {
       setLoading(true);
+
       try {
         const result = await getProductById(id, controller.signal);
         setProduct(result);
@@ -30,8 +31,9 @@ export const useFetchProduct = (id: string) => {
     }
 
     fetchData();
+    
     return () => controller.abort();
-  });
+  }, [id]);
 
   return { product, loading, error } 
 }

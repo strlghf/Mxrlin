@@ -1,13 +1,14 @@
+import "./ProductDetail.css";
 import { useState } from "react";
 import { Link, useParams } from "react-router";
-import { useFetchProduct } from "../../hooks/useFetchProduct";
+import { useFetchProductById } from "../../hooks/useFetchProductById";
 
 export function ProductDetails () {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [favorite, setFavorite] = useState(false);
 
-  const { product, loading, error } = useFetchProduct(id as string);
+  const { product, loading, error } = useFetchProductById(id as string);
 
   if (loading) {
     return (

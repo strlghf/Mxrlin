@@ -10,7 +10,7 @@ export interface Product {
 
 export interface ProductsResponse {
   data: Product[];
-  pagination: Pagination
+  pagination: Pagination;
 }
 
 interface Pagination {

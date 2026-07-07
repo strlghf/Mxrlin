@@ -1,6 +1,6 @@
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header"
-import { ProductDetails } from "../components/ProductDetails/ProductDetails";
+import { ProductDetails } from "../components/ProductDetails";
 import { useCustomParams } from "../hooks/useCustomParams";
 import { useSearch } from "../hooks/useSearch"
 
@@ -15,7 +15,7 @@ export function ProductPageDetail () {
         setSearch={setSearch}
         handleSearchSubmit={handleSearchSubmit}
       />
-      <ProductDetails product={} />
+      <ProductDetails />
       <Footer />
     </div>
   )
