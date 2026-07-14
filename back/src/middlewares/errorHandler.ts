@@ -24,6 +24,13 @@ export function errorHandler(
     }
   }
 
+  if (err.message === "Invalid string") {
+    return res.status(401).json({
+      success: false,
+      error: "Unauthorized"
+    });
+  }
+
   console.error(`[Error Handler]`, err);
 
   return res.status(statusCode).json(responseBody);

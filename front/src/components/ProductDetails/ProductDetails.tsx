@@ -30,6 +30,7 @@ export function ProductDetails () {
   const clpFormatter = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 });
   const formattedPrice = clpFormatter.format(product.price / 6);
   const formattedFee = clpFormatter.format(Math.round(product.price / 6));
+  console.log(product.img);
 
   return (
     <main className="detail-container">

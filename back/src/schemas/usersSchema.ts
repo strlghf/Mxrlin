@@ -4,9 +4,16 @@ export const userModelSchema = z.object({
   id: z.number().int().positive(),
   role: z.enum(["admin", "customer"]),
   name: z.string().min(3).max(48),
-  password: z.string().min(8).max(48),
+  password: z.string().min(8).max(255),
   email: z.string().email().max(70),
   created_at: z.date().nullable().optional()
+});
+
+export const userAuthSchema = z.object({
+  body: z.object({
+    email: z.string().email().max(70),
+    password: z.string().min(8).max(255)
+  })
 });
 
 export const getUsersQuerySchema = z.object({
@@ -25,7 +32,7 @@ export const idParamSchema = z.object({
 export const createUserSchema = z.object({
   body: z.object({
     name: z.string().min(3, "Name required").max(48).trim(),
-    password: z.string().min(8, "Password must be at least 8 characters").max(48),
+    password: z.string().min(8, "Password must be at least 8 characters").max(255),
     email: z.string().email("Invalid email format").trim()
   })
 });
@@ -33,7 +40,7 @@ export const createUserSchema = z.object({
 export const updateUserSchema = z.object({
   body: z.object({
     name: z.string().min(3, "Name required").max(48).trim().optional(),
-    password: z.string().min(8, "Password must be at least 8 characters").max(48).optional(),
+    password: z.string().min(8, "Password must be at least 8 characters").max(255).optional(),
     email: z.string().email("Invalid email format").trim().optional()
   })
 });

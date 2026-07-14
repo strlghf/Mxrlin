@@ -1,42 +1,58 @@
 import type { Request, Response, NextFunction } from "express";
-import { hashPassword, comparePassword } from "../utils/helpers";
+import { loginService, registerService } from "../services/authServices";
+import "dotenv/config";
 
 // Debe setear cookie
 export async function registerUser (req: Request, res: Response, next: NextFunction) {
-  const { user } = req;
-
-  if (!user) {
-    throw new Error("Username doesn't exist");
-  }
+  const { body } = req;
 
   try {
-    const hashedPassword = await hashPassword(user.password);
-    const isValid = await comparePassword(user.password, hashedPassword);
+    const { newUser, token } = await registerService(body);
 
-    if (!isValid) throw new Error("Password is not valid");
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
 
     // SHOULD NOT RETURN ROLE && PASSWORD
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "User has been registered",
-      data: {
-        ...user,
-        password: "_",
-        role: "_"
-      }
-    })
+      data: newUser
+    });
   } catch (error) {
     return next(error);
   }
 }
 
+// app.get("/protected", (req, res) => {
+//   const { token } = req.cookies;
+//   
+// })
+
 export async function loginUser (req: Request, res: Response, next: NextFunction) {
-  const { username, password } = req.body;
+  const { body } = req;
 
   try {
-    const user = { username, password };
-    return user;
+    const { loggedUser, token } = await loginService(body);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "User has been logged",
+      data: loggedUser
+    });
   } catch (error) {
-    return next(error)
+    return next(error);
   }
+}
+
+export async function logoutUser(req: Request, res: Response, next: NextFunction) {
+  res.clearCookie("token").json({ message: "Logout successful" });
 }
