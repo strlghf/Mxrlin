@@ -26,7 +26,6 @@ export async function loginService(userData: CreateUserDto) {
 
   const loggedUser = {
     id: user.id,
-    role: user.role,
     name: user.name,
     email: user.email,
   }

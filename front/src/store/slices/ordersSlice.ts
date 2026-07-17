@@ -12,7 +12,7 @@ export const ordersSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {}
-})
+});
 
 export const {} = ordersSlice.actions;
 export default ordersSlice.reducer;

@@ -1,8 +1,8 @@
+import { useSearch } from "../hooks/useSearch";
+import { useCustomParams } from "../hooks/useCustomParams";
 import { Header } from "../components/Header";
 import { Products } from "../components/Products";
 import { Footer } from "../components/Footer";
-import { useSearch } from "../hooks/useSearch";
-import { useCustomParams } from "../hooks/useCustomParams";
 
 export function ProductsPage () {
   const { searchQuery } = useCustomParams();

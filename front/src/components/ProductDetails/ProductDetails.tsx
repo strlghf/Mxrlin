@@ -1,7 +1,7 @@
-import "./ProductDetail.css";
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { useFetchProductById } from "../../hooks/useFetchProductById";
+import "./ProductDetail.css";
 
 export function ProductDetails () {
   const { id } = useParams();

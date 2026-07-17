@@ -1,8 +1,8 @@
-import "./Hero.css";
 import { useState, useEffect } from "react";
 import kali from "../../img/rev.jpg";
 import kl from "../../img/rtx.jpg";
 import dekstop from "../../img/tt.jpeg";
+import "./Hero.css";
 
 const BANNERS = [
   { id: 1, image: kali, alt: "Kali Linux" },

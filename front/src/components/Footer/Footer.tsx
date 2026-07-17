@@ -1,5 +1,6 @@
 import "./Footer.css";
 
+// About & contact routing
 export function Footer () {
   return (
     <footer className="main-footer">

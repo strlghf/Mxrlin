@@ -1,9 +1,9 @@
-import './App.css';
 // import { NotFound } from './components/NotFound/NotFound';
 import { Routes, Route } from 'react-router';
 import { HomePage } from './pages/HomePage';
 import { ProductsPage } from './pages/ProductsPage';
 import { ProductPageDetail } from './pages/ProductPageDetail';
+import './App.css';
 
 function App() {
   return (
@@ -16,4 +16,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

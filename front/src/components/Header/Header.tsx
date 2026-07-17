@@ -1,8 +1,9 @@
-import "./Header.css";
-import { useRef, type ChangeEvent, type Dispatch, type FormEvent, type SetStateAction } from "react";
+import { useRef } from "react";
+import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
+import { useScrolling } from "../../hooks/useScrolling";
 import { Link } from "react-router";
 import logoImg from "../../img/kl.jpg";
-import { useScrolling } from "../../hooks/useScrolling";
+import "./Header.css";
 
 interface HeaderProps {
   search: string;

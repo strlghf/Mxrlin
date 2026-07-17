@@ -1,7 +1,7 @@
-import "./ProductCard.css";
 import { useState } from "react";
 import { Link } from "react-router";
 import type { Product } from "../../types";
+import "./ProductCard.css";
 
 export function ProductCard ({ product }: { product: Product }) {
   const [isFavorite, setIsFavorite] = useState(false);

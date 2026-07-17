@@ -1,8 +1,8 @@
+import { useSearch } from "../hooks/useSearch";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { Products } from "../components/Products";
 import { Footer } from "../components/Footer";
-import { useSearch } from "../hooks/useSearch";
 
 export function HomePage () {
   const { search, setSearch, handleSearchSubmit } = useSearch();
