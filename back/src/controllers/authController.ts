@@ -3,7 +3,7 @@ import { loginService, registerService } from "../services/authServices";
 import "dotenv/config";
 
 // Debe setear cookie
-export async function registerUser (req: Request, res: Response, next: NextFunction) {
+export async function registerUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 
   try {
@@ -31,7 +31,7 @@ export async function registerUser (req: Request, res: Response, next: NextFunct
 //   
 // })
 
-export async function loginUser (req: Request, res: Response, next: NextFunction) {
+export async function loginUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 
   try {

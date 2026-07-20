@@ -50,4 +50,4 @@ export type GetUsersQueryDto = z.infer<typeof getUsersQuerySchema>["query"];
 export type GetUserIdDto = z.infer<typeof idParamSchema>["params"]["id"];
 export type CreateUserDto = z.infer<typeof createUserSchema>["body"];
 export type UpdateUserDto = z.infer<typeof updateUserSchema>["body"];
-export type UserAuthSchema = z.infer<typeof userAuthSchema>["body"];
+export type UserAuthDto = z.infer<typeof userAuthSchema>["body"];

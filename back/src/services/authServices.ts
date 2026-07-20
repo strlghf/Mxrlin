@@ -1,13 +1,13 @@
-import type { CreateUserDto } from "../schemas/usersSchema";
-import jwt from "jsonwebtoken";
-import { createUserService } from "./usersServices";
-import "dotenv/config";
 import { prisma } from "../db/prisma";
+import type { CreateUserDto, UserAuthDto } from "../schemas/usersSchema";
+import { createUserService } from "./usersServices";
 import { comparePassword } from "../utils/helpers";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 const userSelect = { id: true, role: true, name: true, password: true, email: true } as const;
 
-export async function registerService (userData: CreateUserDto) {
+export async function registerService(userData: CreateUserDto) {
   const newUser = await createUserService(userData);
   const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
   // const refreshToken = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
@@ -15,7 +15,7 @@ export async function registerService (userData: CreateUserDto) {
   return { newUser, token }
 }
 
-export async function loginService(userData: CreateUserDto) {
+export async function loginService(userData: UserAuthDto) {
   const user = await prisma.users.findUnique({ where: { email: userData.email }, select: userSelect });
   if (!user) throw new Error("Invalid credentials");
 

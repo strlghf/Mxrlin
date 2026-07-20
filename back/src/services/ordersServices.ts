@@ -1,6 +1,6 @@
 import { prisma } from "../db/prisma";
-import type { GetOrderIdDto } from "../schemas/ordersSchema";
 import type { OrderStatus } from "../../generated/prisma/enums";
+import type { GetOrderIdDto } from "../schemas/ordersSchema";
 
 interface OrderItemInput {
   product_id: number;
