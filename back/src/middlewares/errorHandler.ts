@@ -1,8 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
+interface AppError extends Error {
+  statusCode?: number
+};
+
 export function errorHandler(
-  err: Error,
+  err: AppError,
   req: Request,
   res: Response,
   next: NextFunction
@@ -24,10 +28,10 @@ export function errorHandler(
     }
   }
 
-  if (err.message === "Invalid string") {
-    return res.status(401).json({
+  if ("statusCode" in err) {
+    return res.status(err.statusCode).json({
       success: false,
-      error: "Unauthorized"
+      message: err.message
     });
   }
 

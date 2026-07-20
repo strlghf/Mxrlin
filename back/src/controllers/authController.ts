@@ -2,7 +2,6 @@ import type { Request, Response, NextFunction } from "express";
 import { loginService, registerService } from "../services/authServices";
 import "dotenv/config";
 
-// Debe setear cookie
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 
@@ -12,7 +11,7 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 7 * 24 * 60 * 60 * 1000
+      path: "/"
     });
 
     // SHOULD NOT RETURN ROLE && PASSWORD
@@ -40,7 +39,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 7 * 24 * 60 * 60 * 1000
+      path: "/"
     });
 
     return res.status(200).json({
@@ -54,5 +53,22 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
 }
 
 export async function logoutUser(req: Request, res: Response, next: NextFunction) {
-  res.clearCookie("token").json({ message: "Logout successful" });
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/"
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "User has been logged out"
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function showUser(req: Request, res: Response, next: NextFunction) {
+  
 }
