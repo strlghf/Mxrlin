@@ -19,16 +19,16 @@ export async function getUsers (req: Request, res: Response, next: NextFunction)
 }
 
 export async function getUserById (req: Request, res: Response) {
-  const { user } = req;
+  const { targetUser } = req;
 
   return res.status(200).json({
     success: true,
-    data: user
+    data: targetUser
   });
 }
 
 export async function getUserOrders (req: Request, res: Response, next: NextFunction) {
-  const { id } = req.user;
+  const { id } = req.targetUser;
 
   try {
     const orders = await getUserOrdersService(id);
@@ -62,7 +62,7 @@ export async function createUser (req: Request, res: Response, next: NextFunctio
 
 export async function updateUser (req: Request, res: Response, next: NextFunction) {
   const { body } = req;
-  const { id } = req.user;
+  const { id } = req.targetUser;
 
   try {
     const updatedUser = await updateUserService(id, body);
@@ -78,7 +78,7 @@ export async function updateUser (req: Request, res: Response, next: NextFunctio
 }
 
 export async function deleteUser (req: Request, res: Response, next: NextFunction) {
-  const { id } = req.user;
+  const { id } = req.targetUser;
 
   try {
     await deleteUserService(id);

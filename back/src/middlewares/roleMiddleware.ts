@@ -13,7 +13,7 @@ export function isAuth(
     });
   }
 
-  if (!canEdit(req.user, req.user.id)) {
+  if (!canEdit(req.user, req.targetUser.id)) {
     return res.status(403).json({
       success: false,
       message: "Forbidden. You are not allowed."
