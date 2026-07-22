@@ -1,11 +1,12 @@
 import { prisma } from "../db/prisma";
-import type { CreateUserDto, UserAuthDto } from "../schemas/usersSchema";
+import type { CreateUserDto, GetUserIdDto, UserAuthDto } from "../schemas/usersSchema";
 import { createUserService } from "./usersServices";
 import { comparePassword } from "../utils/helpers";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 const userSelect = { id: true, role: true, name: true, password: true, email: true, created_at: true } as const;
+const userSelectPublic = { id: true, role: true, name: true, email: true, created_at: true } as const;
 
 export async function registerService(userData: CreateUserDto) {
   const newUser = await createUserService(userData);
@@ -32,4 +33,11 @@ export async function loginService(userData: UserAuthDto) {
   }
 
   return { loggedUser, token }
+}
+
+export async function showUserService(id: GetUserIdDto) {
+  const findUser = await prisma.users.findUnique({ where: { id }, select: userSelectPublic });
+  if (!findUser) throw Object.assign(new Error("User doesn't exist"), { statusCode: 404 });
+
+  return { findUser }
 }

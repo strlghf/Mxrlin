@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { loginService, registerService } from "../services/authServices";
+import { loginService, registerService, showUserService } from "../services/authServices";
 import "dotenv/config";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
@@ -11,10 +11,10 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      path: "/"
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
-    // SHOULD NOT RETURN ROLE && PASSWORD
     return res.status(201).json({
       success: true,
       message: "User has been registered",
@@ -27,7 +27,6 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 
 // app.get("/protected", (req, res) => {
 //   const { token } = req.cookies;
-//   
 // })
 
 export async function loginUser(req: Request, res: Response, next: NextFunction) {
@@ -39,7 +38,8 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      path: "/"
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
     return res.status(200).json({
@@ -73,17 +73,11 @@ export async function showUser(req: Request, res: Response, next: NextFunction) 
   const { user } = req;
 
   try {
-    const parsedUser = {
-      id: user.id,
-      role: user.role,
-      name: user.name,
-      email: user.email,
-      created_at: user.created_at
-    }
+    const { findUser } = await showUserService(user.id);
 
     return res.status(200).json({
       success: true,
-      data: parsedUser
+      data: findUser
     });
   } catch (error) {
     return next(error);
