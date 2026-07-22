@@ -70,5 +70,22 @@ export async function logoutUser(req: Request, res: Response, next: NextFunction
 }
 
 export async function showUser(req: Request, res: Response, next: NextFunction) {
-  
+  const { user } = req;
+
+  try {
+    const parsedUser = {
+      id: user.id,
+      role: user.role,
+      name: user.name,
+      email: user.email,
+      created_at: user.created_at
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: parsedUser
+    });
+  } catch (error) {
+    return next(error);
+  }
 }

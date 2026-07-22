@@ -2,9 +2,9 @@ import { Router } from "express";
 import { prisma } from "../db/prisma";
 import { validateRequest } from "../middlewares/validateRequest";
 import { resolveEntity } from "../middlewares/resolveEntity";
+import { isAuth } from "../middlewares/roleMiddleware";
 import { userModelSchema, getUsersQuerySchema, idParamSchema, createUserSchema, updateUserSchema } from "../schemas/usersSchema";
 import { getUsers, getUserById, getUserOrders, createUser, updateUser, deleteUser } from "../controllers/usersController";
-import { isAdmin } from "../middlewares/roleMiddleware";
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.get("/", validateRequest(getUsersQuerySchema), getUsers);
 router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getUserById);
 router.get("/:id/orders", validateRequest(idParamSchema), resolveIdMiddleware, getUserOrders);
 
-router.use(isAdmin);
+router.use(isAuth);
 router.post("/", validateRequest(createUserSchema), createUser);
 router.put("/:id", validateRequest(idParamSchema.merge(updateUserSchema)), resolveIdMiddleware, updateUser);
 router.patch("/:id", validateRequest(idParamSchema.merge(updateUserSchema)), resolveIdMiddleware, updateUser);

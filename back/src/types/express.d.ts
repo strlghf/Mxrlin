@@ -7,6 +7,7 @@ declare global {
   namespace Express {
     interface Request {
       user: UserInstance,
+      targetUser?: UserInstance,
       product: ProductInstance,
       order: OrderInstance,
       query: {
