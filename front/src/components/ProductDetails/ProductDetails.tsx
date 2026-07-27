@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router";
 import { useFetchProductById } from "../../hooks/useFetchProductById";
 import "./ProductDetail.css";
 
-export function ProductDetails () {
+export function ProductDetails() {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [favorite, setFavorite] = useState(false);
