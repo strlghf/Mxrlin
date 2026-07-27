@@ -1,7 +1,7 @@
 import "./Footer.css";
 
 // About & contact routing
-export function Footer () {
+export function Footer() {
   return (
     <footer className="main-footer">
       <div className="footer-content">

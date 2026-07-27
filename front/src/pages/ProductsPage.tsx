@@ -4,7 +4,7 @@ import { Header } from "../components/Header";
 import { Products } from "../components/Products";
 import { Footer } from "../components/Footer";
 
-export function ProductsPage () {
+export function ProductsPage() {
   const { searchQuery } = useCustomParams();
   const { search, setSearch, handleSearchSubmit } = useSearch(searchQuery);
 

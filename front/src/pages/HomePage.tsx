@@ -4,7 +4,7 @@ import { Hero } from "../components/Hero";
 import { Products } from "../components/Products";
 import { Footer } from "../components/Footer";
 
-export function HomePage () {
+export function HomePage() {
   const { search, setSearch, handleSearchSubmit } = useSearch();
 
   return (

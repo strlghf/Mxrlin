@@ -1,7 +1,7 @@
 import { ProductCard } from "../ProductCard";
 import { useFetchProducts } from "../../hooks/useFetchProducts";
 
-export function Products ({ search }: { search: string }) {
+export function Products({ search }: { search: string }) {
   const { products, loading, error } = useFetchProducts(search);
 
   if (loading) {

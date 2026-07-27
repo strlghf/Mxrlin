@@ -10,7 +10,7 @@ const BANNERS = [
   { id: 3, image: dekstop, alt: "Descuentos Gaming" }
 ];
 
-export function Hero () {
+export function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = () => {

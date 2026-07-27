@@ -11,7 +11,7 @@ interface HeaderProps {
   handleSearchSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export function Header ({ search, setSearch, handleSearchSubmit }: HeaderProps) {
+export function Header({ search, setSearch, handleSearchSubmit }: HeaderProps) {
   const { visible } = useScrolling();
   const inputRef = useRef<HTMLInputElement>(null);
 

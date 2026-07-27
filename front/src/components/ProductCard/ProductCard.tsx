@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import type { Product } from "../../types";
 import "./ProductCard.css";
 
-export function ProductCard ({ product }: { product: Product }) {
+export function ProductCard({ product }: { product: Product }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const fee = Math.round(product.price / 6);
