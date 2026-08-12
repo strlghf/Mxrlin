@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { idParamSchema } from "./common.schema";
 
 export const orderModelSchema = z.object({
   id: z.number().int().positive(),
   user_id: z.number().int().positive(),
-  total: z.coerce.number().positive(),
+  total: z.number().positive(),
   status: z.enum(["pending", "paid", "cancelled"]),
   created_at: z.date().optional()
 });
@@ -12,12 +13,6 @@ export const getOrdersSchema = z.object({
   id: z.number().int().positive(),
   user_id: z.number().int().positive(),
   total: z.coerce.number().positive()
-});
-
-export const idParamSchema = z.object({
-  params: z.object({
-    id: z.coerce.number().int().positive("Invalid ID parameter")
-  })
 });
 
 export const createOrderSchema = z.object({

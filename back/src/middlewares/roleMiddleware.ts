@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { UserInstance } from "../schemas/user.schema";
+import type { User } from "../schemas/user.schema";
 
 export function isAuth(
   req: Request,
@@ -45,7 +45,7 @@ export function isAdmin(
   return next();
 }
 
-export function canEdit (user: UserInstance, id: number) {
+export function canEdit (user: User, id: number) {
   return (user.role === "admin" || user.id === id);
 }
 

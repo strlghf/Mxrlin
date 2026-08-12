@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { idParamSchema } from "./common.schema";
 
 export const productModelSchema = z.object({
   id: z.number().int().positive(),
@@ -15,12 +16,6 @@ export const getProductsQuerySchema = z.object({
     page: z.coerce.number().int().positive("Page must be greater than 0").default(1),
     limit: z.coerce.number().int().positive("Limit must be greater than 0").max(100, "Maximum fetch loading").default(10),
     search: z.string().optional()
-  })
-});
-
-export const idParamSchema = z.object({
-  params: z.object({
-    id: z.coerce.number().int().positive()
   })
 });
 
