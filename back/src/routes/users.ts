@@ -3,8 +3,9 @@ import { prisma } from "../db/prisma";
 import { resolveEntity } from "../middlewares/resolveEntity";
 import { validateRequest } from "../middlewares/validateRequest";
 import { authToken } from "../middlewares/validateToken";
-import { isAdmin, isAuth } from "../middlewares/roleMiddleware";
-import { userModelSchema, getUsersQuerySchema, idParamSchema, createUserSchema, updateUserSchema } from "../schemas/user.schema";
+import { isAdmin, isAuth } from "../middlewares/role.middleware";
+import { userModelSchema, getUsersQuerySchema, createUserSchema, updateUserSchema } from "../schemas/user.schema";
+import { idParamSchema } from "../schemas/common.schema";
 import { getUsers, getUserById, getUserOrders, createUser, updateUser, deleteUser } from "../controllers/user.controller";
 
 const router = Router();

@@ -2,7 +2,8 @@ import { Router } from "express";
 import { prisma } from "../db/prisma";
 import { validateRequest } from "../middlewares/validateRequest";
 import { resolveEntity } from "../middlewares/resolveEntity";
-import { orderModelSchema, idParamSchema, createOrderSchema, updateOrderStatusSchema } from "../schemas/order.schema";
+import { orderModelSchema, createOrderSchema, updateOrderStatusSchema } from "../schemas/order.schema";
+import { idParamSchema } from "../schemas/common.schema";
 import { getOrderById, createOrder, updateOrderStatus } from "../controllers/order.controller";
 
 const router = Router();
