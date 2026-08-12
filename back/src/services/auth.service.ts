@@ -1,6 +1,6 @@
 import { prisma } from "../db/prisma";
-import type { CreateUserDto, GetUserIdDto, UserAuthDto } from "../schemas/usersSchema";
-import { createUserService } from "./usersServices";
+import type { CreateUserDto, GetUserIdDto, UserAuthDto } from "../schemas/user.schema";
+import { createUserService } from "./user.service";
 import { comparePassword } from "../utils/helpers";
 import jwt from "jsonwebtoken";
 import "dotenv/config";

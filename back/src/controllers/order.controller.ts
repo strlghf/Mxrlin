@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import type { CreateOrderDto } from "../schemas/ordersSchema";
-import { createOrderService, updateOrderStatusService } from "../services/ordersServices";
+import type { CreateOrderDto } from "../schemas/order.schema";
+import { createOrderService, updateOrderStatusService } from "../services/order.service";
 import type { OrderStatus } from "../../generated/prisma/enums";
 
 const transitions: Record<OrderStatus, OrderStatus[]> = {

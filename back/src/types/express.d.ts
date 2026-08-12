@@ -1,7 +1,7 @@
 import * as express from "express";
-import type { UserInstance } from "../schemas/usersSchema";
-import type { ProductInstance } from "../schemas/productsSchema";
-import type { OrderInstance } from "../schemas/ordersSchema";
+import type { UserInstance } from "../schemas/user.schema";
+import type { ProductInstance } from "../schemas/product.schema";
+import type { OrderInstance } from "../schemas/order.schema";
 
 declare global {
   namespace Express {

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { loginService, registerService, showUserService } from "../services/authServices";
+import { loginService, registerService, showUserService } from "../services/auth.service";
 import "dotenv/config";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction) {

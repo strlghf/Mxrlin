@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { prisma } from "../db/prisma";
-import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/usersSchema";
+import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/user.schema";
 import { hashPassword } from "../utils/helpers";
 
 const userSelect = { id: true, role: true, name: true, email: true, created_at: true } as const;

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { UserInstance } from "../schemas/usersSchema";
+import type { UserInstance } from "../schemas/user.schema";
 
 export function isAuth(
   req: Request,

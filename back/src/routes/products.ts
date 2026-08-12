@@ -2,8 +2,8 @@ import { Router } from "express";
 import { prisma } from "../db/prisma";
 import { validateRequest } from "../middlewares/validateRequest";
 import { resolveEntity } from "../middlewares/resolveEntity";
-import { productModelSchema, getProductsQuerySchema, idParamSchema, createProductSchema, updateProductSchema } from "../schemas/productsSchema";
-import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../controllers/productsController";
+import { productModelSchema, getProductsQuerySchema, idParamSchema, createProductSchema, updateProductSchema } from "../schemas/product.schema";
+import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../controllers/product.controller";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/usersServices";
+import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/user.service";
 
 type filterUsers = "name" | "email";
 

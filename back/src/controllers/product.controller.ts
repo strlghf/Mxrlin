@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import type { GetProductsQueryDto } from "../schemas/productsSchema";
-import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/productsServices";
+import type { GetProductsQueryDto } from "../schemas/product.schema";
+import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/product.service";
 
 export async function getProducts (req: Request, res: Response, next: NextFunction) {
   const { page, limit, search } = req.query as Partial<GetProductsQueryDto>;
