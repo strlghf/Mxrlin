@@ -1,21 +1,23 @@
 import { z } from "zod";
 import { idParamSchema } from "./common.schema";
 
+// public user model
 export const userModelSchema = z.object({
   id: z.number(),
   role: z.enum(["admin", "customer"]),
   name: z.string(),
-  email: z.string(),
-  created_at: z.date()
+  email: z.string()
 });
 
+// login model
 export const userAuthSchema = z.object({
   body: z.object({
-    email: z.string().email().max(70),
-    password: z.string().min(8).max(255)
+    email: z.string().email().max(77),
+    password: z.string().min(8).max(77)
   })
 });
 
+// pagination, query params model
 export const getUsersQuerySchema = z.object({
   query: z.object({
     filter: z.enum(["name", "email", "role"]).optional(),
@@ -23,19 +25,21 @@ export const getUsersQuerySchema = z.object({
   })
 });
 
+// register | admin create user model
 export const createUserSchema = z.object({
   body: z.object({
-    name: z.string().min(3, "Name required").max(48).trim(),
-    password: z.string().min(8, "Password must be at least 8 characters").max(255),
-    email: z.string().email("Invalid email format").trim()
+    name: z.string().min(3, "Name must be at least 3 characters.").max(48).trim(),
+    password: z.string().min(8, "Password must be at least 8 characters.").max(77),
+    email: z.string().email("Invalid email format.").max(77).trim()
   })
 });
 
+// update user model
 export const updateUserSchema = z.object({
   body: z.object({
-    name: z.string().min(3, "Name required").max(48).trim().optional(),
-    password: z.string().min(8, "Password must be at least 8 characters").max(255).optional(),
-    email: z.string().email("Invalid email format").trim().optional()
+    name: z.string().min(3, "Name must be at least 3 characters.").max(48).trim().optional(),
+    password: z.string().min(8, "Password must be at least 8 characters.").max(77).optional(),
+    email: z.string().email("Invalid email format.").trim().optional()
   })
 });
 

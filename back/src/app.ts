@@ -16,11 +16,11 @@ app.use(cookieParser());
 app.use(routes);
 
 app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Backend working" });
+  res.status(200).json({ msg: "Backend working." });
 });
 
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}.`);
 });

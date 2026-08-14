@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import type { ZodObject } from "zod";
 
 interface PrismaModel {
-  findUnique: (args: { where: { id: number } }) => Promise<any>;
+  findUnique: (args: { where: { id: number } }) => Promise<unknown>;
 }
 
 type RequestKey = "targetUser" | "product" | "order";
@@ -17,7 +17,10 @@ export function resolveEntity(
     const parsedId = Number(id);
 
     if (isNaN(parsedId)) {
-      return res.status(400).json({ success: false, error: "Id must be a number" });
+      return res.status(400).json({
+        success: false,
+        error: "Id must be a number."
+      });
     }
 
     try {
@@ -26,11 +29,13 @@ export function resolveEntity(
       });
 
       if (!entity) {
-        return res.status(404).json({ success: false, error: `${requestKey.charAt(0).toUpperCase() + requestKey.slice(1)} not found` });
+        return res.status(404).json({
+          success: false,
+          error: `${requestKey.charAt(0).toUpperCase() + requestKey.slice(1)} not found.`
+        });
       }
 
       const validatedEntity = zodSchema.parse(entity);
-
       (req as any)[requestKey] = validatedEntity;
 
       return next();

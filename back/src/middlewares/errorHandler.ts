@@ -2,9 +2,10 @@ import type { Request, Response, NextFunction } from "express";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
 interface AppError extends Error {
-  statusCode?: number
-};
+  statusCode?: number;
+}
 
+// Global error handling
 export function errorHandler(
   err: AppError,
   req: Request,
@@ -15,7 +16,7 @@ export function errorHandler(
 
   const responseBody = {
     success: false,
-    message: err.message || "An unexpected error ocurred",
+    message: err.message || "An unexpected error ocurred.",
     ...(process.env.NODE_ENV !== "production") && { stack: err.stack }
   }
 
@@ -24,7 +25,7 @@ export function errorHandler(
     if (err.code === "P2002") {
       return res.status(409).json({
         success: false,
-        error: "Email not available"
+        error: "Email not available."
       });
     }
   }

@@ -8,7 +8,7 @@ export function authToken (req: Request, res: Response, next: NextFunction) {
   if (!token) {
     return res.status(401).json({
       success: false,
-      message: "You didn't send the token"
+      message: "You didn't send the token."
     });
   }
 
@@ -17,7 +17,7 @@ export function authToken (req: Request, res: Response, next: NextFunction) {
       if (err) {
         return res.status(403).json({
           success: false,
-          message: "Unauthorized"
+          message: "Unauthorized."
         });
       }
 
