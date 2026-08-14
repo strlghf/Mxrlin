@@ -1,8 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
-import type { GetProductsQueryDto } from "../schemas/product.schema";
+import type { CreateProductDto, GetProductsQueryDto } from "../schemas/product.schema";
 import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/product.service";
 
-export async function getProducts (req: Request, res: Response, next: NextFunction) {
+export async function getProducts(req: Request, res: Response, next: NextFunction) {
   const { page, limit, search } = req.query as Partial<GetProductsQueryDto>;
   
   try {
@@ -17,7 +17,7 @@ export async function getProducts (req: Request, res: Response, next: NextFuncti
   }
 }
 
-export async function getProductById (req: Request, res: Response) {
+export async function getProductById(req: Request, res: Response) {
   const { product } = req;
 
   return res.status(200).json({
@@ -26,11 +26,11 @@ export async function getProductById (req: Request, res: Response) {
   });
 }
 
-export async function createProduct (req: Request, res: Response, next: NextFunction) {
+export async function createProduct(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 
   try {
-    const newProduct = await createProductService(body);
+    const newProduct = await createProductService(body as CreateProductDto);
 
     return res.status(201).json({
       success: true,

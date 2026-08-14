@@ -7,20 +7,20 @@ interface OrderItemInput {
   quantity: number;
 }
 
-export async function createOrderService (userId: GetOrderIdDto, items: OrderItemInput[]) {
+export async function createOrderService(userId: GetOrderIdDto, items: OrderItemInput[]) {
   return await prisma.$transaction(async tx => {
     for (const item of items) {
       const product = await tx.products.findUnique({
         where: { id: item.product_id },
-        select: { id: true, name: true, price: true, img: true, stock: true }
+        select: { id: true, name: true, price: true, img: true, stock: true, created_at: true }
       });
 
       if (!product) {
-        throw new Error(`Product with id ${item.product_id} not found`);
+        throw new Error(`Product with id ${item.product_id} not found.`);
       }
 
       if (product.stock < item.quantity) {
-        throw new Error(`Insufficient stock for ${product.name}. Only ${product.stock} left`);
+        throw new Error(`Insufficient stock for ${product.name}. Only ${product.stock} left.`);
       }
 
       await tx.products.update({
@@ -65,7 +65,7 @@ export async function createOrderService (userId: GetOrderIdDto, items: OrderIte
   });
 }
 
-export async function updateOrderStatusService (orderId: GetOrderIdDto, newStatus: OrderStatus) {
+export async function updateOrderStatusService(orderId: GetOrderIdDto, newStatus: OrderStatus) {
   // debería ir dentro de $transaction
   if (newStatus === "cancelled") {
     await prisma.$transaction(async tx => {

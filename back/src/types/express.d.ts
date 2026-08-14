@@ -1,5 +1,5 @@
 import type { User } from "../schemas/user.schema";
-import type { ProductInstance } from "../schemas/product.schema";
+import type { Product } from "../schemas/product.schema";
 import type { Order } from "../schemas/order.schema";
 
 declare global {
@@ -7,7 +7,7 @@ declare global {
     interface Request {
       user: User,
       targetUser: User,
-      product: ProductInstance,
+      product: Product,
       order: Order,
       query: {
         [key: string]: string | string[] | number | number[] | boolean | undefined;

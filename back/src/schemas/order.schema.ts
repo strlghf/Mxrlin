@@ -12,7 +12,7 @@ export const orderModelSchema = z.object({
 export const getOrdersSchema = z.object({
   id: z.number(),
   user_id: z.number(),
-  total: z.coerce.number().positive()
+  total: z.number().positive()
 });
 
 export const createOrderSchema = z.object({
