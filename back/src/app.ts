@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(routes);
 
 app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Hello World" });
+  res.status(200).json({ msg: "Backend working" });
 });
 
 app.use(errorHandler);

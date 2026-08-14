@@ -19,11 +19,12 @@ export function errorHandler(
     ...(process.env.NODE_ENV !== "production") && { stack: err.stack }
   }
 
+  // Don't send friendly error messages (hackers...)
   if (err instanceof PrismaClientKnownRequestError) {
     if (err.code === "P2002") {
       return res.status(409).json({
         success: false,
-        error: "El correo electrónico ya se encuentra registrado"
+        error: "Email not available"
       });
     }
   }
