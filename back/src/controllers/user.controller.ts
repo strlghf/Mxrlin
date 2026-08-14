@@ -1,9 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/user.service";
 
-type filterUsers = "name" | "email";
+type filterUsers = "name" | "email" | "role";
 
-export async function getUsers (req: Request, res: Response, next: NextFunction) {
+export async function getUsers(req: Request, res: Response, next: NextFunction) {
   const { filter, value } = req.query;
 
   try {
@@ -18,7 +18,7 @@ export async function getUsers (req: Request, res: Response, next: NextFunction)
   }
 }
 
-export async function getUserById (req: Request, res: Response) {
+export async function getUserById(req: Request, res: Response) {
   const { targetUser } = req;
 
   return res.status(200).json({
@@ -27,7 +27,7 @@ export async function getUserById (req: Request, res: Response) {
   });
 }
 
-export async function getUserOrders (req: Request, res: Response, next: NextFunction) {
+export async function getUserOrders(req: Request, res: Response, next: NextFunction) {
   const { id } = req.targetUser;
 
   try {

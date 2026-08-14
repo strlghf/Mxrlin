@@ -12,6 +12,7 @@ const router = Router();
 
 const resolveIdMiddleware = resolveEntity(prisma.users, userModelSchema, "targetUser");
 
+// Only admins should access this
 router.get("/", validateRequest(getUsersQuerySchema), getUsers);
 router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getUserById);
 router.get("/:id/orders", validateRequest(idParamSchema), resolveIdMiddleware, getUserOrders);
