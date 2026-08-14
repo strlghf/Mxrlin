@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import type { User } from "../schemas/user.schema";
 
-export function isAuth(
+export function isAllowed(
   req: Request,
   res: Response,
   next: NextFunction
@@ -38,7 +38,7 @@ export function isAdmin(
   if (req.user.role !== "admin") {
     return res.status(403).json({
       success: false,
-      message: "Forbidden. You are not allowed"
+      message: "Forbidden. You are not allowed."
     });
   }
 

@@ -11,7 +11,7 @@ export function resolveEntity(
   prismaModel: PrismaModel,
   zodSchema: ZodObject,
   requestKey: RequestKey
-){
+) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const parsedId = Number(id);

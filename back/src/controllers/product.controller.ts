@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { CreateProductDto, GetProductsQueryDto } from "../schemas/product.schema";
+import type { CreateProductDto, GetProductsQueryDto, UpdateProductDto } from "../schemas/product.schema";
 import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/product.service";
 
 export async function getProducts(req: Request, res: Response, next: NextFunction) {
@@ -34,7 +34,7 @@ export async function createProduct(req: Request, res: Response, next: NextFunct
 
     return res.status(201).json({
       success: true,
-      message: "Product created successfully",
+      message: "Product created successfully.",
       data: newProduct
     });
   } catch (error) {
@@ -42,16 +42,16 @@ export async function createProduct(req: Request, res: Response, next: NextFunct
   }
 }
 
-export async function updateProduct (req: Request, res: Response, next: NextFunction) {
+export async function updateProduct(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
   const { id } = req.product;
 
   try {
-    const updatedProduct = await updateProductService(id, body);
+    const updatedProduct = await updateProductService(id, body as UpdateProductDto);
 
     return res.status(200).json({
       success: true,
-      message: "Product updated succesfully",
+      message: "Product updated succesfully.",
       data: updatedProduct
     });
   } catch (error) {
@@ -59,7 +59,7 @@ export async function updateProduct (req: Request, res: Response, next: NextFunc
   }
 }
 
-export async function deleteProduct (req: Request, res: Response, next: NextFunction) {
+export async function deleteProduct(req: Request, res: Response, next: NextFunction) {
   const { id } = req.product;
 
   try {

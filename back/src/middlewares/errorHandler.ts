@@ -11,7 +11,7 @@ export function errorHandler(
   req: Request,
   res: Response,
   next: NextFunction
-){
+) {
   const statusCode = res.statusCode || 500;
 
   const responseBody = {

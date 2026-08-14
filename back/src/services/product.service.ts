@@ -44,14 +44,14 @@ export async function getProductsService(page: number, limit: number, search?: s
   }
 }
 
-export async function createProductService (productData: CreateProductDto) {
+export async function createProductService(productData: CreateProductDto) {
   return await prisma.products.create({
     data: productData,
     select: productSelect
   });
 }
 
-export async function updateProductService (id: GetProductIdDto, data: UpdateProductDto) {
+export async function updateProductService(id: GetProductIdDto, data: UpdateProductDto) {
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([_, value]) => value !== undefined)
   );
@@ -63,7 +63,7 @@ export async function updateProductService (id: GetProductIdDto, data: UpdatePro
   });
 }
 
-export async function deleteProductService (id: GetProductIdDto) {
+export async function deleteProductService(id: GetProductIdDto) {
   return await prisma.products.delete({
     where: { id }
   });

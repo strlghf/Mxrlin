@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-export function authToken (req: Request, res: Response, next: NextFunction) {
+export function authToken(req: Request, res: Response, next: NextFunction) {
   const { token } = req.cookies;
 
   if (!token) {
