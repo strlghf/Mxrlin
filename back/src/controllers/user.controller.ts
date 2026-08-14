@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/user.service";
+import type { CreateUserDto, UpdateUserDto } from "../schemas/user.schema";
 
 type filterUsers = "name" | "email" | "role";
 
@@ -42,17 +43,16 @@ export async function getUserOrders(req: Request, res: Response, next: NextFunct
   }
 }
 
-export async function createUser (req: Request, res: Response, next: NextFunction) {
+export async function createUser(req: Request, res: Response, next: NextFunction) {
   const { name, email, password } = req.body;
 
   try {
-    const user = { name, email, password };
-
+    const user: CreateUserDto = { name, email, password };
     const newUser = await createUserService(user);
 
     return res.status(201).json({
       success: true,
-      message: "User created successfully",
+      message: "User created successfully.",
       data: newUser
     });
   } catch (error) {
@@ -60,12 +60,12 @@ export async function createUser (req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function updateUser (req: Request, res: Response, next: NextFunction) {
+export async function updateUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
   const { id } = req.targetUser;
 
   try {
-    const updatedUser = await updateUserService(id, body);
+    const updatedUser = await updateUserService(id, body as UpdateUserDto);
 
     return res.status(200).json({
       success: true,
@@ -77,7 +77,7 @@ export async function updateUser (req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function deleteUser (req: Request, res: Response, next: NextFunction) {
+export async function deleteUser(req: Request, res: Response, next: NextFunction) {
   const { id } = req.targetUser;
 
   try {

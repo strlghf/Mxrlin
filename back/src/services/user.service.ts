@@ -27,13 +27,12 @@ export async function getUserOrdersService(userId: GetUserIdDto) {
   });
 }
 
-export async function createUserService (userData: CreateUserDto) {
+export async function createUserService(userData: CreateUserDto) {
   const hashedPassword = await hashPassword(userData.password);
 
   return await prisma.users.create({
     data: {
-      name: userData.name,
-      email: userData.email,
+      ...userData,
       password: hashedPassword
     },
     select: userSelect
@@ -52,7 +51,7 @@ export async function updateUserService (id: GetUserIdDto, data: UpdateUserDto) 
   });
 }
 
-export async function deleteUserService (id: GetUserIdDto) {
+export async function deleteUserService(id: GetUserIdDto) {
   return await prisma.users.delete({
     where: { id }
   });
