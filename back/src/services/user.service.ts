@@ -2,10 +2,20 @@ import { prisma } from "../db/prisma";
 import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/user.schema";
 import { hashPassword } from "../utils/helpers";
 
+type userRole = "admin" | "customer";
 const userSelect = { id: true, role: true, name: true, email: true, created_at: true } as const;
 
 export async function getUsersService(filter?: GetUsersQueryDto["filter"], value?: string) {
   if (filter && value) {
+    if (filter === "role") {
+      return prisma.users.findMany({
+        where: {
+          role: value as userRole
+        },
+        select: userSelect
+      });
+    }
+
     return await prisma.users.findMany({
       where: {
         [filter]: { contains: value, mode: "insensitive" }
@@ -22,7 +32,13 @@ export async function getUsersService(filter?: GetUsersQueryDto["filter"], value
 export async function getUserOrdersService(userId: GetUserIdDto) {
   return await prisma.orders.findMany({
     where: { user_id: userId },
-    include: { orders_items: true },
+    include: { 
+      orders_items: {
+        include: {
+          products: true
+        }
+      }
+    },
     orderBy: { created_at: "desc" }
   });
 }
@@ -43,7 +59,11 @@ export async function updateUserService(id: GetUserIdDto, data: UpdateUserDto) {
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([_, value]) => value !== undefined)
   );
-  
+
+  if (cleanData.password) {
+    cleanData.password = await hashPassword(cleanData.password);
+  }
+
   return await prisma.users.update({
     where: { id },
     data: cleanData,

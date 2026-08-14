@@ -12,7 +12,7 @@ export const userModelSchema = z.object({
 // login model
 export const userAuthSchema = z.object({
   body: z.object({
-    email: z.string().email("Invalid email format.").max(77).trim(),
+    email: z.string().trim().email("Invalid email format.").max(77),
     password: z.string().min(8, "Password must be at least 8 characters.").max(77)
   })
 });
@@ -28,8 +28,8 @@ export const getUsersQuerySchema = z.object({
 // register | admin create user model
 export const createUserSchema = z.object({
   body: z.object({
-    name: z.string().min(3, "Name must be at least 3 characters.").max(48).trim(),
-    email: z.string().email("Invalid email format.").max(77).trim(),
+    name: z.string().trim().min(3, "Name must be at least 3 characters.").max(48),
+    email: z.string().trim().email("Invalid email format.").max(77),
     password: z.string().min(8, "Password must be at least 8 characters.").max(77),
   })
 });
@@ -37,8 +37,8 @@ export const createUserSchema = z.object({
 // update user model
 export const updateUserSchema = z.object({
   body: z.object({
-    name: z.string().min(3, "Name must be at least 3 characters.").max(48).trim().optional(),
-    email: z.string().email("Invalid email format.").trim().optional(),
+    name: z.string().trim().min(3, "Name must be at least 3 characters.").max(48).optional(),
+    email: z.string().trim().email("Invalid email format.").optional(),
     password: z.string().min(8, "Password must be at least 8 characters.").max(77).optional(),
   })
 });
