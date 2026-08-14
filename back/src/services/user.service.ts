@@ -39,7 +39,7 @@ export async function createUserService(userData: CreateUserDto) {
   });
 }
 
-export async function updateUserService (id: GetUserIdDto, data: UpdateUserDto) {
+export async function updateUserService(id: GetUserIdDto, data: UpdateUserDto) {
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([_, value]) => value !== undefined)
   );

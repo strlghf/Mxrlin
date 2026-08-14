@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db/prisma";
-import { validateRequest } from "../middlewares/validateRequest";
 import { resolveEntity } from "../middlewares/resolveEntity";
+import { validateRequest } from "../middlewares/validateRequest";
 import { productModelSchema, getProductsQuerySchema, createProductSchema, updateProductSchema } from "../schemas/product.schema";
 import { idParamSchema } from "../schemas/common.schema";
 import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../controllers/product.controller";

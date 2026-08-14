@@ -44,10 +44,10 @@ export async function getUserOrders(req: Request, res: Response, next: NextFunct
 }
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
-  const { name, email, password } = req.body;
+  const { name, email, password } = req.body as CreateUserDto;
 
   try {
-    const user: CreateUserDto = { name, email, password };
+    const user = { name, email, password };
     const newUser = await createUserService(user);
 
     return res.status(201).json({

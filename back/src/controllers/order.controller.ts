@@ -9,7 +9,7 @@ const transitions: Record<OrderStatus, OrderStatus[]> = {
     cancelled: []
 };
 
-export async function getOrderById (req: Request, res: Response) {
+export async function getOrderById(req: Request, res: Response) {
   const { order } = req;
 
   return res.status(200).json({
@@ -18,7 +18,7 @@ export async function getOrderById (req: Request, res: Response) {
   });
 }
 
-export async function createOrder (req: Request, res: Response, next: NextFunction) {
+export async function createOrder(req: Request, res: Response, next: NextFunction) {
   const { user_id, items } = req.body as CreateOrderDto;
 
   try {
