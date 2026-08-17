@@ -12,23 +12,24 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  const statusCode = err.statusCode || 500;
-
-  const responseBody = {
-    success: false,
-    message: "An unexpected error ocurred.",
-    ...(process.env.NODE_ENV !== "production") && { stack: err.stack }
+  if (err instanceof PrismaClientKnownRequestError && err.code === "P2002") {
+    return res.status(409).json({
+      success: false,
+      error: "Email not available."
+    });
   }
 
-  if (err instanceof PrismaClientKnownRequestError) {
-    if (err.code === "P2002") {
-      return res.status(409).json({
-        success: false,
-        error: "Email not available."
-      });
-    }
+  if (err.statusCode) {
+    return res.status(err.statusCode).json({
+      success: false,
+      message: err.message
+    });
   }
 
   console.error(`[Error Handler]`, err);
-  return res.status(statusCode).json(responseBody);
+  return res.status(500).json({
+    success: false,
+    message: "An unexpected error ocurred.",
+    ...(process.env.NODE_ENV !== "production") && { stac: err.stack }
+  });
 }

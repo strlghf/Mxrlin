@@ -4,7 +4,7 @@ import { idParamSchema } from "./common.schema";
 export const productModelSchema = z.object({
   id: z.number(),
   name: z.string(),
-  price: z.number(),
+  price: z.coerce.number(),
   img: z.string(),
   category: z.string(),
   stock: z.number()

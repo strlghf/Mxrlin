@@ -1,12 +1,13 @@
 import type { Request, Response, NextFunction } from "express";
 import { loginService, registerService, showUserService } from "../services/auth.service";
+import type { CreateUserDto, UserLoginDto } from "../schemas/user.schema";
 import "dotenv/config";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 
   try {
-    const { newUser, token } = await registerService(body);
+    const { newUser, token } = await registerService(body as CreateUserDto);
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -17,7 +18,7 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 
     return res.status(201).json({
       success: true,
-      message: "User has been registered",
+      message: "User has been registered.",
       data: newUser
     });
   } catch (error) {
@@ -33,7 +34,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
   const { body } = req;
 
   try {
-    const { loggedUser, token } = await loginService(body);
+    const { loggedUser, token } = await loginService(body as UserLoginDto);
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -44,7 +45,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
 
     return res.status(200).json({
       success: true,
-      message: "User has been logged",
+      message: "User has been logged in.",
       data: loggedUser
     });
   } catch (error) {
@@ -62,7 +63,7 @@ export async function logoutUser(req: Request, res: Response, next: NextFunction
 
     return res.status(200).json({
       success: true,
-      message: "User has been logged out"
+      message: "User has been logged out."
     });
   } catch (error) {
     return next(error);
@@ -70,10 +71,10 @@ export async function logoutUser(req: Request, res: Response, next: NextFunction
 }
 
 export async function showUser(req: Request, res: Response, next: NextFunction) {
-  const { user } = req;
+  const { id } = req.user;
 
   try {
-    const { findUser } = await showUserService(user.id);
+    const { findUser } = await showUserService(id);
 
     return res.status(200).json({
       success: true,

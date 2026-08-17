@@ -17,10 +17,10 @@ export async function registerService(userData: CreateUserDto) {
 
 export async function loginService(userData: UserLoginDto) {
   const user = await prisma.users.findUnique({ where: { email: userData.email }, select: userSelect });
-  if (!user) throw Object.assign(new Error("Invalid credentials"), { statusCode: 401 });
+  if (!user) throw Object.assign(new Error("Invalid credentials."), { statusCode: 401 });
 
   const match = await comparePassword(userData.password, user.password);
-  if (!match) throw Object.assign(new Error("Invalid credentials"), { statusCode: 401 });
+  if (!match) throw Object.assign(new Error("Invalid credentials."), { statusCode: 401 });
 
   const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
@@ -37,7 +37,7 @@ export async function loginService(userData: UserLoginDto) {
 
 export async function showUserService(id: GetUserIdDto) {
   const findUser = await prisma.users.findUnique({ where: { id }, select: userSelectPublic });
-  if (!findUser) throw Object.assign(new Error("User doesn't exist"), { statusCode: 404 });
+  if (!findUser) throw Object.assign(new Error("User not found."), { statusCode: 404 });
 
   return { findUser }
 }

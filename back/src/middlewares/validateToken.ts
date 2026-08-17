@@ -36,7 +36,3 @@ export function authToken(req: Request, res: Response, next: NextFunction) {
 //   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
 //   res.json({ accessToken, refreshToken });
 // }
-
-export function generateAccessToken(user) {
-  return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "10min" });
-}
