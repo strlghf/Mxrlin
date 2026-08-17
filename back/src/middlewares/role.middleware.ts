@@ -45,17 +45,6 @@ export function isAdmin(
   return next();
 }
 
-export function canEdit (user: User, id: number) {
+export function canEdit(user: User, id: number) {
   return (user.role === "admin" || user.id === id);
 }
-
-// export function authUser (req: Request, res: Response, next: NextFunction) {
-//   if (!req.user) {
-//     return res.status(401).json({
-//       success: false,
-//       message: "Please log in."
-//     });
-//   }
-
-//   next();
-// }
