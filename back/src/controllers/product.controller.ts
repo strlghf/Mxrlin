@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { CreateProductDto, GetProductsQueryDto, UpdateProductDto } from "../schemas/product.schema";
+import type { GetProductsQueryDto, CreateProductDto, UpdateProductDto } from "../schemas/product.schema";
 import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/product.service";
 
 export async function getProducts(req: Request, res: Response, next: NextFunction) {

@@ -2,11 +2,11 @@ import { Router } from "express";
 import { prisma } from "../db/prisma";
 import { resolveEntity } from "../middlewares/resolveEntity";
 import { validateRequest } from "../middlewares/validateRequest";
+import { authToken } from "../middlewares/validateToken";
 import { isAdmin } from "../middlewares/role.middleware";
 import { productModelSchema, getProductsQuerySchema, createProductSchema, updateProductSchema } from "../schemas/product.schema";
 import { idParamSchema } from "../schemas/common.schema";
 import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../controllers/product.controller";
-import { authToken } from "../middlewares/validateToken";
 
 const router = Router();
 
