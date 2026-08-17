@@ -3,7 +3,7 @@ import { prisma } from "../db/prisma";
 import { resolveEntity } from "../middlewares/resolveEntity";
 import { validateRequest } from "../middlewares/validateRequest";
 import { authToken } from "../middlewares/validateToken";
-import { isAdmin } from "../middlewares/role.middleware";
+// import { isAdmin } from "../middlewares/role.middleware";
 import { userModelSchema, getUsersQuerySchema, createUserSchema, updateUserSchema } from "../schemas/user.schema";
 import { idParamSchema } from "../schemas/common.schema";
 import { getUsers, getUserById, getUserOrders, createUser, updateUser, deleteUser } from "../controllers/user.controller";

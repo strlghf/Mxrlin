@@ -1,18 +1,20 @@
 import type { Request, Response, NextFunction } from "express";
 import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/user.service";
-import type { CreateUserDto, UpdateUserDto } from "../schemas/user.schema";
+import type { CreateUserDto, GetUsersQueryDto, UpdateUserDto } from "../schemas/user.schema";
 
 type filterUsers = "name" | "email" | "role";
 
 export async function getUsers(req: Request, res: Response, next: NextFunction) {
-  const { filter, value } = req.query;
+  const { page, limit, search, filter, value } = req.query as Partial<GetUsersQueryDto>;
 
   try {
-    const users = await getUsersService(filter as filterUsers, value as string);
+    // const users = await getUsersService(filter as filterUsers, value as string);
+    const users = await getUsersService(page || 1, limit || 10);
     
     return res.status(200).json({
       success: true,
-      data: users
+      data: users.data,
+      pagination: users.pagination
     });
   } catch (error) {
     return next(error);

@@ -1,5 +1,5 @@
 import { prisma } from "../db/prisma";
-import type { CreateUserDto, GetUserIdDto, UserAuthDto } from "../schemas/user.schema";
+import type { CreateUserDto, GetUserIdDto, UserLoginDto } from "../schemas/user.schema";
 import { createUserService } from "./user.service";
 import { comparePassword } from "../utils/helpers";
 import jwt from "jsonwebtoken";
@@ -15,7 +15,7 @@ export async function registerService(userData: CreateUserDto) {
   return { newUser, token }
 }
 
-export async function loginService(userData: UserAuthDto) {
+export async function loginService(userData: UserLoginDto) {
   const user = await prisma.users.findUnique({ where: { email: userData.email }, select: userSelect });
   if (!user) throw Object.assign(new Error("Invalid credentials"), { statusCode: 401 });
 

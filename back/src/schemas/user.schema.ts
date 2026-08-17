@@ -10,7 +10,7 @@ export const userModelSchema = z.object({
 });
 
 // login model
-export const userAuthSchema = z.object({
+export const userLoginSchema = z.object({
   body: z.object({
     email: z.string().trim().email("Invalid email format.").max(77),
     password: z.string().min(8, "Password must be at least 8 characters.").max(72)
@@ -50,4 +50,4 @@ export type GetUsersQueryDto = z.infer<typeof getUsersQuerySchema>["query"];
 export type GetUserIdDto = z.infer<typeof idParamSchema>["params"]["id"];
 export type CreateUserDto = z.infer<typeof createUserSchema>["body"];
 export type UpdateUserDto = z.infer<typeof updateUserSchema>["body"];
-export type UserAuthDto = z.infer<typeof userAuthSchema>["body"];
+export type UserLoginDto = z.infer<typeof userLoginSchema>["body"];

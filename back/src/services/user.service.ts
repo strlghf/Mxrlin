@@ -5,28 +5,49 @@ import { hashPassword } from "../utils/helpers";
 type userRole = "admin" | "customer";
 const userSelect = { id: true, role: true, name: true, email: true, created_at: true } as const;
 
-export async function getUsersService(filter?: GetUsersQueryDto["filter"], value?: string) {
-  if (filter && value) {
-    if (filter === "role") {
-      return prisma.users.findMany({
-        where: {
-          role: value as userRole
-        },
-        select: userSelect
-      });
-    }
+export async function getUsersService(
+  page: number,
+  limit: number,
+  filter?: GetUsersQueryDto["filter"],
+  value?: string
+) {
+  const skip = (page - 1) * limit;
+  
+  // if (filter && value) {
+  //   if (filter === "role") {
+  //     return prisma.users.findMany({
+  //       where: {
+  //         role: value as userRole
+  //       },
+  //       select: userSelect
+  //     });
+  //   }
 
-    return await prisma.users.findMany({
-      where: {
-        [filter]: { contains: value, mode: "insensitive" }
-      },
+  //   return await prisma.users.findMany({
+  //     where: {
+  //       [filter]: { contains: value, mode: "insensitive" }
+  //     },
+  //     select: userSelect
+  //   });
+  // }
+
+  // return await prisma.users.findMany({
+  //   select: userSelect
+  // });
+
+  const [users, totalCount] = await prisma.$transaction([
+    prisma.users.findMany({
+      skip,
+      take: limit,
       select: userSelect
-    });
-  }
+    }),
+    prisma.users.count()
+  ]);
 
-  return await prisma.users.findMany({
-    select: userSelect
-  });
+  return {
+    data: users,
+    pagination: { page, limit, total: totalCount }
+  }
 }
 
 export async function getUserOrdersService(userId: GetUserIdDto) {
