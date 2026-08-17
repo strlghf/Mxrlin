@@ -13,13 +13,15 @@ export const userModelSchema = z.object({
 export const userAuthSchema = z.object({
   body: z.object({
     email: z.string().trim().email("Invalid email format.").max(77),
-    password: z.string().min(8, "Password must be at least 8 characters.").max(77)
+    password: z.string().min(8, "Password must be at least 8 characters.").max(72)
   })
 });
 
 // pagination, query params model
 export const getUsersQuerySchema = z.object({
   query: z.object({
+    page: z.coerce.number().int().positive("Page must be greater than 0.").default(1),
+    limit: z.coerce.number().int().positive("Limit must be greater than 0.").max(100, "Maximum fetch loading reached.").default(10),
     filter: z.enum(["name", "email", "role"]).optional(),
     value: z.string().min(1).optional()
   })
@@ -30,7 +32,7 @@ export const createUserSchema = z.object({
   body: z.object({
     name: z.string().trim().min(3, "Name must be at least 3 characters.").max(48),
     email: z.string().trim().email("Invalid email format.").max(77),
-    password: z.string().min(8, "Password must be at least 8 characters.").max(77),
+    password: z.string().min(8, "Password must be at least 8 characters.").max(72),
   })
 });
 
@@ -39,7 +41,7 @@ export const updateUserSchema = z.object({
   body: z.object({
     name: z.string().trim().min(3, "Name must be at least 3 characters.").max(48).optional(),
     email: z.string().trim().email("Invalid email format.").optional(),
-    password: z.string().min(8, "Password must be at least 8 characters.").max(77).optional(),
+    password: z.string().min(8, "Password must be at least 8 characters.").max(72).optional(),
   })
 });
 

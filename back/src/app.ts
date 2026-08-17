@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import helmet from "helmet";
 import routes from "./routes";
 import { errorHandler } from "./middlewares/errorHandler";
 import "dotenv/config";
@@ -13,6 +15,8 @@ app.use(cors(
   { credentials: true, origin: process.env.CLIENT_URL },
 ));
 app.use(cookieParser());
+app.use(morgan("short"));
+app.use(helmet());
 app.use(routes);
 
 app.get("/", (req, res) => {

@@ -9,6 +9,7 @@ export async function getProducts(req: Request, res: Response, next: NextFunctio
     const products = await getProductsService(page || 1, limit || 10, search);
 
     return res.status(200).json({
+      success: true,
       data: products.data,
       pagination: products.pagination
     });

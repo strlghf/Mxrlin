@@ -29,14 +29,6 @@ export function errorHandler(
     }
   }
 
-  // if ("statusCode" in err) {
-  //   return res.status(statusCode).json({
-  //     success: false,
-  //     message: err.message
-  //   });
-  // }
-
   console.error(`[Error Handler]`, err);
-
   return res.status(statusCode).json(responseBody);
 }
