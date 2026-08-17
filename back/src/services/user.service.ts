@@ -13,27 +13,45 @@ export async function getUsersService(
 ) {
   const skip = (page - 1) * limit;
   
-  // if (filter && value) {
-  //   if (filter === "role") {
-  //     return prisma.users.findMany({
-  //       where: {
-  //         role: value as userRole
-  //       },
-  //       select: userSelect
-  //     });
-  //   }
+  if (filter && value) {
+    if (filter === "role") {
+      const [usersRole, totalCount] = await prisma.$transaction([
+        prisma.users.findMany({
+          skip,
+          take: limit,
+          where: { role: value as userRole},
+          select: userSelect
+        }),
+        prisma.users.count({
+          where: { role: value as userRole }
+        })
+      ]);
 
-  //   return await prisma.users.findMany({
-  //     where: {
-  //       [filter]: { contains: value, mode: "insensitive" }
-  //     },
-  //     select: userSelect
-  //   });
-  // }
+      return {
+        data: usersRole,
+        pagination: { page, limit, total: totalCount }
+      }
+    }
 
-  // return await prisma.users.findMany({
-  //   select: userSelect
-  // });
+    const [users, totalCount] = await prisma.$transaction([
+      prisma.users.findMany({
+        skip,
+        take: limit,
+        where: {
+          [filter]: { contains: value, mode: "insensitive" }
+        },
+        select: userSelect
+      }),
+      prisma.users.count({
+        where: { name: { contains: value, mode: "insensitive" } }
+      })
+    ]);
+
+    return {
+      data: users,
+      pagination: { page, limit, total: totalCount }
+    }
+  }
 
   const [users, totalCount] = await prisma.$transaction([
     prisma.users.findMany({

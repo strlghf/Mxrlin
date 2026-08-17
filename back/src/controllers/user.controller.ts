@@ -5,11 +5,10 @@ import type { CreateUserDto, GetUsersQueryDto, UpdateUserDto } from "../schemas/
 type filterUsers = "name" | "email" | "role";
 
 export async function getUsers(req: Request, res: Response, next: NextFunction) {
-  const { page, limit, search, filter, value } = req.query as Partial<GetUsersQueryDto>;
+  const { page, limit, filter, value } = req.query as Partial<GetUsersQueryDto>;
 
   try {
-    // const users = await getUsersService(filter as filterUsers, value as string);
-    const users = await getUsersService(page || 1, limit || 10);
+    const users = await getUsersService(page || 1, limit || 10, filter as filterUsers, value as string);
     
     return res.status(200).json({
       success: true,
