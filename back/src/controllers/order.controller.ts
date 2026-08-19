@@ -19,7 +19,8 @@ export async function getOrderById(req: Request, res: Response) {
 }
 
 export async function createOrder(req: Request, res: Response, next: NextFunction) {
-  const { user_id, items } = req.body as CreateOrderDto;
+  const { items } = req.body as CreateOrderDto;
+  const { id: user_id } = req.user;
 
   try {
     const newOrder = await createOrderService(user_id, items);
