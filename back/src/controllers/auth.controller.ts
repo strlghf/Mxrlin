@@ -26,10 +26,6 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
   }
 }
 
-// app.get("/protected", (req, res) => {
-//   const { token } = req.cookies;
-// })
-
 export async function loginUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 

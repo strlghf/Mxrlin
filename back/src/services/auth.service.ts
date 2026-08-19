@@ -16,7 +16,10 @@ export async function registerService(userData: CreateUserDto) {
 }
 
 export async function loginService(userData: UserLoginDto) {
-  const user = await prisma.users.findUnique({ where: { email: userData.email }, select: userSelect });
+  const user = await prisma.users.findUnique({
+    where: { email: userData.email },
+    select: userSelect
+  });
   if (!user) throw Object.assign(new Error("Invalid credentials."), { statusCode: 401 });
 
   const match = await comparePassword(userData.password, user.password);

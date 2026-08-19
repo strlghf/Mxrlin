@@ -28,11 +28,3 @@ export function authToken(req: Request, res: Response, next: NextFunction) {
     return next(error);
   }
 }
-
-// export function validateToken(req: Request, res: Response, next: NextFunction) {
-//   const { user } = req;
-
-//   const accessToken = generateAccessToken(user);
-//   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-//   res.json({ accessToken, refreshToken });
-// }
