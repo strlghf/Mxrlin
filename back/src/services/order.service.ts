@@ -1,6 +1,7 @@
 import { prisma } from "../db/prisma";
 import type { GetOrderIdDto } from "../schemas/order.schema";
 import type { OrderStatus } from "../../generated/prisma/enums";
+import { AppError } from "../utils/AppError";
 
 interface OrderItemInput {
   product_id: number;
@@ -16,11 +17,11 @@ export async function createOrderService(userId: GetOrderIdDto, items: OrderItem
       });
 
       if (!product) {
-        throw new Error(`Product with id ${item.product_id} not found.`);
+        throw new AppError(`Product with id ${item.product_id} not found.`, 404);
       }
 
       if (product.stock < item.quantity) {
-        throw new Error(`Insufficient stock for ${product.name}. Only ${product.stock} left.`);
+        throw new AppError(`Insufficient stock for ${product.name}. Only ${product.stock} left.`, 422);
       }
 
       const result = await tx.products.updateMany({
@@ -29,7 +30,7 @@ export async function createOrderService(userId: GetOrderIdDto, items: OrderItem
       });
 
       if (result.count === 0) {
-        throw new Error(`Insufficient stock for product ${item.product_id}.`);
+        throw new AppError(`Insufficient stock for product ${item.product_id}.`, 422);
       }
     }
 

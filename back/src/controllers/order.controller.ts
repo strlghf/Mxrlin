@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import type { CreateOrderDto } from "../schemas/order.schema";
 import { createOrderService, updateOrderStatusService } from "../services/order.service";
 import type { OrderStatus } from "../../generated/prisma/enums";
+import { AppError } from "../utils/AppError";
 
 const transitions: Record<OrderStatus, OrderStatus[]> = {
   pending: ["paid", "cancelled"],
@@ -41,18 +42,18 @@ export async function updateOrderStatus(req: Request, res: Response, next: NextF
 
   try {
     if (!order) {
-      throw new Error("Order not found.");
+      throw new AppError("Order not found.", 404);
     }
 
     if (order.status === "paid") {
-      throw new Error("Paid orders cannot be modified.");
+      throw new AppError("Paid orders cannot be modified.", 409);
     }
 
     const currentStatus = order.status;
     const allowedTransitions = transitions[currentStatus];
 
     if (!allowedTransitions.includes(status)) {
-      throw new Error(`Invalid status transition from '${currentStatus}' to ${status}.`);
+      throw new AppError(`Invalid status transition from '${currentStatus}' to ${status}.`, 409);
     }
 
     const updatedOrder = await updateOrderStatusService(id, status);
