@@ -17,7 +17,6 @@ export const getOrdersSchema = z.object({
 
 export const createOrderSchema = z.object({
   body: z.object({
-    user_id: z.number().int().positive("User ID must be valid."),
     items: z.array(
       z.object({
         product_id: z.number().int().positive("Product ID must be valid."),

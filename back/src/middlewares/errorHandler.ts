@@ -1,9 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
-
-interface AppError extends Error {
-  statusCode?: number;
-}
+import type { AppError } from "../types";
 
 // Global error handling
 export function errorHandler(

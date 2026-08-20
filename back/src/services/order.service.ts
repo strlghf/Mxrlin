@@ -23,10 +23,14 @@ export async function createOrderService(userId: GetOrderIdDto, items: OrderItem
         throw new Error(`Insufficient stock for ${product.name}. Only ${product.stock} left.`);
       }
 
-      await tx.products.update({
-        where: { id: item.product_id },
-        data: { stock: product.stock - item.quantity }
+      const result = await tx.products.updateMany({
+        where: { id: item.product_id, stock: { gte: item.quantity } },
+        data: { stock: { decrement: item.quantity } }
       });
+
+      if (result.count === 0) {
+        throw new Error(`Insufficient stock for product ${item.product_id}.`);
+      }
     }
 
     const productRecords = await tx.products.findMany({
