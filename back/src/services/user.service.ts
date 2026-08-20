@@ -43,7 +43,9 @@ export async function getUsersService(
         select: userSelect
       }),
       prisma.users.count({
-        where: { name: { contains: value, mode: "insensitive" } }
+        where: {
+          [filter]: { contains: value, mode: "insensitive" }
+        }
       })
     ]);
 

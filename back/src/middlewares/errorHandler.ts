@@ -27,6 +27,6 @@ export function errorHandler(
   return res.status(500).json({
     success: false,
     message: "An unexpected error ocurred.",
-    ...(process.env.NODE_ENV !== "production") && { stac: err.stack }
+    ...(process.env.NODE_ENV !== "production") && { stack: err.stack }
   });
 }
