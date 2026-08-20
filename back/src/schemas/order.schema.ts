@@ -15,6 +15,20 @@ export const getOrdersSchema = z.object({
   total: z.number().positive()
 });
 
+export const orderWithItemsSchema = orderModelSchema.extend({
+  orders_items: z.array(z.object({
+    id: z.number(),
+    product_id: z.number().nullable(),
+    quantity: z.number(),
+    price_at_purchase: z.coerce.number(),
+    products: z.object({
+      id: z.number(),
+      name: z.string(),
+      img: z.string()
+    }).nullable()
+  }))
+});
+
 export const createOrderSchema = z.object({
   body: z.object({
     items: z.array(
