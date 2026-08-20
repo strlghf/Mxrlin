@@ -87,7 +87,7 @@ export async function updateOrderStatusService(orderId: GetOrderIdDto, newStatus
       };
     }
     
-    return await prisma.orders.update({
+    return await tx.orders.update({
       where: { id: orderId },
       data: { status: newStatus },
       include: { orders_items: true }

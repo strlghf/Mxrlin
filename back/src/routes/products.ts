@@ -11,7 +11,7 @@ import { getProducts, getProductById, createProduct, updateProduct, deleteProduc
 const router = Router();
 
 const resolveIdMiddleware = resolveEntity(prisma.products, productModelSchema, "product");
-// router.use(authToken);
+router.use(authToken);
 
 router.get("/", validateRequest(getProductsQuerySchema), getProducts);
 router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getProductById);
