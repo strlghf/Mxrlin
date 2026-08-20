@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { User } from "../schemas/user.schema";
+import type { JwtUser } from "../schemas/common.schema";
 
 export function isAllowed(
   req: Request,
@@ -45,6 +45,6 @@ export function isAdmin(
   return next();
 }
 
-export function canEdit(user: User, id: number) {
+export function canEdit(user: JwtUser, id: number) {
   return (user.role === "admin" || user.id === id);
 }

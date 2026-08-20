@@ -42,7 +42,7 @@ export async function createOrderService(userId: GetOrderIdDto, items: OrderItem
 
     const total = items.reduce((sum, item) => {
       const prod = productMap.get(item.product_id);
-      return sum + (prod ? Number(prod.price) * item.quantity : 0);
+      return Math.round((sum + (prod ? Number(prod.price) * item.quantity : 0)) * 100) / 100;
     }, 0);
 
     const order = await tx.orders.create({
@@ -71,9 +71,8 @@ export async function createOrderService(userId: GetOrderIdDto, items: OrderItem
 }
 
 export async function updateOrderStatusService(orderId: GetOrderIdDto, newStatus: OrderStatus) {
-  // debería ir dentro de $transaction
-  if (newStatus === "cancelled") {
-    await prisma.$transaction(async tx => {
+  return await prisma.$transaction(async tx => {
+    if (newStatus === "cancelled") {
       const items = await tx.orders_items.findMany({
         where: { order_id: orderId }
       });
@@ -85,15 +84,13 @@ export async function updateOrderStatusService(orderId: GetOrderIdDto, newStatus
             data: { stock: { increment: item.quantity } }
           });
         }
-      }
+      };
+    }
+    
+    return await prisma.orders.update({
+      where: { id: orderId },
+      data: { status: newStatus },
+      include: { orders_items: true }
     });
-  }
-  
-  const updatedOrder = await prisma.orders.update({
-    where: { id: orderId },
-    data: { status: newStatus },
-    include: { orders_items: true }
-  });
-
-  return updatedOrder;
+  })
 }

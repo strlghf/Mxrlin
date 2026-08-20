@@ -3,7 +3,7 @@ import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } fro
 import { hashPassword } from "../utils/helpers";
 
 type userRole = "admin" | "customer";
-const userSelect = { id: true, role: true, name: true, email: true, created_at: true } as const;
+const userSelect = { id: true, role: true, name: true, email: true } as const;
 
 export async function getUsersService(
   page: number,
