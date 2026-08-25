@@ -10,16 +10,20 @@ import { getProducts, getProductById, createProduct, updateProduct, deleteProduc
 
 const router = Router();
 
-const resolveIdMiddleware = resolveEntity(prisma.products, productModelSchema, "product");
+const resolveId = resolveEntity(prisma.products, productModelSchema, "product");
+
 router.use(authToken);
 
 router.get("/", validateRequest(getProductsQuerySchema), getProducts);
-router.get("/:id", validateRequest(idParamSchema), resolveIdMiddleware, getProductById);
 
-router.use(isAdmin);
-router.post("/", validateRequest(createProductSchema), createProduct);
-router.put("/:id", validateRequest(idParamSchema.merge(updateProductSchema)), resolveIdMiddleware, updateProduct);
-router.patch("/:id", validateRequest(idParamSchema.merge(updateProductSchema)), resolveIdMiddleware, updateProduct);
-router.delete("/:id", validateRequest(idParamSchema), resolveIdMiddleware, deleteProduct);
+router.get("/:id", validateRequest(idParamSchema), resolveId, getProductById);
+
+router.post("/", isAdmin, validateRequest(createProductSchema), createProduct);
+
+router.put("/:id", isAdmin, validateRequest(idParamSchema.merge(updateProductSchema)), resolveId, updateProduct);
+
+router.patch("/:id", isAdmin, validateRequest(idParamSchema.merge(updateProductSchema)), resolveId, updateProduct);
+
+router.delete("/:id", isAdmin, validateRequest(idParamSchema), resolveId, deleteProduct);
 
 export default router;
