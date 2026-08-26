@@ -18,6 +18,13 @@ export function errorHandler(
     });
   }
 
+  if (err instanceof PrismaClientKnownRequestError && err.code === "P2025") {
+    return res.status(404).json({
+      success: false,
+      error: `Record not found.`
+    });
+  }
+
   if (err.statusCode) {
     return res.status(err.statusCode).json({
       success: false,

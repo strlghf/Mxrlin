@@ -7,7 +7,7 @@ export const idParamSchema = z.object({
 });
 
 export const jwtModel = z.object({
-  id: z.number(),
+  id: z.coerce.number().int().positive(),
   role: z.enum(["admin", "customer"])
 });
 

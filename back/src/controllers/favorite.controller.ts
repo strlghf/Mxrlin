@@ -38,9 +38,11 @@ export async function addFavorite(req: Request, res: Response, next: NextFunctio
 
 export async function deleteFavorite(req: Request, res: Response, next: NextFunction) {
   const { id } = req.user;
+  const { id: productId } = req.params;
 
   try {
-    await deleteFavoriteService(id);
+    const parsedId = Number(productId);
+    await deleteFavoriteService(id, parsedId);
 
     return res.status(204).end();
   } catch (error) {

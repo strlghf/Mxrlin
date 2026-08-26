@@ -2,19 +2,25 @@ import { prisma } from "../db/prisma";
 import type { GetFavoriteIdDto } from "../schemas/favorite.schema";
 import type { GetProductIdDto } from "../schemas/product.schema";
 
-const favoriteSelect = { id: true, user_id: true, product_id: true } as const;
-
 export async function getFavoritesService(page: number, limit: number, userId: GetFavoriteIdDto) {
   const skip = (page - 1) * limit;
 
   const [favorites, totalCount] = await prisma.$transaction([
     prisma.favorites.findMany({
-      skip,
       where: { user_id: userId },
+      skip,
       take: limit,
-      select: favoriteSelect
+      select: {
+        id: true,
+        created_at: true,
+        products: { select: {
+          id: true, name: true, price: true, img: true, category: true, stock: true
+        } }
+      }
     }),
-    prisma.favorites.count()
+    prisma.favorites.count({
+      where: { user_id: userId }
+    })
   ]);
 
   return {
@@ -29,8 +35,8 @@ export async function addFavoriteService(userId: GetFavoriteIdDto, productId: Ge
   });
 }
 
-export async function deleteFavoriteService(userId: GetFavoriteIdDto) {
+export async function deleteFavoriteService(userId: GetFavoriteIdDto, productId: GetProductIdDto) {
   return await prisma.favorites.delete({
-    where: { id: userId }
+    where: { user_id_product_id: { user_id: userId, product_id: productId } }
   });
 }

@@ -17,7 +17,6 @@ export const getFavoritesQuerySchema = z.object({
 
 export const addFavoriteSchema = z.object({
   body: z.object({
-    user_id: z.coerce.number().int().positive(),
     product_id: z.coerce.number().int().positive()
   })
 });
