@@ -98,7 +98,7 @@ export async function createUserService(userData: CreateUserDto) {
 
 export async function updateUserService(id: GetUserIdDto, data: UpdateUserDto) {
   const cleanData = Object.fromEntries(
-    Object.entries(data).filter(([_, value]) => value !== undefined)
+    Object.entries(data).filter(([, value]) => value !== undefined)
   );
 
   if (cleanData.password) {

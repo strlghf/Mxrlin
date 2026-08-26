@@ -53,7 +53,7 @@ export async function createProductService(productData: CreateProductDto) {
 
 export async function updateProductService(id: GetProductIdDto, data: UpdateProductDto) {
   const cleanData = Object.fromEntries(
-    Object.entries(data).filter(([_, value]) => value !== undefined)
+    Object.entries(data).filter(([, value]) => value !== undefined)
   );
 
   return await prisma.products.update({
