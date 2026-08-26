@@ -17,10 +17,12 @@ export const getFavoritesQuerySchema = z.object({
 
 export const addFavoriteSchema = z.object({
   body: z.object({
-
+    user_id: z.coerce.number().int().positive(),
+    product_id: z.coerce.number().int().positive()
   })
 });
 
 export type Favorite = z.infer<typeof favoriteModelSchema>;
 export type GetFavoritesQueryDto = z.infer<typeof getFavoritesQuerySchema>["query"];
 export type GetFavoriteIdDto = z.infer<typeof idParamSchema>["params"]["id"];
+export type CreateFavoriteDto = z.infer<typeof addFavoriteSchema>["body"];

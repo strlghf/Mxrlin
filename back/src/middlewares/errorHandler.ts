@@ -10,9 +10,11 @@ export function errorHandler(
   next: NextFunction
 ) {
   if (err instanceof PrismaClientKnownRequestError && err.code === "P2002") {
+    const target = (err.meta?.target as string[] | undefined)?.join(", ") ?? "field";
+
     return res.status(409).json({
       success: false,
-      error: "Email not available."
+      error: `A record with this ${target} already exists.`
     });
   }
 

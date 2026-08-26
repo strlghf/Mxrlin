@@ -28,3 +28,9 @@ export async function addFavoriteService(userId: GetFavoriteIdDto, productId: Ge
     data: { user_id: userId, product_id: productId }
   });
 }
+
+export async function deleteFavoriteService(userId: GetFavoriteIdDto) {
+  return await prisma.favorites.delete({
+    where: { id: userId }
+  });
+}
