@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateRequest } from "../middlewares/validateRequest";
+import { validateRequest } from "../middlewares/validateRequest.middleware";
 import { loginRateLimit } from "../middlewares/rateLimit";
 import { authToken } from "../middlewares/validateToken";
 import { createUserSchema, userLoginSchema } from "../schemas/user.schema";

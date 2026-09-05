@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authToken } from "../middlewares/validateToken";
-import { validateRequest } from "../middlewares/validateRequest";
+import { validateRequest } from "../middlewares/validateRequest.middleware";
 import { addFavoriteSchema, getFavoritesQuerySchema } from "../schemas/favorite.schema";
 import { idParamSchema } from "../schemas/common.schema";
 import { addFavorite, deleteFavorite, getFavorites } from "../controllers/favorite.controller";

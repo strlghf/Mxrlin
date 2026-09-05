@@ -1,12 +1,13 @@
 import type { Request, Response, NextFunction } from "express";
 import type { GetProductsQueryDto, CreateProductDto, UpdateProductDto } from "../schemas/product.schema";
 import { getProductsService, createProductService, updateProductService, deleteProductService } from "../services/product.service";
+import { AppError } from "../utils/AppError";
 
 export async function getProducts(req: Request, res: Response, next: NextFunction) {
   const { page, limit, search } = req.query as Partial<GetProductsQueryDto>;
   
   try {
-    const products = await getProductsService(page || 1, limit || 10, search);
+    const products = await getProductsService(page || 1, limit || 10, search as string);
 
     return res.status(200).json({
       success: true,
@@ -18,24 +19,35 @@ export async function getProducts(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function getProductById(req: Request, res: Response) {
+export async function getProductById(req: Request, res: Response, next: NextFunction) {
   const { product } = req;
 
-  return res.status(200).json({
-    success: true,
-    data: product
-  });
+  try {
+    return res.status(200).json({
+      success: true,
+      data: product
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 export async function createProduct(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
 
+  const createdProduct = {
+    name: body.name,
+    price: body.price,
+    img: body.img,
+    category: body.category,
+    stock: body.stock
+  } as CreateProductDto;
+
   try {
-    const newProduct = await createProductService(body as CreateProductDto);
+    const newProduct = await createProductService(createdProduct);
 
     return res.status(201).json({
       success: true,
-      message: "Product created successfully.",
       data: newProduct
     });
   } catch (error) {
@@ -48,11 +60,12 @@ export async function updateProduct(req: Request, res: Response, next: NextFunct
   const { id } = req.product;
 
   try {
+    if (!id) throw new AppError("Id must be a number.", 400);
+
     const updatedProduct = await updateProductService(id, body as UpdateProductDto);
 
     return res.status(200).json({
       success: true,
-      message: "Product updated succesfully.",
       data: updatedProduct
     });
   } catch (error) {
@@ -64,6 +77,8 @@ export async function deleteProduct(req: Request, res: Response, next: NextFunct
   const { id } = req.product;
 
   try {
+    if (!id) throw new AppError("Id must be a number.", 400);
+
     await deleteProductService(id);
 
     return res.status(204).end();

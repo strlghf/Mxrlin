@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { AppError } from "../utils/AppError";
+import "dotenv/config";
 
 // Global error handling
 export function errorHandler(
@@ -33,6 +34,7 @@ export function errorHandler(
   }
 
   console.error(`[Error Handler]`, err);
+  
   return res.status(500).json({
     success: false,
     message: "An unexpected error ocurred.",

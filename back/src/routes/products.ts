@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../db/prisma";
 import { resolveEntity } from "../middlewares/resolveEntity";
-import { validateRequest } from "../middlewares/validateRequest";
+import { validateRequest } from "../middlewares/validateRequest.middleware";
 import { authToken } from "../middlewares/validateToken";
 import { isAdmin } from "../middlewares/role.middleware";
 import { productModelSchema, getProductsQuerySchema, createProductSchema, updateProductSchema } from "../schemas/product.schema";
