@@ -1,5 +1,5 @@
 import { prisma } from "../db/prisma";
-import type { CreateUserDto, GetUserIdDto, UserLoginDto } from "../schemas/user.schema";
+import type { GetUserIdDto, CreateUserDto, UserLoginDto } from "../schemas/user.schema";
 import { createUserService } from "./user.service";
 import { comparePassword } from "../utils/helpers";
 import { AppError } from "../utils/AppError";

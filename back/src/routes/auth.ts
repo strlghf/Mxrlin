@@ -8,8 +8,11 @@ import { loginUser, logoutUser, registerUser, showUser } from "../controllers/au
 const router = Router();
 
 router.post("/register", loginRateLimit, validateRequest(createUserSchema), registerUser);
+
 router.post("/login", loginRateLimit, validateRequest(userLoginSchema), loginUser);
+
 router.post("/logout", logoutUser);
+
 router.get("/me", authToken, showUser);
 
 export default router;

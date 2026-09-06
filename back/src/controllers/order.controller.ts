@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import type { CreateOrderDto } from "../schemas/order.schema";
-import { createOrderService, updateOrderStatusService } from "../services/order.service";
 import type { OrderStatus } from "../../generated/prisma/enums";
+import { createOrderService, updateOrderStatusService } from "../services/order.service";
 import { AppError } from "../utils/AppError";
 
 const transitions: Record<OrderStatus, OrderStatus[]> = {
@@ -10,13 +10,17 @@ const transitions: Record<OrderStatus, OrderStatus[]> = {
   cancelled: []
 };
 
-export async function getOrderById(req: Request, res: Response) {
+export async function getOrderById(req: Request, res: Response, next: NextFunction) {
   const { order } = req;
 
-  return res.status(200).json({
-    success: true,
-    data: order
-  });
+  try {
+    return res.status(200).json({
+      success: true,
+      data: order
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 export async function createOrder(req: Request, res: Response, next: NextFunction) {
@@ -24,6 +28,8 @@ export async function createOrder(req: Request, res: Response, next: NextFunctio
   const { id: user_id } = req.user;
 
   try {
+    if (!user_id) throw new AppError("Id must be a number.", 400);
+
     const newOrder = await createOrderService(user_id, items);
 
     return res.status(201).json({
@@ -41,13 +47,9 @@ export async function updateOrderStatus(req: Request, res: Response, next: NextF
   const { status } = req.body;
 
   try {
-    if (!order) {
-      throw new AppError("Order not found.", 404);
-    }
+    if (!order) throw new AppError("Order not found.", 404);
 
-    if (order.status === "paid") {
-      throw new AppError("Paid orders cannot be modified.", 409);
-    }
+    if (order.status === "paid") throw new AppError("Paid orders cannot be modified.", 409);
 
     const currentStatus = order.status;
     const allowedTransitions = transitions[currentStatus];
