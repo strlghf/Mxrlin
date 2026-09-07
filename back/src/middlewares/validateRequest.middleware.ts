@@ -30,6 +30,7 @@ export function validateRequest<TBody = unknown, TQuery = unknown, TParams = unk
       if (!result.success) {
         const errors = result.error.issues.map(issue => {
           const [location, ...path] = issue.path;
+          
           return {
             location: typeof location === "string" ? location : "root",
             field: path.length ? path.join(".") : "_",
@@ -50,6 +51,7 @@ export function validateRequest<TBody = unknown, TQuery = unknown, TParams = unk
       if (query) {
         syncInPlace(req.query as RecordUnknown, query as RecordUnknown);
       }
+      
       if (params) {
         syncInPlace(req.params as RecordUnknown, params as RecordUnknown);
       }

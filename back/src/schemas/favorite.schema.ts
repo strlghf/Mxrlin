@@ -2,9 +2,9 @@ import { z } from "zod";
 import type { idParamSchema } from "./common.schema";
 
 export const favoriteModelSchema = z.object({
-  id: z.number(),
-  user_id: z.number(),
-  product_id: z.number()
+  id: z.coerce.number(),
+  user_id: z.coerce.number(),
+  product_id: z.coerce.number()
 });
 
 // v1. only pagination, not query params

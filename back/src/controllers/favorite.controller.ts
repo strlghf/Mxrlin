@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
-import type { CreateFavoriteDto, GetFavoritesQueryDto } from "../schemas/favorite.schema";
-import { addFavoriteService, deleteFavoriteService, getFavoritesService } from "../services/favorite.service";
+import type { GetFavoritesQueryDto, CreateFavoriteDto } from "../schemas/favorite.schema";
+import { getFavoritesService, addFavoriteService, deleteFavoriteService } from "../services/favorite.service";
+import { AppError } from "../utils/AppError";
 
 export async function getFavorites(req: Request, res: Response, next: NextFunction) {
   const { page, limit } = req.query as Partial<GetFavoritesQueryDto>;
@@ -23,13 +24,17 @@ export async function addFavorite(req: Request, res: Response, next: NextFunctio
   const { body } = req;
   const { id } = req.user;
 
+  const createdFavorite = {
+    product_id: body.product_id
+  } as CreateFavoriteDto;
+
   try {
-    const { product_id } = body as CreateFavoriteDto;
-    const favorite = await addFavoriteService(id, product_id);
+    const { product_id } = createdFavorite;
+    const newFavorite = await addFavoriteService(id, product_id);
 
     return res.status(201).json({
       success: true,
-      data: favorite
+      data: newFavorite
     });
   } catch (error) {
     return next(error);
@@ -38,10 +43,12 @@ export async function addFavorite(req: Request, res: Response, next: NextFunctio
 
 export async function deleteFavorite(req: Request, res: Response, next: NextFunction) {
   const { id } = req.user;
-  const { id: productId } = req.params;
+  const { id: product_id } = req.params;
+  const parsedId = Number(product_id);
 
   try {
-    const parsedId = Number(productId);
+    if (!parsedId) throw new AppError("Id must be a number.", 400);
+
     await deleteFavoriteService(id, parsedId);
 
     return res.status(204).end();

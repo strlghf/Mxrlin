@@ -1,6 +1,6 @@
 import { prisma } from "../db/prisma";
-import type { GetFavoriteIdDto } from "../schemas/favorite.schema";
 import type { GetProductIdDto } from "../schemas/product.schema";
+import type { GetFavoriteIdDto } from "../schemas/favorite.schema";
 
 export async function getFavoritesService(page: number, limit: number, userId: GetFavoriteIdDto) {
   const skip = (page - 1) * limit;
