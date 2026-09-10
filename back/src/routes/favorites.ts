@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { validateRequest } from "../middlewares/validateRequest.middleware";
-import { authToken } from "../middlewares/validateToken";
-import { getFavoritesQuerySchema, addFavoriteSchema } from "../schemas/favorite.schema";
-import { idParamSchema } from "../schemas/common.schema";
-import { getFavorites, addFavorite, deleteFavorite } from "../controllers/favorite.controller";
+import { validateRequest } from "../middlewares/validateRequest.middleware.js";
+import { authToken } from "../middlewares/validateToken.js";
+import { getFavoritesQuerySchema, addFavoriteSchema } from "../schemas/favorite.schema.js";
+import { idParamSchema } from "../schemas/common.schema.js";
+import { getFavorites, addFavorite, deleteFavorite } from "../controllers/favorite.controller.js";
 
 const router = Router();
 

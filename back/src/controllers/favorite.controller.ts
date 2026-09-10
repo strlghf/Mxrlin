@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
-import type { GetFavoritesQueryDto, CreateFavoriteDto } from "../schemas/favorite.schema";
-import { getFavoritesService, addFavoriteService, deleteFavoriteService } from "../services/favorite.service";
-import { AppError } from "../utils/AppError";
+import type { GetFavoritesQueryDto, CreateFavoriteDto } from "../schemas/favorite.schema.js";
+import { getFavoritesService, addFavoriteService, deleteFavoriteService } from "../services/favorite.service.js";
+import { AppError } from "../utils/AppError.js";
 
 export async function getFavorites(req: Request, res: Response, next: NextFunction) {
   const { page, limit } = req.query as Partial<GetFavoritesQueryDto>;

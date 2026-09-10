@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { idParamSchema } from "./common.schema";
+import { idParamSchema } from "./common.schema.js";
 
 // public user model
 export const userModelSchema = z.object({

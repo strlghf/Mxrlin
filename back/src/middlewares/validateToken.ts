@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt, { type JwtPayload, type VerifyErrors } from "jsonwebtoken";
-import type { Role } from "../../generated/prisma/enums";
+import type { Role } from "../generated/prisma/enums.js";
 import "dotenv/config";
 
 interface User extends JwtPayload {

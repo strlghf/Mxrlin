@@ -1,5 +1,5 @@
-import { prisma } from "../db/prisma";
-import type { GetProductIdDto, CreateProductDto, UpdateProductDto } from "../schemas/product.schema";
+import { prisma } from "../db/prisma.js";
+import type { GetProductIdDto, CreateProductDto, UpdateProductDto } from "../schemas/product.schema.js";
 
 const productSelect = { id: true, name: true, price: true, img: true, category: true, stock: true } as const;
 

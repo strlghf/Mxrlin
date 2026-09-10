@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { prisma } from "../db/prisma";
-import { resolveEntity } from "../middlewares/resolveEntity";
-import { validateRequest } from "../middlewares/validateRequest.middleware";
-import { authToken } from "../middlewares/validateToken";
-import { isAdmin, isAuthorized } from "../middlewares/role.middleware";
-import { userModelSchema, getUsersQuerySchema, createUserSchema, updateUserSchema } from "../schemas/user.schema";
-import { idParamSchema } from "../schemas/common.schema";
-import { getUsers, getUserById, getUserOrders, createUser, updateUser, deleteUser } from "../controllers/user.controller";
+import { prisma } from "../db/prisma.js";
+import { resolveEntity } from "../middlewares/resolveEntity.js";
+import { validateRequest } from "../middlewares/validateRequest.middleware.js";
+import { authToken } from "../middlewares/validateToken.js";
+import { isAdmin, isAuthorized } from "../middlewares/role.middleware.js";
+import { userModelSchema, getUsersQuerySchema, createUserSchema, updateUserSchema } from "../schemas/user.schema.js";
+import { idParamSchema } from "../schemas/common.schema.js";
+import { getUsers, getUserById, getUserOrders, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
 
 const router = Router();
 

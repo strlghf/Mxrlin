@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { idParamSchema } from "./common.schema";
+import type { idParamSchema } from "./common.schema.js";
 
 export const favoriteModelSchema = z.object({
   id: z.coerce.number(),

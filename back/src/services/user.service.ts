@@ -1,6 +1,6 @@
-import { prisma } from "../db/prisma";
-import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/user.schema";
-import { hashPassword } from "../utils/helpers";
+import { prisma } from "../db/prisma.js";
+import type { GetUsersQueryDto, GetUserIdDto, CreateUserDto, UpdateUserDto } from "../schemas/user.schema.js";
+import { hashPassword } from "../utils/helpers.js";
 
 type userRole = "admin" | "customer";
 const userSelect = { id: true, role: true, name: true, email: true } as const;

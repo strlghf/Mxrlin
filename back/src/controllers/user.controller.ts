@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
-import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/user.service";
-import type { GetUsersQueryDto, CreateUserDto, UpdateUserDto } from "../schemas/user.schema";
-import { AppError } from "../utils/AppError";
+import type { GetUsersQueryDto, CreateUserDto, UpdateUserDto } from "../schemas/user.schema.js";
+import { getUsersService, getUserOrdersService, createUserService, updateUserService, deleteUserService } from "../services/user.service.js";
+import { AppError } from "../utils/AppError.js";
 
 type filterUsers = "name" | "email" | "role";
 

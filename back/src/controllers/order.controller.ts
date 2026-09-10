@@ -1,8 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
-import type { CreateOrderDto } from "../schemas/order.schema";
-import type { OrderStatus } from "../../generated/prisma/enums";
-import { createOrderService, updateOrderStatusService } from "../services/order.service";
-import { AppError } from "../utils/AppError";
+import type { CreateOrderDto } from "../schemas/order.schema.js";
+import type { OrderStatus } from "../generated/prisma/enums.js";
+import { createOrderService, updateOrderStatusService } from "../services/order.service.js";
+import { AppError } from "../utils/AppError.js";
 
 const transitions: Record<OrderStatus, OrderStatus[]> = {
   pending: ["paid", "cancelled"],

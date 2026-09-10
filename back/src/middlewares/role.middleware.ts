@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { JwtUser } from "../schemas/common.schema";
+import type { JwtUser } from "../schemas/common.schema.js";
 
 export function isAuthorized(getOwnerId: (req: Request) => number) {
   return (req: Request, res: Response, next: NextFunction) => {

@@ -1,8 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
-import type { CreateUserDto, UserLoginDto } from "../schemas/user.schema";
-import { loginService, registerService, showUserService } from "../services/auth.service";
+import type { CreateUserDto, UserLoginDto } from "../schemas/user.schema.js";
+import { loginService, registerService, showUserService } from "../services/auth.service.js";
+import { AppError } from "../utils/AppError.js";
 import "dotenv/config";
-import { AppError } from "../utils/AppError";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;

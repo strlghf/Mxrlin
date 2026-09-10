@@ -3,8 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
-import routes from "./routes";
-import { errorHandler } from "./middlewares/errorHandler";
+import routes from "./routes/index.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 import "dotenv/config";
 
 const app = express();

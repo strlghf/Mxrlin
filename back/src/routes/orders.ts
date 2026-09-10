@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { prisma } from "../db/prisma";
-import { resolveEntity } from "../middlewares/resolveEntity";
-import { validateRequest } from "../middlewares/validateRequest.middleware";
-import { authToken } from "../middlewares/validateToken";
-import { isAdmin, isAuthorized } from "../middlewares/role.middleware";
-import { createOrderSchema, updateOrderStatusSchema, orderWithItemsSchema } from "../schemas/order.schema";
-import { idParamSchema } from "../schemas/common.schema";
-import { getOrderById, createOrder, updateOrderStatus } from "../controllers/order.controller";
+import { prisma } from "../db/prisma.js";
+import { resolveEntity } from "../middlewares/resolveEntity.js";
+import { validateRequest } from "../middlewares/validateRequest.middleware.js";
+import { authToken } from "../middlewares/validateToken.js";
+import { isAdmin, isAuthorized } from "../middlewares/role.middleware.js";
+import { createOrderSchema, updateOrderStatusSchema, orderWithItemsSchema } from "../schemas/order.schema.js";
+import { idParamSchema } from "../schemas/common.schema.js";
+import { getOrderById, createOrder, updateOrderStatus } from "../controllers/order.controller.js";
 
 const router = Router();
 

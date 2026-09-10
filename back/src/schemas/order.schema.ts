@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { idParamSchema } from "./common.schema";
+import { idParamSchema } from "./common.schema.js";
 
 export const orderModelSchema = z.object({
   id: z.number(),

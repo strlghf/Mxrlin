@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
-import { AppError } from "../utils/AppError";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client.js";
+import { AppError } from "../utils/AppError.js";
 import "dotenv/config";
 
 // Global error handling

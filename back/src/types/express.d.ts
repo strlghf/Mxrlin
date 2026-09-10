@@ -6,7 +6,7 @@ import type { Role } from "../../generated/prisma/enums";
 declare global {
   namespace Express {
     interface Request {
-      user?: { id: number, role: Role },
+      user: { id: number, role: Role },
       targetUser: User,
       product: Product,
       order: Order,
