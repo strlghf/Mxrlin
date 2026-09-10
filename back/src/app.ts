@@ -8,7 +8,6 @@ import { errorHandler } from "./middlewares/errorHandler";
 import "dotenv/config";
 
 const app = express();
-const PORT = process.env.PORT ?? 3031;
 
 app.use(express.json());
 app.use(cors(
@@ -25,6 +24,4 @@ app.get("/", (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}.`);
-});
+export default app;

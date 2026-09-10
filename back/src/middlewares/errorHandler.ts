@@ -29,15 +29,17 @@ export function errorHandler(
   if (err.statusCode) {
     return res.status(err.statusCode).json({
       success: false,
-      message: err.message
+      error: err.message
     });
   }
 
   console.error(`[Error Handler]`, err);
   
-  return res.status(500).json({
-    success: false,
-    message: "An unexpected error ocurred.",
-    ...(process.env.NODE_ENV !== "production") && { stack: err.stack }
-  });
+  // return res.status(500).json({
+  //   success: false,
+  //   error: "An unexpected error ocurred.",
+  //   ...(process.env.NODE_ENV !== "production") && { stack: err.stack }
+  // });
+
+  next(new AppError("An unexpected error ocurred.", 500));
 }

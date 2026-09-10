@@ -6,14 +6,14 @@ export function isAuthorized(getOwnerId: (req: Request) => number) {
     if (!req.user) {
       return res.status(401).json({
         success: false,
-        message: "Unauthorized. Please log in first."
+        error: "Unauthorized. Please log in first."
       });
     }
 
     if (!canEdit(req.user, getOwnerId(req))) {
       return res.status(403).json({
         success: false,
-        message: "Forbidden. You are not allowed."
+        error: "Forbidden. You are not allowed."
       });
     }
 
@@ -29,14 +29,14 @@ export function isAdmin(
   if (!req.user) {
     return res.status(401).json({
       success: false,
-      message: "Unauthorized. Please log in first."
+      error: "Unauthorized. Please log in first."
     });
   }
 
   if (req.user.role !== "admin") {
     return res.status(403).json({
       success: false,
-      message: "Forbidden. You are not allowed."
+      error: "Forbidden. You are not allowed."
     });
   }
 

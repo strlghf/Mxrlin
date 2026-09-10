@@ -28,7 +28,7 @@ export function validateRequest<TBody = unknown, TQuery = unknown, TParams = unk
       });
 
       if (!result.success) {
-        const errors = result.error.issues.map(issue => {
+        const error = result.error.issues.map(issue => {
           const [location, ...path] = issue.path;
           
           return {
@@ -40,7 +40,7 @@ export function validateRequest<TBody = unknown, TQuery = unknown, TParams = unk
 
         return res.status(400).json({
           success: false,
-          errors
+          error
         });
       }
 

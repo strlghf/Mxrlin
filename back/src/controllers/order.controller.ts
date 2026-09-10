@@ -62,8 +62,8 @@ export async function updateOrderStatus(req: Request, res: Response, next: NextF
 
     return res.status(200).json({
       success: true,
+      data: updatedOrder,
       message: `Order status updated to ${status} successfully.`,
-      data: updatedOrder
     });
   } catch (error) {
     return next(error);
