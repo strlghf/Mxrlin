@@ -30,7 +30,7 @@ export async function getUserById(req: Request, res: Response, next: NextFunctio
       data: targetUser
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 

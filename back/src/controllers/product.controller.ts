@@ -28,7 +28,7 @@ export async function getProductById(req: Request, res: Response, next: NextFunc
       data: product
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 

@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import type { CreateUserDto, UserLoginDto } from "../schemas/user.schema.js";
 import { loginService, registerService, showUserService } from "../services/auth.service.js";
 import { AppError } from "../utils/AppError.js";
-import "dotenv/config";
+import { env } from "../env.js";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
@@ -18,7 +18,7 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: env.NODE_ENV === "production",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
@@ -45,7 +45,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: env.NODE_ENV === "production",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
@@ -63,7 +63,7 @@ export async function logoutUser(req: Request, res: Response, next: NextFunction
   try {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: env.NODE_ENV === "production",
       path: "/"
     });
 

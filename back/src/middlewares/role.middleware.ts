@@ -1,20 +1,15 @@
 import type { Request, Response, NextFunction } from "express";
 import type { JwtUser } from "../schemas/common.schema.js";
+import { AppError } from "../utils/AppError.js";
 
 export function isAuthorized(getOwnerId: (req: Request) => number) {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.user) {
-      return res.status(401).json({
-        success: false,
-        error: "Unauthorized. Please log in first."
-      });
+      return next(new AppError("Unauthorized. Please log in first.", 401));
     }
 
     if (!canEdit(req.user, getOwnerId(req))) {
-      return res.status(403).json({
-        success: false,
-        error: "Forbidden. You are not allowed."
-      });
+      return next(new AppError("Forbidden. You are not allowed.", 403));
     }
 
     return next();
@@ -27,20 +22,19 @@ export function isAdmin(
   next: NextFunction
 ) {
   if (!req.user) {
-    return res.status(401).json({
-      success: false,
-      error: "Unauthorized. Please log in first."
-    });
+    return next(new AppError("Unauthorized. Please log in first.", 401));
   }
 
   if (req.user.role !== "admin") {
-    return res.status(403).json({
-      success: false,
-      error: "Forbidden. You are not allowed."
-    });
+    return next(new AppError("Forbidden. You are not allowed.", 403));
   }
 
   return next();
+}
+
+export function getAuthUser(req: Request) {
+  if (!req.user) throw new AppError("Unauthorized", 401);
+  return req.user;
 }
 
 export function canEdit(user: JwtUser, id: number) {

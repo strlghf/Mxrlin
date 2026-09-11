@@ -40,7 +40,7 @@ export function validateRequest<TBody = unknown, TQuery = unknown, TParams = unk
 
         return res.status(400).json({
           success: false,
-          error
+          error: "Cannot parse request."
         });
       }
 

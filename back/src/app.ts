@@ -5,13 +5,13 @@ import morgan from "morgan";
 import helmet from "helmet";
 import routes from "./routes/index.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
-import "dotenv/config";
+import { env } from "./env.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(cors(
-  { credentials: true, origin: process.env.CLIENT_URL },
+  { credentials: true, origin: env.CLIENT_URL },
 ));
 app.use(cookieParser());
 app.use(morgan("short"));

@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client.js";
 import { AppError } from "../utils/AppError.js";
-import "dotenv/config";
 
 // Global error handling
 export function errorHandler(
@@ -35,11 +34,8 @@ export function errorHandler(
 
   console.error(`[Error Handler]`, err);
   
-  // return res.status(500).json({
-  //   success: false,
-  //   error: "An unexpected error ocurred.",
-  //   ...(process.env.NODE_ENV !== "production") && { stack: err.stack }
-  // });
-
-  next(new AppError("An unexpected error ocurred.", 500));
+  return res.status(500).json({
+    success: false,
+    error: "An unexpected error ocurred."
+  });
 }

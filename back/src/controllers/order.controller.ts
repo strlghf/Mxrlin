@@ -19,7 +19,7 @@ export async function getOrderById(req: Request, res: Response, next: NextFuncti
       data: order
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 

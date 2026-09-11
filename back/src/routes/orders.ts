@@ -11,7 +11,7 @@ import { getOrderById, createOrder, updateOrderStatus } from "../controllers/ord
 const router = Router();
 
 const findOrder = {
-  findUnique: (args) => prisma.orders.findUnique({
+  findUnique: (args: { where: { id: number } }) => prisma.orders.findUnique({
     ...args,
     include: { orders_items: { include: { products: true } } }
   })

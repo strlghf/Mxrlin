@@ -4,14 +4,14 @@ import { createUserService } from "./user.service.js";
 import { comparePassword } from "../utils/helpers.js";
 import { AppError } from "../utils/AppError.js";
 import jwt from "jsonwebtoken";
-import "dotenv/config";
+import { env } from "../env.js";
 
 const userSelect = { id: true, role: true, name: true, password: true, email: true, created_at: true } as const;
 const userSelectPublic = { id: true, role: true, name: true, email: true, created_at: true } as const;
 
 export async function registerService(userData: CreateUserDto) {
   const newUser = await createUserService(userData);
-  const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+  const token = jwt.sign({ id: newUser.id, role: newUser.role }, env.JWT_SECRET, { expiresIn: "7d" });
 
   return { newUser, token }
 }
@@ -26,7 +26,7 @@ export async function loginService(userData: UserLoginDto) {
   const match = await comparePassword(userData.password, user.password);
   if (!match) throw new AppError("Invalid credentials.", 401);
 
-  const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+  const token = jwt.sign({ id: user.id, role: user.role }, env.JWT_SECRET, { expiresIn: "7d" });
 
   const loggedUser = {
     id: user.id,
