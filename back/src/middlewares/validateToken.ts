@@ -19,7 +19,7 @@ export function authToken(req: Request, res: Response, next: NextFunction) {
   try {
     jwt.verify(token, env.JWT_SECRET, (err: Error, user: User) => {
       if (err) {
-        return next(new AppError("Unauthorized", 401));
+        return next(new AppError("Unauthorized.", 401));
       }
 
       req.user = user;

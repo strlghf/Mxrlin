@@ -1,7 +1,7 @@
-import type { User } from "../schemas/user.schema";
-import type { Product } from "../schemas/product.schema";
-import type { Order } from "../schemas/order.schema";
-import type { Role } from "../../generated/prisma/enums";
+import type { User } from "../schemas/user.schema.ts";
+import type { Product } from "../schemas/product.schema.ts";
+import type { Order } from "../schemas/order.schema.ts";
+import type { Role } from "../../generated/prisma/enums.ts";
 
 declare global {
   namespace Express {
@@ -14,5 +14,6 @@ declare global {
         [key: string]: string | string[] | number | number[] | boolean | undefined;
       }
     }
+    // now we are free
   }
 }
